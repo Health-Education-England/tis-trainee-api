@@ -1,0 +1,34 @@
+{
+  "name": "tis-trainee-api",
+  "version": "0.0.1",
+  "description": "OpenAPI documentation for TIS Trainee services.",
+  "main": "index.js",
+  "scripts": {
+    "build": "webpack",
+    "start": "webpack serve --open",
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/Health-Education-England/tis-trainee-api.git"
+  },
+  "keywords": [
+    "tis",
+    "tis-self-service"
+  ],
+  "author": "",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/Health-Education-England/tis-trainee-api/issues"
+  },
+  "homepage": "https://github.com/Health-Education-England/tis-trainee-api#readme",
+  "devDependencies": {
+    "copy-webpack-plugin": "^12.0.2",
+    "html-webpack-plugin": "^5.6.3",
+    "html-webpack-tags-plugin": "^3.0.2",
+    "swagger-ui": "^5.17.14",
+    "webpack": "^5.96.1",
+    "webpack-cli": "^5.1.4",
+    "webpack-dev-server": "^5.1.0"
+  }
+}
