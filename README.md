@@ -1,13 +1,10 @@
-# tis-template-generic
-A generic template for TIS repositories.
+# TIS Trainee API
 
-## TODO
- 1. Add `.gitignore`, generated using [gitignore.io].
- 2. Update year in [license] file.
- 3. Set up [Sonarcloud] project, if applicable.
- 4. Enable "Require status checks to pass..." in branch protection rules if
-    adding a workflow with checks.
+## About
+This repository holds the OpenAPI documentation for the TIS Trainee API.
 
-[gitignore.io]: http://gitignore.io/
-[license]: LICENSE
-[Sonarcloud]: https://sonarcloud.io/projects/create
+## Versioning
+This project uses [Semantic Versioning](semver.org).
+
+## License
+This project is license under [The MIT License (MIT)](LICENSE).
