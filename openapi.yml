@@ -99,6 +99,9 @@ components:
         endDate:
           type: string
           format: date
+        wte:
+          type: number
+          format: percent
     programmeMembership:
       type: object
       required:
@@ -106,6 +109,7 @@ components:
         - name
         - startDate
         - endDate
+        - wte
       properties:
         id:
           type: string
