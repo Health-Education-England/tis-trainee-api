@@ -1,6 +1,6 @@
 openapi: 3.0.3
 info:
-  title: TIS Self-Service API Endpoints
+  title: TIS Self-Service API Endpoints - Testing Update
   license:
     name: MIT
     url: https://opensource.org/license/MIT
