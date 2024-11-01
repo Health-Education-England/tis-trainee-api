@@ -1,0 +1,125 @@
+openapi: 3.0.3
+info:
+  title: TIS Self-Service API Endpoints
+  license:
+    name: MIT
+    url: https://opensource.org/license/MIT
+  version: 0.0.1
+servers:
+  - url: https://trainee.tis.nhs.uk/api
+    description: TIS Self-Service
+
+paths:
+  /forms/cct-calculation:
+    get:
+      summary: Return all CCT Calculations for the authenticated user.
+      operationId: getCctCalculations
+      responses:
+        200:
+          description: OK
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: "#/components/schemas/cctCalculation"
+    post:
+      summary: Save a new CCT Calculation.
+      operationId: createCctCalculation
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: "#/components/schemas/cctCalculation"
+        required: true
+      responses:
+        200:
+          description: OK
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/cctCalculation"
+  /forms/cct-calculation/{calculationId}:
+    put:
+      summary: Update an existing CCT calculation.
+      operationId: updateCctCalculation
+      parameters:
+        - name: formId
+          description: The ID of the form
+          in: path
+          required: true
+          schema:
+            type: string
+      responses:
+        200:
+          description: OK
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/cctCalculation"
+
+components:
+  schemas:
+    cctCalculation:
+      type: object
+      required:
+       - traineeTisId
+       - programmeMembership
+       - changes
+      properties:
+        id:
+          type: string
+          format: uuid
+          example: "fc13458c-5b0b-442f-8907-6f9af8fc0ffb"
+        traineeTisId:
+          type: string
+          example: "47165"
+        programmeMembership:
+          $ref: "#/components/schemas/programmeMembership"
+        changes:
+          type: array
+          items: {
+            $ref: "#/components/schemas/cctChange"
+          }
+    cctChange:
+      type: object
+      required:
+       - type
+       - startDate
+       - endDate
+      properties:
+        type:
+          type: string
+          enum:
+           - LTFT
+           - PARENTAL_LEAVE
+        startDate:
+          type: string
+          format: date
+        endDate:
+          type: string
+          format: date
+    programmeMembership:
+      type: object
+      required:
+        - id
+        - name
+        - startDate
+        - endDate
+      properties:
+        id:
+          type: string
+          format: uuid
+          example: "2861fb68-6c08-4af5-a3a1-6f561a37b406"
+        name:
+          type: string
+          example: "General Practice"
+        startDate:
+          type: string
+          format: date
+        endDate:
+          type: string
+          format: date
+        wte:
+          type: number
+          format: percent
