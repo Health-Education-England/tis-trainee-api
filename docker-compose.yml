@@ -1,0 +1,12 @@
+name: tis-trainee-api
+
+services:
+  viewer:
+    image: swaggerapi/swagger-ui
+    environment:
+      SWAGGER_JSON: /openapi.yml
+    ports:
+      - "8080:8080"
+    volumes:
+      - ./openapi.yml:/openapi.yml
+    restart: unless-stopped
