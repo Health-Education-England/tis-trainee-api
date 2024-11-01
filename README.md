@@ -3,6 +3,8 @@
 ## About
 This repository holds the OpenAPI documentation for the TIS Trainee API.
 
+The latest documentation is always available at [health-education-england.github.io/tis-trainee-api](https://health-education-england.github.io/tis-trainee-api/).
+
 ## Developing
 
 ### Editing
