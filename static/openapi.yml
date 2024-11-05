@@ -64,6 +64,7 @@ components:
       type: object
       required:
        - traineeTisId
+       - name
        - programmeMembership
        - changes
       properties:
@@ -74,6 +75,10 @@ components:
         traineeTisId:
           type: string
           example: "47165"
+        name:
+          description: A custom name for the calculation to aid identification.
+          type: string
+          example: "Parental leave + reduced hours"
         programmeMembership:
           $ref: "#/components/schemas/programmeMembership"
         changes:
@@ -86,7 +91,6 @@ components:
       required:
        - type
        - startDate
-       - endDate
       properties:
         type:
           type: string
