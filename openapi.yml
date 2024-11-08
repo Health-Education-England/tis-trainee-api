@@ -10,7 +10,7 @@ servers:
     description: TIS Self-Service
 
 paths:
-  /forms/cct-calculation:
+  /trainee/cct-calculation:
     get:
       summary: Return all CCT Calculations for the authenticated user.
       operationId: getCctCalculations
@@ -22,7 +22,7 @@ paths:
               schema:
                 type: array
                 items:
-                  $ref: "#/components/schemas/cctCalculation"
+                  $ref: "#/components/schemas/cctCalculationSummary"
     post:
       summary: Save a new CCT Calculation.
       operationId: createCctCalculation
@@ -30,7 +30,7 @@ paths:
         content:
           application/json:
             schema:
-              $ref: "#/components/schemas/cctCalculation"
+              $ref: "#/components/schemas/cctCalculationDetail"
         required: true
       responses:
         200:
@@ -38,14 +38,14 @@ paths:
           content:
             application/json:
               schema:
-                $ref: "#/components/schemas/cctCalculation"
-  /forms/cct-calculation/{calculationId}:
-    put:
-      summary: Update an existing CCT calculation.
-      operationId: updateCctCalculation
+                $ref: "#/components/schemas/cctCalculationDetail"
+  /trainee/cct-calculation/{calculationId}:
+    get:
+      summary: Return the CCT Calculation with the given ID.
+      operationId: getCctCalculation
       parameters:
-        - name: formId
-          description: The ID of the form
+        - name: calculationId
+          description: The ID of the calculation
           in: path
           required: true
           schema:
@@ -56,25 +56,65 @@ paths:
           content:
             application/json:
               schema:
-                $ref: "#/components/schemas/cctCalculation"
+                $ref: "#/components/schemas/cctCalculationDetail"
+    put:
+      summary: Update an existing CCT calculation.
+      operationId: updateCctCalculation
+      parameters:
+        - name: calculationId
+          description: The ID of the calculation
+          in: path
+          required: true
+          schema:
+            type: string
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: "#/components/schemas/cctCalculationDetail"
+        required: true
+      responses:
+        200:
+          description: OK
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/cctCalculationDetail"
 
 components:
   schemas:
-    cctCalculation:
+    cctCalculationSummary:
       type: object
+      readOnly: true
       required:
-       - traineeTisId
-       - name
-       - programmeMembership
-       - changes
+        - name
+        - programmeMembershipId
       properties:
         id:
           type: string
           format: uuid
           example: "fc13458c-5b0b-442f-8907-6f9af8fc0ffb"
-        traineeTisId:
+          readOnly: true
+        name:
+          description: A custom name for the calculation to aid identification.
           type: string
-          example: "47165"
+          example: "Parental leave + reduced hours"
+        programmeMembershipId:
+          type: string
+          format: uuid
+          example: "2861fb68-6c08-4af5-a3a1-6f561a37b406"
+    cctCalculationDetail:
+      type: object
+      required:
+        - name
+        - programmeMembership
+        - changes
+      properties:
+        id:
+          type: string
+          format: uuid
+          example: "fc13458c-5b0b-442f-8907-6f9af8fc0ffb"
+          readOnly: true
         name:
           description: A custom name for the calculation to aid identification.
           type: string
@@ -89,14 +129,14 @@ components:
     cctChange:
       type: object
       required:
-       - type
-       - startDate
+        - type
+        - startDate
       properties:
         type:
           type: string
           enum:
-           - LTFT
-           - PARENTAL_LEAVE
+            - LTFT
+            - PARENTAL_LEAVE
         startDate:
           type: string
           format: date
