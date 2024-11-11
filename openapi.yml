@@ -131,6 +131,29 @@ paths:
                               example: "must not be null"
         403:
           description: Unknown trainee ID
+  /api/trainee/cct/change-type:
+    get:
+      summary: Get a list of all support CCT change types.
+      operationId: getCctChangeTypes
+      responses:
+        200:
+          description: OK
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  properties:
+                    type:
+                      type: string
+                      enum: [LTFT]
+                    fields:
+                      type: array
+                      example: ["startDate", "wte"]
+                      items:
+                        type: string
+        403:
+          description: Unknown trainee ID
 
 components:
   schemas:
