@@ -10,7 +10,7 @@ servers:
     description: TIS Self-Service
 
 paths:
-  /trainee/cct-calculation:
+  /trainee/cct/calculation:
     get:
       summary: Return all CCT Calculations for the authenticated user.
       operationId: getCctCalculations
@@ -23,6 +23,8 @@ paths:
                 type: array
                 items:
                   $ref: "#/components/schemas/cctCalculationSummary"
+        403:
+          description: Unknown trainee ID
     post:
       summary: Save a new CCT Calculation.
       operationId: createCctCalculation
@@ -33,13 +35,39 @@ paths:
               $ref: "#/components/schemas/cctCalculationDetail"
         required: true
       responses:
-        200:
-          description: OK
+        201:
+          description: Created
+          headers:
+            location:
+              description: The location of the created calculation
+              schema:
+                type: string
+                format: uri
+                example: /api/trainee/cct/calculation/1
           content:
             application/json:
               schema:
                 $ref: "#/components/schemas/cctCalculationDetail"
-  /trainee/cct-calculation/{calculationId}:
+        400:
+          description: Calculation invalid
+          content:
+            application/problem+json:
+              schema:
+                allOf:
+                  - $ref: "#/components/schemas/validationError"
+                  - properties:
+                      instance:
+                        example: /api/trainee/cct/calculator
+                      errors:
+                        items:
+                          properties:
+                            pointer:
+                              example: "#/id"
+                            detail:
+                              example: "must be null"
+        403:
+          description: Unknown trainee ID
+  /trainee/cct/calculation/{calculationId}:
     get:
       summary: Return the CCT Calculation with the given ID.
       operationId: getCctCalculation
@@ -57,6 +85,10 @@ paths:
             application/json:
               schema:
                 $ref: "#/components/schemas/cctCalculationDetail"
+        403:
+          description: Unknown trainee ID, or requested calculation does not belong to the user
+        404:
+          description: Calculation not found with matching ID
     put:
       summary: Update an existing CCT calculation.
       operationId: updateCctCalculation
@@ -80,6 +112,25 @@ paths:
             application/json:
               schema:
                 $ref: "#/components/schemas/cctCalculationDetail"
+        400:
+          description: Calculation invalid
+          content:
+            application/problem+json:
+              schema:
+                allOf:
+                  - $ref: "#/components/schemas/validationError"
+                  - properties:
+                      instance:
+                        example: /api/trainee/cct/calculator
+                      errors:
+                        items:
+                          properties:
+                            pointer:
+                              example: "#/name"
+                            detail:
+                              example: "must not be null"
+        403:
+          description: Unknown trainee ID
 
 components:
   schemas:
@@ -171,3 +222,28 @@ components:
         wte:
           type: number
           format: percent
+    validationError:
+      type: object
+      readOnly: true
+      properties:
+        type:
+          type: string
+          example: "about:blank"
+        title:
+          type: string
+          example: "Validation failure"
+        status:
+          type: integer
+          example: 400
+        instance:
+          type: string
+        errors:
+          type: array
+          items:
+            type: object
+            properties:
+              pointer:
+                type: string
+              detail:
+                type: string
+
