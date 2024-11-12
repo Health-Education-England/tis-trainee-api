@@ -154,6 +154,14 @@ components:
           type: string
           format: uuid
           example: "2861fb68-6c08-4af5-a3a1-6f561a37b406"
+        created:
+          type: string
+          format: date
+          readOnly: true
+        lastModified:
+          type: string
+          format: date
+          readOnly: true
     cctCalculationDetail:
       type: object
       required:
@@ -177,6 +185,14 @@ components:
           items: {
             $ref: "#/components/schemas/cctChange"
           }
+        created:
+          type: string
+          format: date
+          readOnly: true
+        lastModified:
+          type: string
+          format: date
+          readOnly: true
     cctChange:
       type: object
       required:
