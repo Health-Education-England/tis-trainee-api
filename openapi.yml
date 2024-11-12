@@ -178,6 +178,11 @@ components:
           description: A custom name for the calculation to aid identification.
           type: string
           example: "Parental leave + reduced hours"
+        cctDate:
+          description: Indicative CCT date
+          type: string
+          format: date
+          readOnly: true
         programmeMembership:
           $ref: "#/components/schemas/programmeMembership"
         changes:
@@ -213,6 +218,8 @@ components:
         wte:
           type: number
           format: percent
+          minimum: 0
+          maximum: 1
     programmeMembership:
       type: object
       required:
@@ -238,6 +245,8 @@ components:
         wte:
           type: number
           format: percent
+          minimum: 0
+          maximum: 1
     validationError:
       type: object
       readOnly: true
