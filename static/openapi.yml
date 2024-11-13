@@ -154,6 +154,14 @@ components:
           type: string
           format: uuid
           example: "2861fb68-6c08-4af5-a3a1-6f561a37b406"
+        created:
+          type: string
+          format: date
+          readOnly: true
+        lastModified:
+          type: string
+          format: date
+          readOnly: true
     cctCalculationDetail:
       type: object
       required:
@@ -170,6 +178,11 @@ components:
           description: A custom name for the calculation to aid identification.
           type: string
           example: "Parental leave + reduced hours"
+        cctDate:
+          description: Indicative CCT date
+          type: string
+          format: date
+          readOnly: true
         programmeMembership:
           $ref: "#/components/schemas/programmeMembership"
         changes:
@@ -177,6 +190,14 @@ components:
           items: {
             $ref: "#/components/schemas/cctChange"
           }
+        created:
+          type: string
+          format: date
+          readOnly: true
+        lastModified:
+          type: string
+          format: date
+          readOnly: true
     cctChange:
       type: object
       required:
@@ -197,6 +218,8 @@ components:
         wte:
           type: number
           format: percent
+          minimum: 0
+          maximum: 1
     programmeMembership:
       type: object
       required:
@@ -222,6 +245,8 @@ components:
         wte:
           type: number
           format: percent
+          minimum: 0
+          maximum: 1
     validationError:
       type: object
       readOnly: true
