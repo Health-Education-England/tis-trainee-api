@@ -10,6 +10,25 @@ servers:
     description: TIS Self-Service
 
 paths:
+  /trainee/cct/calculate:
+    post:
+      summary: Return the CCT Calculation with the CCT date calculated.
+      operationId: getCctCalculated
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: "#/components/schemas/cctCalculationDetail"
+        required: true
+      responses:
+        200:
+          description: Ok
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/cctCalculationDetail"
+        400:
+          description: CCT cannot be calculated
   /trainee/cct/calculation:
     get:
       summary: Return all CCT Calculations for the authenticated user.
