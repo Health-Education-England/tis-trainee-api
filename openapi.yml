@@ -23,13 +23,6 @@ paths:
       responses:
         200:
           description: Ok
-          headers:
-            location:
-              description: The location of the returned calculation
-              schema:
-                type: string
-                format: uri
-                example: /api/trainee/cct/calculate
           content:
             application/json:
               schema:
