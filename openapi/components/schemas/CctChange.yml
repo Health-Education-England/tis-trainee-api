@@ -1,0 +1,21 @@
+type: object
+required:
+  - type
+  - startDate
+properties:
+  type:
+    type: string
+    enum:
+      - LTFT
+      - PARENTAL_LEAVE
+  startDate:
+    type: string
+    format: date
+  endDate:
+    type: string
+    format: date
+  wte:
+    type: number
+    format: percent
+    minimum: 0
+    maximum: 1

@@ -11,7 +11,7 @@ module.exports = {
     new CopyPlugin({
       patterns: [
         { from: "node_modules/swagger-ui/dist/swagger-ui.css", to: "static/css" },
-        { from: "openapi.yml", to: "static"},
+        { from: "dist/static/openapi.yml", to: "static"}
       ],
     }),
     new HtmlWebpackPlugin(),
