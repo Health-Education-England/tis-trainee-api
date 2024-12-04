@@ -1,0 +1,17 @@
+openapi: 3.0.3
+info:
+  title: TIS Self-Service API Endpoints
+  license:
+    name: MIT
+    url: https://opensource.org/license/MIT
+  version: 0.0.1
+servers:
+  - url: https://trainee.tis.nhs.uk/api
+    description: TIS Self-Service
+paths:
+  /trainee/cct/calculate:
+    $ref: paths/trainee_cct_calculate.yml
+  /trainee/cct/calculation:
+    $ref: paths/trainee_cct_calculation.yml
+  /trainee/cct/calculation/{calculationId}:
+    $ref: paths/trainee_cct_calculation_{calculationId}.yml

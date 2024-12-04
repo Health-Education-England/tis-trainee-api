@@ -1,12 +1,26 @@
 name: tis-trainee-api
 
 services:
+  bundler:
+    image: redocly/cli
+    command: bundle /openapi-split/openapi.yml --output /openapi-bundled/openapi.yml
+    volumes:
+      - ./openapi:/openapi-split:ro
+      - bundled-openapi:/openapi-bundled:rw
+    restart: no
+
   viewer:
     image: swaggerapi/swagger-ui
+    depends_on:
+      bundler:
+       condition: service_completed_successfully
     environment:
-      SWAGGER_JSON: /openapi.yml
+      SWAGGER_JSON: /openapi/openapi.yml
     ports:
       - "8080:8080"
     volumes:
-      - ./openapi.yml:/openapi.yml
+      - bundled-openapi:/openapi:ro
     restart: unless-stopped
+
+volumes:
+  bundled-openapi:

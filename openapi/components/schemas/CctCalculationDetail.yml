@@ -1,0 +1,34 @@
+type: object
+required:
+  - name
+  - programmeMembership
+  - changes
+properties:
+  id:
+    type: string
+    format: uuid
+    example: fc13458c-5b0b-442f-8907-6f9af8fc0ffb
+    readOnly: true
+  name:
+    description: A custom name for the calculation to aid identification.
+    type: string
+    example: Parental leave + reduced hours
+  cctDate:
+    description: Indicative CCT date
+    type: string
+    format: date
+    readOnly: true
+  programmeMembership:
+    $ref: ./CctProgrammeMembership.yml
+  changes:
+    type: array
+    items:
+      $ref: ./CctChange.yml
+  created:
+    type: string
+    format: date
+    readOnly: true
+  lastModified:
+    type: string
+    format: date
+    readOnly: true

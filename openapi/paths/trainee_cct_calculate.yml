@@ -1,0 +1,18 @@
+post:
+  summary: Return the CCT Calculation with the CCT date calculated.
+  operationId: getCctCalculated
+  requestBody:
+    content:
+      application/json:
+        schema:
+          $ref: ../components/schemas/CctCalculationDetail.yml
+    required: true
+  responses:
+    '200':
+      description: Ok
+      content:
+        application/json:
+          schema:
+            $ref: ../components/schemas/CctCalculationDetail.yml
+    '400':
+      description: CCT cannot be calculated

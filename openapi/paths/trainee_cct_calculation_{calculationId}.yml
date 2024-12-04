@@ -1,0 +1,63 @@
+get:
+  summary: Return the CCT Calculation with the given ID.
+  operationId: getCctCalculation
+  parameters:
+    - name: calculationId
+      description: The ID of the calculation
+      in: path
+      required: true
+      schema:
+        type: string
+  responses:
+    '200':
+      description: OK
+      content:
+        application/json:
+          schema:
+            $ref: ../components/schemas/CctCalculationDetail.yml
+    '403':
+      description: Unknown trainee ID, or requested calculation does not belong to the user
+    '404':
+      description: Calculation not found with matching ID
+put:
+  summary: Update an existing CCT calculation.
+  operationId: updateCctCalculation
+  parameters:
+    - name: calculationId
+      description: The ID of the calculation
+      in: path
+      required: true
+      schema:
+        type: string
+  requestBody:
+    content:
+      application/json:
+        schema:
+          $ref: ../components/schemas/CctCalculationDetail.yml
+    required: true
+  responses:
+    '200':
+      description: OK
+      content:
+        application/json:
+          schema:
+            $ref: ../components/schemas/CctCalculationDetail.yml
+    '400':
+      description: Calculation invalid
+      content:
+        application/problem+json:
+          schema:
+            allOf:
+              - $ref: ../components/schemas/ValidationError.yml
+              - properties:
+                  instance:
+                    example: /api/trainee/cct/calculator
+                  errors:
+                    items:
+                      properties:
+                        pointer:
+                          example: '#/name'
+                        detail:
+                          example: must not be null
+    '403':
+      description: Unknown trainee ID

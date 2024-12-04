@@ -1,0 +1,26 @@
+type: object
+required:
+  - id
+  - name
+  - startDate
+  - endDate
+  - wte
+properties:
+  id:
+    type: string
+    format: uuid
+    example: 2861fb68-6c08-4af5-a3a1-6f561a37b406
+  name:
+    type: string
+    example: General Practice
+  startDate:
+    type: string
+    format: date
+  endDate:
+    type: string
+    format: date
+  wte:
+    type: number
+    format: percent
+    minimum: 0
+    maximum: 1

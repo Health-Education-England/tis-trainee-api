@@ -4,9 +4,10 @@
   "description": "OpenAPI documentation for TIS Trainee services.",
   "main": "index.js",
   "scripts": {
-    "build": "webpack",
+    "build": "npm run bundle && webpack",
+    "bundle": "redocly bundle openapi/openapi.yml --output dist/static/openapi.yml",
     "deploy": "gh-pages -d dist",
-    "start": "webpack serve --open",
+    "start": "npm run bundle && webpack serve --open",
     "test": "echo \"Error: no test specified\" && exit 1"
   },
   "repository": {
@@ -28,6 +29,7 @@
     "gh-pages": "^6.2.0",
     "html-webpack-plugin": "^5.6.3",
     "html-webpack-tags-plugin": "^3.0.2",
+    "@redocly/cli": "^1.25.14",
     "swagger-ui": "^5.17.14",
     "webpack": "^5.96.1",
     "webpack-cli": "^5.1.4",
