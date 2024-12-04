@@ -8,7 +8,6 @@ info:
 servers:
   - url: https://trainee.tis.nhs.uk/api
     description: TIS Self-Service
-
 paths:
   /trainee/cct/calculate:
     post:
@@ -18,31 +17,31 @@ paths:
         content:
           application/json:
             schema:
-              $ref: "#/components/schemas/cctCalculationDetail"
+              $ref: '#/components/schemas/CctCalculationDetail'
         required: true
       responses:
-        200:
+        '200':
           description: Ok
           content:
             application/json:
               schema:
-                $ref: "#/components/schemas/cctCalculationDetail"
-        400:
+                $ref: '#/components/schemas/CctCalculationDetail'
+        '400':
           description: CCT cannot be calculated
   /trainee/cct/calculation:
     get:
       summary: Return all CCT Calculations for the authenticated user.
       operationId: getCctCalculations
       responses:
-        200:
+        '200':
           description: OK
           content:
             application/json:
               schema:
                 type: array
                 items:
-                  $ref: "#/components/schemas/cctCalculationSummary"
-        403:
+                  $ref: '#/components/schemas/CctCalculationSummary'
+        '403':
           description: Unknown trainee ID
     post:
       summary: Save a new CCT Calculation.
@@ -51,10 +50,10 @@ paths:
         content:
           application/json:
             schema:
-              $ref: "#/components/schemas/cctCalculationDetail"
+              $ref: '#/components/schemas/CctCalculationDetail'
         required: true
       responses:
-        201:
+        '201':
           description: Created
           headers:
             location:
@@ -66,14 +65,14 @@ paths:
           content:
             application/json:
               schema:
-                $ref: "#/components/schemas/cctCalculationDetail"
-        400:
+                $ref: '#/components/schemas/CctCalculationDetail'
+        '400':
           description: Calculation invalid
           content:
             application/problem+json:
               schema:
                 allOf:
-                  - $ref: "#/components/schemas/validationError"
+                  - $ref: '#/components/schemas/ValidationError'
                   - properties:
                       instance:
                         example: /api/trainee/cct/calculator
@@ -81,10 +80,10 @@ paths:
                         items:
                           properties:
                             pointer:
-                              example: "#/id"
+                              example: '#/id'
                             detail:
-                              example: "must be null"
-        403:
+                              example: must be null
+        '403':
           description: Unknown trainee ID
   /trainee/cct/calculation/{calculationId}:
     get:
@@ -98,15 +97,15 @@ paths:
           schema:
             type: string
       responses:
-        200:
+        '200':
           description: OK
           content:
             application/json:
               schema:
-                $ref: "#/components/schemas/cctCalculationDetail"
-        403:
+                $ref: '#/components/schemas/CctCalculationDetail'
+        '403':
           description: Unknown trainee ID, or requested calculation does not belong to the user
-        404:
+        '404':
           description: Calculation not found with matching ID
     put:
       summary: Update an existing CCT calculation.
@@ -122,22 +121,22 @@ paths:
         content:
           application/json:
             schema:
-              $ref: "#/components/schemas/cctCalculationDetail"
+              $ref: '#/components/schemas/CctCalculationDetail'
         required: true
       responses:
-        200:
+        '200':
           description: OK
           content:
             application/json:
               schema:
-                $ref: "#/components/schemas/cctCalculationDetail"
-        400:
+                $ref: '#/components/schemas/CctCalculationDetail'
+        '400':
           description: Calculation invalid
           content:
             application/problem+json:
               schema:
                 allOf:
-                  - $ref: "#/components/schemas/validationError"
+                  - $ref: '#/components/schemas/ValidationError'
                   - properties:
                       instance:
                         example: /api/trainee/cct/calculator
@@ -145,79 +144,41 @@ paths:
                         items:
                           properties:
                             pointer:
-                              example: "#/name"
+                              example: '#/name'
                             detail:
-                              example: "must not be null"
-        403:
+                              example: must not be null
+        '403':
           description: Unknown trainee ID
-
 components:
   schemas:
-    cctCalculationSummary:
+    CctProgrammeMembership:
       type: object
-      readOnly: true
       required:
+        - id
         - name
-        - programmeMembershipId
+        - startDate
+        - endDate
+        - wte
       properties:
         id:
           type: string
           format: uuid
-          example: "fc13458c-5b0b-442f-8907-6f9af8fc0ffb"
-          readOnly: true
+          example: 2861fb68-6c08-4af5-a3a1-6f561a37b406
         name:
-          description: A custom name for the calculation to aid identification.
           type: string
-          example: "Parental leave + reduced hours"
-        programmeMembershipId:
-          type: string
-          format: uuid
-          example: "2861fb68-6c08-4af5-a3a1-6f561a37b406"
-        created:
+          example: General Practice
+        startDate:
           type: string
           format: date
-          readOnly: true
-        lastModified:
+        endDate:
           type: string
           format: date
-          readOnly: true
-    cctCalculationDetail:
-      type: object
-      required:
-        - name
-        - programmeMembership
-        - changes
-      properties:
-        id:
-          type: string
-          format: uuid
-          example: "fc13458c-5b0b-442f-8907-6f9af8fc0ffb"
-          readOnly: true
-        name:
-          description: A custom name for the calculation to aid identification.
-          type: string
-          example: "Parental leave + reduced hours"
-        cctDate:
-          description: Indicative CCT date
-          type: string
-          format: date
-          readOnly: true
-        programmeMembership:
-          $ref: "#/components/schemas/programmeMembership"
-        changes:
-          type: array
-          items: {
-            $ref: "#/components/schemas/cctChange"
-          }
-        created:
-          type: string
-          format: date
-          readOnly: true
-        lastModified:
-          type: string
-          format: date
-          readOnly: true
-    cctChange:
+        wte:
+          type: number
+          format: percent
+          minimum: 0
+          maximum: 1
+    CctChange:
       type: object
       required:
         - type
@@ -239,43 +200,79 @@ components:
           format: percent
           minimum: 0
           maximum: 1
-    programmeMembership:
+    CctCalculationDetail:
       type: object
       required:
-        - id
         - name
-        - startDate
-        - endDate
-        - wte
+        - programmeMembership
+        - changes
       properties:
         id:
           type: string
           format: uuid
-          example: "2861fb68-6c08-4af5-a3a1-6f561a37b406"
+          example: fc13458c-5b0b-442f-8907-6f9af8fc0ffb
+          readOnly: true
         name:
+          description: A custom name for the calculation to aid identification.
           type: string
-          example: "General Practice"
-        startDate:
+          example: Parental leave + reduced hours
+        cctDate:
+          description: Indicative CCT date
           type: string
           format: date
-        endDate:
+          readOnly: true
+        programmeMembership:
+          $ref: '#/components/schemas/CctProgrammeMembership'
+        changes:
+          type: array
+          items:
+            $ref: '#/components/schemas/CctChange'
+        created:
           type: string
           format: date
-        wte:
-          type: number
-          format: percent
-          minimum: 0
-          maximum: 1
-    validationError:
+          readOnly: true
+        lastModified:
+          type: string
+          format: date
+          readOnly: true
+    CctCalculationSummary:
+      type: object
+      readOnly: true
+      required:
+        - name
+        - programmeMembershipId
+      properties:
+        id:
+          type: string
+          format: uuid
+          example: fc13458c-5b0b-442f-8907-6f9af8fc0ffb
+          readOnly: true
+        name:
+          description: A custom name for the calculation to aid identification.
+          type: string
+          example: Parental leave + reduced hours
+        programmeMembershipId:
+          type: string
+          format: uuid
+          example: 2861fb68-6c08-4af5-a3a1-6f561a37b406
+        created:
+          type: string
+          format: date
+          readOnly: true
+        lastModified:
+          type: string
+          format: date
+          readOnly: true
+    ValidationError:
       type: object
       readOnly: true
       properties:
         type:
           type: string
-          example: "about:blank"
+          example: about:blank
         title:
           type: string
-          example: "Validation failure"
+          example: Validation failure
         status:
           type: integer
           example: 400
@@ -290,4 +287,3 @@ components:
                 type: string
               detail:
                 type: string
-
