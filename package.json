@@ -31,7 +31,7 @@
     "html-webpack-tags-plugin": "^3.0.2",
     "@redocly/cli": "^1.25.14",
     "swagger-ui": "^5.17.14",
-    "webpack": "^5.96.1",
+    "webpack": "^5.97.1",
     "webpack-cli": "^5.1.4",
     "webpack-dev-server": "^5.1.0"
   }
