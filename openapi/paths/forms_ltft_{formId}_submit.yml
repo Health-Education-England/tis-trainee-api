@@ -1,0 +1,50 @@
+put:
+  summary: Update and submit an existing LTFT application.
+  operationId: submitLtftApplication
+  parameters:
+    - name: formId
+      description: The ID of the LTFT application
+      in: path
+      required: true
+      schema:
+        type: string
+  requestBody:
+    content:
+      application/json:
+        schema:
+          $ref: ../components/schemas/LtftApplicationDetail.yml
+    required: true
+  responses:
+    '200':
+      description: OK
+      content:
+        application/json:
+          schema:
+            allOf:
+              - $ref: ../components/schemas/LtftApplicationDetail.yml
+              - properties:
+                  status:
+                    properties:
+                      current:
+                        example: SUBMITTED
+    '400':
+      description: LTFT application invalid
+      content:
+        application/problem+json:
+          schema:
+            allOf:
+              - $ref: ../components/schemas/ValidationError.yml
+              - properties:
+                  instance:
+                    example: /api/trainee/ltft
+                  errors:
+                    items:
+                      properties:
+                        pointer:
+                          example: '#/name' # TODO: replace with actual field name
+                        detail:
+                          example: must not be null
+    '403':
+      description: Unknown trainee ID
+    '404':
+      description: LTFT application not found with matching ID, or requested LTFT application does not belong to the user
