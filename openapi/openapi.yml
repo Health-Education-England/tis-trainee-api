@@ -5,10 +5,28 @@ info:
     name: MIT
     url: https://opensource.org/license/MIT
   version: 0.0.1
+components:
+  securitySchemes:
+    bearerAuth:
+      type: http
+      scheme: bearer
+      bearerFormat: JWT
+security:
+  - bearerAuth: []
 servers:
   - url: https://trainee.tis.nhs.uk/api
     description: TIS Self-Service
 paths:
+  /forms/ltft:
+    $ref: paths/forms_ltft.yml
+  /forms/ltft/{formId}:
+    $ref: paths/forms_ltft_{formId}.yml
+  /forms/ltft/{formId}/submit:
+    $ref: paths/forms_ltft_{formId}_submit.yml
+  /forms/ltft/{formId}/unsubmit:
+    $ref: paths/forms_ltft_{formId}_unsubmit.yml
+  /forms/ltft/{formId}/withdraw:
+    $ref: paths/forms_ltft_{formId}_withdraw.yml
   /trainee/cct/calculation:
     $ref: paths/trainee_cct_calculation.yml
   /trainee/cct/calculation/{calculationId}:

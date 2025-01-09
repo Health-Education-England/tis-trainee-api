@@ -1,0 +1,56 @@
+get:
+  summary: Return all LTFT applications for the authenticated user.
+  operationId: getLtftApplications
+  responses:
+    '200':
+      description: OK
+      content:
+        application/json:
+          schema:
+            type: array
+            items:
+              $ref: ../components/schemas/LtftApplicationSummary.yml
+    '403':
+      description: Unknown trainee ID
+post:
+  summary: Save a new LTFT application.
+  operationId: createLtftApplication
+  requestBody:
+    content:
+      application/json:
+        schema:
+          $ref: ../components/schemas/LtftApplicationDetail.yml
+    required: true
+  responses:
+    '201':
+      description: Created
+      headers:
+        location:
+          description: The location of the created LTFT application
+          schema:
+            type: string
+            format: uri
+            example: /api/trainee/ltft/1
+      content:
+        application/json:
+          schema:
+            $ref: ../components/schemas/LtftApplicationDetail.yml
+    '400':
+      description: LTFT invalid
+      content:
+        application/problem+json:
+          schema:
+            allOf:
+              - $ref: ../components/schemas/ValidationError.yml
+              - properties:
+                  instance:
+                    example: /api/trainee/ltft
+                  errors:
+                    items:
+                      properties:
+                        pointer:
+                          example: '#/id'
+                        detail:
+                          example: must be null
+    '403':
+      description: Unknown trainee ID

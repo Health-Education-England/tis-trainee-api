@@ -1,0 +1,44 @@
+put:
+  summary: Withdraw an existing submitted LTFT application.
+  operationId: withdrawLtftApplication
+  parameters:
+    - name: formId
+      description: The ID of the LTFT application
+      in: path
+      required: true
+      schema:
+        type: string
+  responses:
+    '200':
+      description: OK
+      content:
+        application/json:
+          schema:
+            allOf:
+              - $ref: ../components/schemas/LtftApplicationDetail.yml
+              - properties:
+                  status:
+                    properties:
+                      current:
+                        example: WITHDRAWN
+    '400':
+      description: LTFT withdrawl invalid
+      content:
+        application/problem+json:
+          schema:
+            allOf:
+              - $ref: ../components/schemas/ValidationError.yml
+              - properties:
+                  instance:
+                    example: /api/trainee/ltft
+                  errors:
+                    items:
+                      properties:
+                        pointer:
+                          example: '#/status'
+                        detail:
+                          example: must be Submitted or Unsubmitted
+    '403':
+      description: Unknown trainee ID
+    '404':
+      description: LTFT application not found with matching ID, or requested LTFT application does not belong to the user

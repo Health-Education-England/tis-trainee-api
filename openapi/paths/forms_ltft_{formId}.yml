@@ -1,0 +1,63 @@
+get:
+  summary: Return the LTFT application with the given ID.
+  operationId: getLtftApplication
+  parameters:
+    - name: formId
+      description: The ID of the LTFT application
+      in: path
+      required: true
+      schema:
+        type: string
+  responses:
+    '200':
+      description: OK
+      content:
+        application/json:
+          schema:
+            $ref: ../components/schemas/LtftApplicationDetail.yml
+    '403':
+      description: Unknown trainee ID, or requested LTFT application does not belong to the user
+    '404':
+      description: LTFT application not found with matching ID
+put:
+  summary: Update an existing LTFT application.
+  operationId: updateLtftApplication
+  parameters:
+    - name: formId
+      description: The ID of the LTFT application
+      in: path
+      required: true
+      schema:
+        type: string
+  requestBody:
+    content:
+      application/json:
+        schema:
+          $ref: ../components/schemas/LtftApplicationDetail.yml
+    required: true
+  responses:
+    '200':
+      description: OK
+      content:
+        application/json:
+          schema:
+            $ref: ../components/schemas/LtftApplicationDetail.yml
+    '400':
+      description: LTFT application invalid
+      content:
+        application/problem+json:
+          schema:
+            allOf:
+              - $ref: ../components/schemas/ValidationError.yml
+              - properties:
+                  instance:
+                    example: /api/trainee/ltft
+                  errors:
+                    items:
+                      properties:
+                        pointer:
+                          example: '#/name' # TODO: replace with actual field name
+                        detail:
+                          example: must not be null
+    '403':
+      description: Unknown trainee ID
