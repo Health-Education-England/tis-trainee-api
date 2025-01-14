@@ -41,36 +41,28 @@ properties:
         type: boolean
         description: Understands that LTFT approval is not guaranteed.
   discussions:
-    required:
-      - tpdName
-      - tpdEmail
-    properties:
-      tpdName:
-        type: string
-        example: A. N. Other
-      tpdEmail:
-        type: string
-        format: email
-        example: a.n.other@example.com
-      other:
-        type: array
-        items:
-          type: object
-          required:
-            - name
-            - email
-            - role
-          properties:
-            name:
-              type: string
-              example: Jo Bloggs
-            email:
-              type: string
-              format: email
-              example: jo.bloggs@example.com
-            role:
-              type: string
-              example: Educational Supervisor
+    type: array
+    items:
+      type: object
+      required:
+        - name
+        - email
+        - role
+      properties:
+        name:
+          type: string
+        email:
+          type: string
+          format: email
+        role:
+          type: string
+    example:
+      - name: A. N. Other
+        email: a.n.other@example.com
+        role: Training Programme Director
+      - name: Jo Bloggs
+        email: jo.bloggs@example.com
+        role: Educational Supervisor
   personalDetails:
     $ref: ./PersonalDetails.yml
   programmeMembership:

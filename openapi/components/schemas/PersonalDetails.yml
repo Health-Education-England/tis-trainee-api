@@ -1,11 +1,16 @@
 type: object
 required:
+  - id
   - title
   - forenames
   - surname
   - email
   - skilledWorkerVisaHolder
 properties:
+  id:
+    type: string
+    description: The person/trainee ID.
+    pattern: \d{1,7}
   title:
     type: string
     example: Mr
