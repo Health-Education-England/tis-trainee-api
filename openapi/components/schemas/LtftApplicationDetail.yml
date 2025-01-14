@@ -25,14 +25,26 @@ properties:
             type: string
             format: date
       - $ref: ./CctChange.yml
-  discussions:
+  declarations:
     required:
       - discussedWithTpd
-      - tpdName
-      - tpdEmail
+      - informationIsCorrect
+      - notGuaranteed
     properties:
       discussedWithTpd:
         type: boolean
+        description: Confirmation that the requested change has been discussed with their TPD.
+      informationIsCorrect:
+        type: boolean
+        description: Confirmation that all information given is correct.
+      notGuaranteed:
+        type: boolean
+        description: Understands that LTFT approval is not guaranteed.
+  discussions:
+    required:
+      - tpdName
+      - tpdEmail
+    properties:
       tpdName:
         type: string
         example: A. N. Other
