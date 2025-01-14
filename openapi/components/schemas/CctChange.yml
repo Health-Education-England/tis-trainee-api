@@ -3,6 +3,11 @@ required:
   - type
   - startDate
 properties:
+  id:
+    type: string
+    format: uuid
+    example: b2f8df7b-82f6-413f-8265-35a008d6b53b
+    readOnly: true
   type:
     type: string
     enum:

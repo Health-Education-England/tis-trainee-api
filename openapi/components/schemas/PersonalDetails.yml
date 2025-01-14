@@ -1,0 +1,40 @@
+type: object
+required:
+  - id
+  - title
+  - forenames
+  - surname
+  - email
+  - skilledWorkerVisaHolder
+properties:
+  id:
+    type: string
+    description: The person/trainee ID.
+    pattern: \d{1,7}
+  title:
+    type: string
+    example: Mr
+  forenames:
+    type: string
+    example: Anthony
+  surname:
+    type: string
+    example: Gilliam
+  telephoneNumber:
+    type: string
+    example: 0161 4960000
+  mobileNumber:
+    type: string
+    example: 07700 900000
+  email:
+    type: string
+    format: email
+    example: anthony.gilliam@example.com
+  gmcNumber:
+    type: string
+    pattern: \d{7}
+  gdcNumber:
+    type: string
+    pattern: D\d{6}
+  skilledWorkerVisaHolder:
+    type: boolean
