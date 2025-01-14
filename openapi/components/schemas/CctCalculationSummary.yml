@@ -17,11 +17,15 @@ properties:
     type: string
     format: uuid
     example: 2861fb68-6c08-4af5-a3a1-6f561a37b406
+  changes:
+    type: array
+    items:
+      $ref: ./CctChange.yml
   created:
     type: string
-    format: date
+    format: date-time
     readOnly: true
   lastModified:
     type: string
-    format: date
+    format: date-time
     readOnly: true

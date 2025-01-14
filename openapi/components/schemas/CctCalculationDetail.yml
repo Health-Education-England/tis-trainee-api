@@ -26,9 +26,9 @@ properties:
       $ref: ./CctChange.yml
   created:
     type: string
-    format: date
+    format: date-time
     readOnly: true
   lastModified:
     type: string
-    format: date
+    format: date-time
     readOnly: true
