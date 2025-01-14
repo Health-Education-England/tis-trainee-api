@@ -12,10 +12,62 @@ properties:
     description: A custom reference for the LTFT application to aid identification.
     type: string
     example: My Programme - Hours Reduction
-  programmeMembershipId:
-    type: string
-    format: uuid
-    example: 2861fb68-6c08-4af5-a3a1-6f561a37b406
+  change:
+    allOf:
+      - required:
+          - calculationId
+          - cctDate
+      - properties:
+          calculationId:
+            type: string
+            format: uuid
+          cctDate:
+            type: string
+            format: date
+      - $ref: ./CctChange.yml
+  discussions:
+    required:
+      - discussedWithTpd
+      - tpdName
+      - tpdEmail
+    properties:
+      discussedWithTpd:
+        type: boolean
+      tpdName:
+        type: string
+        example: A. N. Other
+      tpdEmail:
+        type: string
+        format: email
+        example: a.n.other@example.com
+      other:
+        type: array
+        items:
+          type: object
+          required:
+            - name
+            - email
+            - role
+          properties:
+            name:
+              type: string
+              example: Jo Bloggs
+            email:
+              type: string
+              format: email
+              example: jo.bloggs@example.com
+            role:
+              type: string
+              example: Educational Supervisor
+  personalDetails:
+    $ref: ./PersonalDetails.yml
+  programmeMembership:
+    $ref: ./CctProgrammeMembership.yml
+  reasons:
+    type: array
+    items:
+      type: string
+      example: ["Caring Responsibilities", "Custom Reason"]
   status:
     type: object
     readOnly: true
@@ -31,12 +83,12 @@ properties:
               $ref: ../properties/FormStatus.yml
             timestamp:
               type: string
-              format: date
+              format: date-time
   created:
     type: string
-    format: date
+    format: date-time
     readOnly: true
   lastModified:
     type: string
-    format: date
+    format: date-time
     readOnly: true

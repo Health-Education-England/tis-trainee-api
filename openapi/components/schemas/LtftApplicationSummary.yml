@@ -5,7 +5,7 @@ properties:
     type: string
     format: uuid
     example: fc13458c-5b0b-442f-8907-6f9af8fc0ffb
-  reference:
+  name:
     description: A custom reference for the LTFT application to aid identification.
     type: string
     example: My Programme - Hours Reduction
@@ -17,7 +17,7 @@ properties:
     $ref: ../properties/FormStatus.yml
   created:
     type: string
-    format: date
+    format: date-time
   lastModified:
     type: string
-    format: date
+    format: date-time
