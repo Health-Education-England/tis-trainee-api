@@ -9,7 +9,7 @@ get:
           schema:
             type: array
             items:
-              $ref: ../components/schemas/CctCalculationSummary.yml
+              $ref: ../components/schemas/CctCalculationDetail.yml
     '403':
       description: Unknown trainee ID
 post:
