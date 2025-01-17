@@ -2,7 +2,7 @@ get:
   summary: Return all CCT Calculations for the authenticated user.
   operationId: getCctCalculations
   responses:
-    "200":
+    '200':
       description: OK
       content:
         application/json:
@@ -10,7 +10,7 @@ get:
             type: array
             items:
               $ref: ../components/schemas/CctCalculationDetail.yml
-    "403":
+    '403':
       description: Unknown trainee ID
 post:
   summary: Save a new CCT Calculation.
@@ -22,7 +22,7 @@ post:
           $ref: ../components/schemas/CctCalculationDetail.yml
     required: true
   responses:
-    "201":
+    '201':
       description: Created
       headers:
         location:
@@ -35,7 +35,7 @@ post:
         application/json:
           schema:
             $ref: ../components/schemas/CctCalculationDetail.yml
-    "400":
+    '400':
       description: Calculation invalid
       content:
         application/problem+json:
@@ -49,8 +49,8 @@ post:
                     items:
                       properties:
                         pointer:
-                          example: "#/id"
+                          example: '#/id'
                         detail:
                           example: must be null
-    "403":
+    '403':
       description: Unknown trainee ID
