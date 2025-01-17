@@ -285,7 +285,7 @@ paths:
               schema:
                 type: array
                 items:
-                  $ref: '#/components/schemas/CctCalculationSummary'
+                  $ref: '#/components/schemas/CctCalculationDetail'
         '403':
           description: Unknown trainee ID
     post:
@@ -655,38 +655,6 @@ components:
                 type: string
               detail:
                 type: string
-    CctCalculationSummary:
-      type: object
-      readOnly: true
-      required:
-        - name
-        - programmeMembershipId
-      properties:
-        id:
-          type: string
-          format: uuid
-          example: fc13458c-5b0b-442f-8907-6f9af8fc0ffb
-          readOnly: true
-        name:
-          description: A custom name for the calculation to aid identification.
-          type: string
-          example: Parental leave + reduced hours
-        programmeMembershipId:
-          type: string
-          format: uuid
-          example: 2861fb68-6c08-4af5-a3a1-6f561a37b406
-        changes:
-          type: array
-          items:
-            $ref: '#/components/schemas/CctChange'
-        created:
-          type: string
-          format: date-time
-          readOnly: true
-        lastModified:
-          type: string
-          format: date-time
-          readOnly: true
     CctCalculationDetail:
       type: object
       required:
