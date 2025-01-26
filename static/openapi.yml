@@ -574,39 +574,52 @@ components:
               type: boolean
               description: Understands that LTFT approval is not guaranteed.
         discussions:
-          type: array
-          items:
-            type: object
-            required:
-              - name
-              - email
-              - role
-            properties:
-              name:
-                type: string
-              email:
-                type: string
-                format: email
-              role:
-                type: string
-          example:
-            - name: A. N. Other
-              email: a.n.other@example.com
-              role: Training Programme Director
-            - name: Jo Bloggs
-              email: jo.bloggs@example.com
-              role: Educational Supervisor
+          type: object
+          required:
+            - tpdName
+            - tpdEmail
+          properties:
+            tpdName:
+              type: string
+              example: T. P. Dee
+            tpdEmail:
+              type: string
+              format: email
+              example: t@p.dee
+            other:
+              type: array
+              items:
+                type: object
+                required:
+                  - name
+                  - email
+                  - role
+                properties:
+                  name:
+                    type: string
+                    example: A. N. Other
+                  email:
+                    type: string
+                    format: email
+                    example: a.n.other@example.com
+                  role:
+                    type: string
+                    example: Educational Supervisor
         personalDetails:
           $ref: '#/components/schemas/PersonalDetails'
         programmeMembership:
           $ref: '#/components/schemas/CctProgrammeMembership'
         reasons:
-          type: array
-          items:
-            type: string
-            example:
-              - Caring Responsibilities
-              - Custom Reason
+          type: object
+          properties:
+            selected:
+              type: array
+              items:
+                type: string
+                example: other reason
+            otherDetail:
+              type: string
+              example: my other reason
         status:
           type: object
           readOnly: true
