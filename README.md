@@ -5,6 +5,9 @@ This repository holds the OpenAPI documentation for the TIS Trainee API.
 
 The latest documentation is always available at [health-education-england.github.io/tis-trainee-api](https://health-education-england.github.io/tis-trainee-api/).
 
+Preview of open PRs are available by appending `/pr-preview/pr-{number}` to the end of the
+above path e.g. `health-education-england.github.io/tis-trainee-api/pr-preview/pr-123`.
+
 ## Developing
 
 ### Editing
@@ -12,7 +15,7 @@ The [API documentation](openapi.yml) can be worked on within any text editor or
 IDE. Plugins are available for several popular IDEs.
 
 ### Previewing
-Several options are provided for previewing the documentation
+Several options are provided for previewing the documentation.
 
 #### Docker
 A [Docker compose](docker-compose.yml) file is provided for ease of use, the
