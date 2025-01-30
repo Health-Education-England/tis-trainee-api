@@ -27,6 +27,8 @@ paths:
     $ref: paths/forms_ltft_{formId}_unsubmit.yml
   /forms/ltft/{formId}/withdraw:
     $ref: paths/forms_ltft_{formId}_withdraw.yml
+  /forms/ltft/admin:
+    $ref: paths/forms_ltft_admin.yml
   /trainee/cct/calculation:
     $ref: paths/trainee_cct_calculation.yml
   /trainee/cct/calculation/{calculationId}:
