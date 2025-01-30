@@ -294,7 +294,7 @@ paths:
             default: 25
         - name: sort
           in: query
-          description: The field to sort on.
+          description: The field and direction to apply as a sort.
           required: false
           schema:
             type: string
