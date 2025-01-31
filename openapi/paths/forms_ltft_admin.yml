@@ -29,8 +29,13 @@ get:
       content:
         application/json:
           schema:
-            type: array
-            items:
-              $ref: ../components/schemas/LtftApplicationAdminSummary.yml
+            allOf:
+              - properties:
+                  content:
+                    type: array
+                    items:
+                      $ref: ../components/schemas/LtftApplicationAdminSummary.yml
+              - $ref: ../components/schemas/PageMetadata.yml
+
     '400':
       description: Error getting LTFT Summaries
