@@ -305,9 +305,13 @@ paths:
           content:
             application/json:
               schema:
-                type: array
-                items:
-                  $ref: '#/components/schemas/LtftApplicationAdminSummary'
+                allOf:
+                  - properties:
+                      content:
+                        type: array
+                        items:
+                          $ref: '#/components/schemas/LtftApplicationAdminSummary'
+                  - $ref: '#/components/schemas/PageMetadata'
         '400':
           description: Error getting LTFT Summaries
   /trainee/cct/calculation:
@@ -762,6 +766,36 @@ components:
         assignedAdmin:
           type: string
           example: Ad Min
+    PageMetadata:
+      type: object
+      required:
+        - page
+      readOnly: true
+      properties:
+        page:
+          type: object
+          required:
+            - size
+            - number
+            - totalElements
+            - totalPages
+          properties:
+            size:
+              type: number
+              description: The number of results per page.
+              example: 25
+            number:
+              type: number
+              description: The current page number.
+              example: 4
+            totalElements:
+              type: number
+              description: The total number of results.
+              example: 213
+            totalPages:
+              type: number
+              description: The total number of pages.
+              example: 9
     CctCalculationDetail:
       type: object
       required:
