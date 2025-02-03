@@ -11,6 +11,47 @@ servers:
 security:
   - bearerAuth: []
 paths:
+  /forms/admin/ltft:
+    get:
+      summary: Return all LTFT applications for the admin's local office.
+      operationId: getLtftAdminSummaries
+      parameters:
+        - name: page
+          in: query
+          description: The page you wish to retrieve.
+          required: false
+          schema:
+            type: integer
+            default: 0
+        - name: size
+          in: query
+          description: The size of the page to retrieve.
+          required: false
+          schema:
+            type: integer
+            default: 25
+        - name: sort
+          in: query
+          description: The field and direction to apply as a sort.
+          required: false
+          schema:
+            type: string
+            example: proposedStartDate,asc
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                allOf:
+                  - properties:
+                      content:
+                        type: array
+                        items:
+                          $ref: '#/components/schemas/LtftApplicationAdminSummary'
+                  - $ref: '#/components/schemas/PageMetadata'
+        '400':
+          description: Error getting LTFT Summaries
   /forms/ltft:
     get:
       summary: Return all LTFT applications for the authenticated user.
@@ -273,47 +314,6 @@ paths:
           description: Unknown trainee ID
         '404':
           description: LTFT application not found with matching ID, or requested LTFT application does not belong to the user
-  /forms/ltft/admin:
-    get:
-      summary: Return all LTFT applications for the admin's local office.
-      operationId: getLtftAdminSummaries
-      parameters:
-        - name: page
-          in: query
-          description: The page you wish to retrieve.
-          required: false
-          schema:
-            type: integer
-            default: 0
-        - name: size
-          in: query
-          description: The size of the page to retrieve.
-          required: false
-          schema:
-            type: integer
-            default: 25
-        - name: sort
-          in: query
-          description: The field and direction to apply as a sort.
-          required: false
-          schema:
-            type: string
-            example: proposedStartDate,asc
-      responses:
-        '200':
-          description: OK
-          content:
-            application/json:
-              schema:
-                allOf:
-                  - properties:
-                      content:
-                        type: array
-                        items:
-                          $ref: '#/components/schemas/LtftApplicationAdminSummary'
-                  - $ref: '#/components/schemas/PageMetadata'
-        '400':
-          description: Error getting LTFT Summaries
   /trainee/cct/calculation:
     get:
       summary: Return all CCT Calculations for the authenticated user.
@@ -442,6 +442,31 @@ components:
       scheme: bearer
       bearerFormat: JWT
   schemas:
+    PersonalDetailsName:
+      type: object
+      required:
+        - title
+        - forenames
+        - surname
+      properties:
+        title:
+          type: string
+          example: Mr
+        forenames:
+          type: string
+          example: Anthony
+        surname:
+          type: string
+          example: Gilliam
+    PersonalDetailsRegistration:
+      type: object
+      properties:
+        gmcNumber:
+          type: string
+          pattern: \d{7}
+        gdcNumber:
+          type: string
+          pattern: D\d{6}
     FormStatus:
       type: string
       enum:
@@ -452,6 +477,81 @@ components:
         - APPROVED
         - REJECTED
       readOnly: true
+    LtftApplicationAdminSummary:
+      type: object
+      readOnly: true
+      properties:
+        id:
+          type: string
+          format: uuid
+          example: fc13458c-5b0b-442f-8907-6f9af8fc0ffb
+        personalDetails:
+          allOf:
+            - $ref: '#/components/schemas/PersonalDetailsName'
+            - $ref: '#/components/schemas/PersonalDetailsRegistration'
+        programmeName:
+          type: string
+          example: General Practice
+        proposedStartDate:
+          type: string
+          format: date
+        submissionDate:
+          type: string
+          format: date
+        daysToStart:
+          type: number
+        shortNotice:
+          type: boolean
+        tpd:
+          type: object
+          required:
+            - tpdEmail
+            - tpdEmailStatus
+          properties:
+            email:
+              type: string
+              format: email
+            emailStatus:
+              type: string
+              enum:
+                - SENT
+                - BOUNCED
+                - REJECTED
+        status:
+          $ref: '#/components/schemas/FormStatus'
+        assignedAdmin:
+          type: string
+          example: Ad Min
+    PageMetadata:
+      type: object
+      required:
+        - page
+      readOnly: true
+      properties:
+        page:
+          type: object
+          required:
+            - size
+            - number
+            - totalElements
+            - totalPages
+          properties:
+            size:
+              type: number
+              description: The number of results per page.
+              example: 25
+            number:
+              type: number
+              description: The current page number.
+              example: 4
+            totalElements:
+              type: number
+              description: The total number of results.
+              example: 213
+            totalPages:
+              type: number
+              description: The total number of pages.
+              example: 9
     LtftApplicationSummary:
       type: object
       readOnly: true
@@ -503,31 +603,6 @@ components:
           format: percent
           minimum: 0
           maximum: 1
-    PersonalDetailsName:
-      type: object
-      required:
-        - title
-        - forenames
-        - surname
-      properties:
-        title:
-          type: string
-          example: Mr
-        forenames:
-          type: string
-          example: Anthony
-        surname:
-          type: string
-          example: Gilliam
-    PersonalDetailsRegistration:
-      type: object
-      properties:
-        gmcNumber:
-          type: string
-          pattern: \d{7}
-        gdcNumber:
-          type: string
-          pattern: D\d{6}
     PersonalDetails:
       type: object
       allOf:
@@ -721,81 +796,6 @@ components:
                 type: string
               detail:
                 type: string
-    LtftApplicationAdminSummary:
-      type: object
-      readOnly: true
-      properties:
-        id:
-          type: string
-          format: uuid
-          example: fc13458c-5b0b-442f-8907-6f9af8fc0ffb
-        personalDetails:
-          allOf:
-            - $ref: '#/components/schemas/PersonalDetailsName'
-            - $ref: '#/components/schemas/PersonalDetailsRegistration'
-        programmeName:
-          type: string
-          example: General Practice
-        proposedStartDate:
-          type: string
-          format: date
-        submissionDate:
-          type: string
-          format: date
-        daysToStart:
-          type: number
-        shortNotice:
-          type: boolean
-        tpd:
-          type: object
-          required:
-            - tpdEmail
-            - tpdEmailStatus
-          properties:
-            email:
-              type: string
-              format: email
-            emailStatus:
-              type: string
-              enum:
-                - SENT
-                - BOUNCED
-                - REJECTED
-        status:
-          $ref: '#/components/schemas/FormStatus'
-        assignedAdmin:
-          type: string
-          example: Ad Min
-    PageMetadata:
-      type: object
-      required:
-        - page
-      readOnly: true
-      properties:
-        page:
-          type: object
-          required:
-            - size
-            - number
-            - totalElements
-            - totalPages
-          properties:
-            size:
-              type: number
-              description: The number of results per page.
-              example: 25
-            number:
-              type: number
-              description: The current page number.
-              example: 4
-            totalElements:
-              type: number
-              description: The total number of results.
-              example: 213
-            totalPages:
-              type: number
-              description: The total number of pages.
-              example: 9
     CctCalculationDetail:
       type: object
       required:
