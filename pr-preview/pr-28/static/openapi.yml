@@ -14,7 +14,7 @@ paths:
   /forms/admin/ltft:
     get:
       summary: Return all LTFT applications for the admin's local office.
-      operationId: getLtftAdminSummaries
+      operationId: getAdminLtftSummaries
       parameters:
         - name: page
           in: query
