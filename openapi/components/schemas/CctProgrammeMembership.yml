@@ -13,6 +13,9 @@ properties:
   name:
     type: string
     example: General Practice
+  designatedBodyCode:
+    type: string
+    example: 1-1RSSQ1R
   startDate:
     type: string
     format: date
