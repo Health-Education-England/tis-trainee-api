@@ -18,6 +18,9 @@ properties:
   submissionDate:
     type: string
     format: date
+  reason:
+    type: string
+    example: Caring responsibilities
   daysToStart:
     type: number
   shortNotice:
@@ -37,5 +40,11 @@ properties:
   status:
     $ref: ../properties/FormStatus.yml
   assignedAdmin:
-    type: string
-    example: Ad Min
+    type: object
+    properties:
+      name:
+        type: string
+        example: Ad Min
+      email:
+        type: string
+        format: email
