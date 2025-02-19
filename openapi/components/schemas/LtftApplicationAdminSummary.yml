@@ -1,0 +1,50 @@
+type: object
+readOnly: true
+properties:
+  id:
+    type: string
+    format: uuid
+    example: fc13458c-5b0b-442f-8907-6f9af8fc0ffb
+  personalDetails:
+    allOf:
+      - $ref: ./PersonalDetailsName.yml
+      - $ref: ./PersonalDetailsRegistration.yml
+  programmeName:
+    type: string
+    example: General Practice
+  proposedStartDate:
+    type: string
+    format: date
+  submissionDate:
+    type: string
+    format: date
+  reason:
+    type: string
+    example: Caring responsibilities
+  daysToStart:
+    type: number
+  shortNotice:
+    type: boolean
+  tpd:
+    type: object
+    required:
+      - tpdEmail
+      - tpdEmailStatus
+    properties:
+      email:
+        type: string
+        format: email
+      emailStatus:
+        type: string
+        enum: [SENT, BOUNCED, REJECTED]
+  status:
+    $ref: ../properties/FormStatus.yml
+  assignedAdmin:
+    type: object
+    properties:
+      name:
+        type: string
+        example: Ad Min
+      email:
+        type: string
+        format: email

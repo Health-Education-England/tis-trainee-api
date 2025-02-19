@@ -1,0 +1,8 @@
+type: object
+properties:
+  gmcNumber:
+    type: string
+    pattern: \d{7}
+  gdcNumber:
+    type: string
+    pattern: D\d{6}

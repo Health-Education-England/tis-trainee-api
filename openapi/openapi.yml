@@ -17,6 +17,10 @@ servers:
   - url: https://trainee.tis.nhs.uk/api
     description: TIS Self-Service
 paths:
+  /forms/admin/ltft:
+    $ref: paths/forms_admin_ltft.yml
+  /forms/admin/ltft/count:
+    $ref: paths/forms_admin_ltft_count.yml
   /forms/ltft:
     $ref: paths/forms_ltft.yml
   /forms/ltft/{formId}:
