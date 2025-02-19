@@ -6,7 +6,7 @@
   "scripts": {
     "build": "npm run bundle && webpack",
     "bundle": "redocly bundle openapi/openapi.yml --output dist/static/openapi.yml",
-    "deploy": "gh-pages -d dist",
+    "deploy": "gh-pages -d dist --remove static",
     "start": "npm run bundle && webpack serve --open",
     "test": "echo \"Error: no test specified\" && exit 1"
   },
