@@ -11,6 +11,69 @@ servers:
 security:
   - bearerAuth: []
 paths:
+  /forms/admin/ltft:
+    get:
+      summary: Return all LTFT applications for the admin's local office.
+      operationId: getAdminLtftSummaries
+      parameters:
+        - name: page
+          in: query
+          description: The page you wish to retrieve.
+          required: false
+          schema:
+            type: integer
+            default: 0
+        - name: size
+          in: query
+          description: The size of the page to retrieve.
+          required: false
+          schema:
+            type: integer
+            default: 25
+        - name: sort
+          in: query
+          description: The field and direction to apply as a sort.
+          required: false
+          schema:
+            type: string
+            example: proposedStartDate,asc
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                allOf:
+                  - properties:
+                      content:
+                        type: array
+                        items:
+                          $ref: '#/components/schemas/LtftApplicationAdminSummary'
+                  - $ref: '#/components/schemas/PageMetadata'
+        '400':
+          description: Error getting LTFT Summaries
+  /forms/admin/ltft/count:
+    get:
+      summary: Return a count of LTFT applications for the admin's local office.
+      operationId: getAdminLtftCount
+      parameters:
+        - name: status
+          in: query
+          description: The statuses to include in the count, defaults to all.
+          required: false
+          schema:
+            type: string
+            example: SUBMITTED,UNSUBMITTED
+      responses:
+        '200':
+          description: OK
+          content:
+            text/plain:
+              schema:
+                type: number
+                example: 40
+        '400':
+          description: Error getting LTFT count
   /forms/ltft:
     get:
       summary: Return all LTFT applications for the authenticated user.
@@ -401,6 +464,31 @@ components:
       scheme: bearer
       bearerFormat: JWT
   schemas:
+    PersonalDetailsName:
+      type: object
+      required:
+        - title
+        - forenames
+        - surname
+      properties:
+        title:
+          type: string
+          example: Mr
+        forenames:
+          type: string
+          example: Anthony
+        surname:
+          type: string
+          example: Gilliam
+    PersonalDetailsRegistration:
+      type: object
+      properties:
+        gmcNumber:
+          type: string
+          pattern: \d{7}
+        gdcNumber:
+          type: string
+          pattern: D\d{6}
     FormStatus:
       type: string
       enum:
@@ -411,6 +499,90 @@ components:
         - APPROVED
         - REJECTED
       readOnly: true
+    LtftApplicationAdminSummary:
+      type: object
+      readOnly: true
+      properties:
+        id:
+          type: string
+          format: uuid
+          example: fc13458c-5b0b-442f-8907-6f9af8fc0ffb
+        personalDetails:
+          allOf:
+            - $ref: '#/components/schemas/PersonalDetailsName'
+            - $ref: '#/components/schemas/PersonalDetailsRegistration'
+        programmeName:
+          type: string
+          example: General Practice
+        proposedStartDate:
+          type: string
+          format: date
+        submissionDate:
+          type: string
+          format: date
+        reason:
+          type: string
+          example: Caring responsibilities
+        daysToStart:
+          type: number
+        shortNotice:
+          type: boolean
+        tpd:
+          type: object
+          required:
+            - tpdEmail
+            - tpdEmailStatus
+          properties:
+            email:
+              type: string
+              format: email
+            emailStatus:
+              type: string
+              enum:
+                - SENT
+                - BOUNCED
+                - REJECTED
+        status:
+          $ref: '#/components/schemas/FormStatus'
+        assignedAdmin:
+          type: object
+          properties:
+            name:
+              type: string
+              example: Ad Min
+            email:
+              type: string
+              format: email
+    PageMetadata:
+      type: object
+      required:
+        - page
+      readOnly: true
+      properties:
+        page:
+          type: object
+          required:
+            - size
+            - number
+            - totalElements
+            - totalPages
+          properties:
+            size:
+              type: number
+              description: The number of results per page.
+              example: 25
+            number:
+              type: number
+              description: The current page number.
+              example: 4
+            totalElements:
+              type: number
+              description: The total number of results.
+              example: 213
+            totalPages:
+              type: number
+              description: The total number of pages.
+              example: 9
     LtftApplicationSummary:
       type: object
       readOnly: true
@@ -464,45 +636,32 @@ components:
           maximum: 1
     PersonalDetails:
       type: object
-      required:
-        - id
-        - title
-        - forenames
-        - surname
-        - email
-        - skilledWorkerVisaHolder
-      properties:
-        id:
-          type: string
-          description: The person/trainee ID.
-          pattern: \d{1,7}
-        title:
-          type: string
-          example: Mr
-        forenames:
-          type: string
-          example: Anthony
-        surname:
-          type: string
-          example: Gilliam
-        telephoneNumber:
-          type: string
-          example: 0161 4960000
-        mobileNumber:
-          type: string
-          example: 07700 900000
-        email:
-          type: string
-          format: email
-          example: anthony.gilliam@example.com
-        gmcNumber:
-          type: string
-          pattern: \d{7}
-        gdcNumber:
-          type: string
-          pattern: D\d{6}
-        skilledWorkerVisaHolder:
-          type: boolean
+      allOf:
+        - required:
+            - id
+            - email
+            - skilledWorkerVisaHolder
+        - properties:
+            id:
+              type: string
+              description: The person/trainee ID.
+              pattern: \d{1,7}
+        - $ref: '#/components/schemas/PersonalDetailsName'
+        - properties:
+            telephoneNumber:
+              type: string
+              example: 0161 4960000
+            mobileNumber:
+              type: string
+              example: 07700 900000
+            email:
+              type: string
+              format: email
+              example: anthony.gilliam@example.com
+        - $ref: '#/components/schemas/PersonalDetailsRegistration'
+        - properties:
+            skilledWorkerVisaHolder:
+              type: boolean
     CctProgrammeMembership:
       type: object
       required:
