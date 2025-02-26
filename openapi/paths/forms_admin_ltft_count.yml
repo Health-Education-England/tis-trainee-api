@@ -1,0 +1,22 @@
+get:
+  summary: Return a count of LTFT applications for the admin's local office.
+  operationId: getAdminLtftCount
+  parameters:
+    - name: status
+      in: query
+      description: The statuses to include in the count, defaults to all.
+      required: false
+      schema:
+        type: string
+        example: SUBMITTED,UNSUBMITTED
+  responses:
+    '200':
+      description: OK
+      content:
+        text/plain:
+          schema:
+            type: number
+            example: 40
+
+    '400':
+      description: Error getting LTFT count

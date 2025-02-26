@@ -1,0 +1,41 @@
+get:
+  summary: Return all LTFT applications for the admin's local office.
+  operationId: getAdminLtftSummaries
+  parameters:
+    - name: page
+      in: query
+      description: The page you wish to retrieve.
+      required: false
+      schema:
+        type: integer
+        default: 0
+    - name: size
+      in: query
+      description: The size of the page to retrieve.
+      required: false
+      schema:
+        type: integer
+        default: 25
+    - name: sort
+      in: query
+      description: The field and direction to apply as a sort.
+      required: false
+      schema:
+        type: string
+        example: proposedStartDate,asc
+  responses:
+    '200':
+      description: OK
+      content:
+        application/json:
+          schema:
+            allOf:
+              - properties:
+                  content:
+                    type: array
+                    items:
+                      $ref: ../components/schemas/LtftApplicationAdminSummary.yml
+              - $ref: ../components/schemas/PageMetadata.yml
+
+    '400':
+      description: Error getting LTFT Summaries

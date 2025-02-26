@@ -1,0 +1,15 @@
+type: object
+required:
+  - title
+  - forenames
+  - surname
+properties:
+  title:
+    type: string
+    example: Mr
+  forenames:
+    type: string
+    example: Anthony
+  surname:
+    type: string
+    example: Gilliam
