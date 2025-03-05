@@ -1,0 +1,9 @@
+type: object
+description: A representation of a person associated with a trainee and their role.
+allOf:
+  - $ref: ./Person.yml
+  - properties:
+      role:
+        description: The role of a person relative to a trainee.
+        type: string
+        example: Educational Supervisor

@@ -5,6 +5,10 @@ properties:
     type: string
     format: uuid
     example: fc13458c-5b0b-442f-8907-6f9af8fc0ffb
+  formRef:
+    description: A human-friendly form reference.
+    type: string
+    example: ltft_47165_20250101_001
   personalDetails:
     allOf:
       - $ref: ./PersonalDetailsName.yml
@@ -40,11 +44,8 @@ properties:
   status:
     $ref: ../properties/FormStatus.yml
   assignedAdmin:
-    type: object
-    properties:
-      name:
-        type: string
-        example: Ad Min
-      email:
-        type: string
-        format: email
+    $ref: ./PersonRole.yml
+    example:
+        name: Ad Min
+        email: ad.min@example.com
+        role: ADMIN

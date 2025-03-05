@@ -1,0 +1,19 @@
+type: object
+readOnly: true
+properties:
+  state:
+    description: The lifecycle state.
+    $ref: ../properties/FormStatus.yml
+  detail:
+    description: Detail about the state transition.
+    $ref: ./StatusDetail.yml
+  modifiedBy:
+    description: The person who modified the status.
+    $ref: ./PersonRole.yml
+  timestamp:
+    description: The timestamp of the state change.
+    type: string
+    format: date-time
+  revision:
+    description: The current revision of the object, starting at 0.
+    type: number

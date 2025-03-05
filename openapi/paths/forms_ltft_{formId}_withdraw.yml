@@ -20,7 +20,9 @@ put:
                   status:
                     properties:
                       current:
-                        example: WITHDRAWN
+                        properties:
+                          state:
+                            example: WITHDRAWN
     '400':
       description: LTFT withdrawl invalid
       content:

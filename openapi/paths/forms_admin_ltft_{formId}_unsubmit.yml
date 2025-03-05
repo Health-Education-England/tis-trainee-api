@@ -1,6 +1,6 @@
 put:
-  summary: Update and submit an existing LTFT application.
-  operationId: submitLtftApplication
+  summary: Unsubmit an existing submitted LTFT application.
+  operationId: unsubmitLtft
   parameters:
     - name: formId
       description: The ID of the LTFT application
@@ -8,12 +8,14 @@ put:
       required: true
       schema:
         type: string
+        format: uuid
   requestBody:
+    description: The detail of the status change.
+    required: true
     content:
       application/json:
         schema:
-          $ref: ../components/schemas/LtftApplicationDetail.yml
-    required: true
+          $ref : ../components/schemas/StatusDetail.yml
   responses:
     '200':
       description: OK
@@ -28,9 +30,9 @@ put:
                       current:
                         properties:
                           state:
-                            example: SUBMITTED
+                            example: UNSUBMITTED
     '400':
-      description: LTFT application invalid
+      description: LTFT unsubmission invalid
       content:
         application/problem+json:
           schema:
@@ -43,10 +45,8 @@ put:
                     items:
                       properties:
                         pointer:
-                          example: '#/name' # TODO: replace with actual field name
+                          example: '#/status/current/state'
                         detail:
-                          example: must not be null
-    '403':
-      description: Unknown trainee ID
+                          example: can not be transitioned to UNSUBMITTED
     '404':
-      description: LTFT application not found with matching ID, or requested LTFT application does not belong to the user
+      description: LTFT application not found with matching ID, or the user does not have access
