@@ -8,6 +8,10 @@ properties:
     format: uuid
     example: fc13458c-5b0b-442f-8907-6f9af8fc0ffb
     readOnly: true
+  formRef:
+    description: A human-friendly form reference.
+    type: string
+    example: ltft_47165_20250101_001
   name:
     description: A custom reference for the LTFT application to aid identification.
     type: string
@@ -56,22 +60,15 @@ properties:
       other:
         type: array
         items:
-          type: object
+          $ref: ./PersonRole.yml
           required:
             - name
             - email
             - role
-          properties:
-            name:
-              type: string
-              example: A. N. Other
-            email:
-              type: string
-              format: email
-              example: a.n.other@example.com
-            role:
-              type: string
-              example: Educational Supervisor
+          example:
+            name: Ed Super
+            email: ed.super@example.com
+            role: Eductional Supervisor
   personalDetails:
     $ref: ./PersonalDetails.yml
   programmeMembership:
@@ -92,17 +89,17 @@ properties:
     readOnly: true
     properties:
       current:
-        $ref: ../properties/FormStatus.yml
+        $ref: ./StatusInfo.yml
       history:
         type: array
         items:
-          type: object
-          properties:
-            status:
-              $ref: ../properties/FormStatus.yml
-            timestamp:
-              type: string
-              format: date-time
+          $ref: ./StatusInfo.yml
+  assignedAdmin:
+    $ref: ./PersonRole.yml
+    example:
+      name: Ad Min
+      email: ad.min@example.com
+      role: ADMIN
   created:
     type: string
     format: date-time

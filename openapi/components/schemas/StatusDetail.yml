@@ -1,0 +1,12 @@
+type: object
+required:
+  - reason
+properties:
+  reason:
+    description: The reason for the state change.
+    type: string
+    example: Proposed WTE %
+  message:
+    description: Additional information related to the state change.
+    type: string
+    example: Unable to accomodate lower than 60%

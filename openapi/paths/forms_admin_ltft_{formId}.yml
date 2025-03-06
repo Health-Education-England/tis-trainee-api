@@ -1,0 +1,20 @@
+get:
+  summary: Return the LTFT application with the given ID.
+  operationId: getLtftAdminDetail
+  parameters:
+    - name: formId
+      description: The ID of the LTFT application
+      in: path
+      required: true
+      schema:
+        type: string
+        format: uuid
+  responses:
+    '200':
+      description: OK
+      content:
+        application/json:
+          schema:
+            $ref: ../components/schemas/LtftApplicationDetail.yml
+    '404':
+      description: LTFT application not found with matching ID, or the user does not have access

@@ -20,7 +20,9 @@ put:
                   status:
                     properties:
                       current:
-                        example: UNSUBMITTED
+                        properties:
+                          state:
+                            example: UNSUBMITTED
     '400':
       description: LTFT unsubmission invalid
       content:

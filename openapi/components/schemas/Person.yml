@@ -1,0 +1,15 @@
+type: object
+description: A representation of a person associated with a trainee.
+required:
+  - name
+  - email
+properties:
+  name:
+    description: The full name of the person.
+    type: string
+    example: Anne Other
+  email:
+    description: The contact email of the person.
+    type: string
+    format: email
+    example: anne.other@example.com
