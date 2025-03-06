@@ -74,6 +74,133 @@ paths:
                 example: 40
         '400':
           description: Error getting LTFT count
+  /forms/admin/ltft/{formId}:
+    get:
+      summary: Return the LTFT application with the given ID.
+      operationId: getLtftAdminDetail
+      parameters:
+        - name: formId
+          description: The ID of the LTFT application
+          in: path
+          required: true
+          schema:
+            type: string
+            format: uuid
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/LtftApplicationDetail'
+        '404':
+          description: LTFT application not found with matching ID, or the user does not have access
+  /forms/admin/ltft/{formId}/approve:
+    put:
+      summary: Approve an existing submitted LTFT application.
+      operationId: approveLtft
+      parameters:
+        - name: formId
+          description: The ID of the LTFT application
+          in: path
+          required: true
+          schema:
+            type: string
+            format: uuid
+      requestBody:
+        description: The detail of the status change.
+        required: false
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/StatusDetail'
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                allOf:
+                  - $ref: '#/components/schemas/LtftApplicationDetail'
+                  - properties:
+                      status:
+                        properties:
+                          current:
+                            properties:
+                              state:
+                                example: APPROVED
+        '400':
+          description: LTFT approval invalid
+          content:
+            application/problem+json:
+              schema:
+                allOf:
+                  - $ref: '#/components/schemas/ValidationError'
+                  - properties:
+                      instance:
+                        example: /api/trainee/ltft
+                      errors:
+                        items:
+                          properties:
+                            pointer:
+                              example: '#/status/current/state'
+                            detail:
+                              example: can not be transitioned to APPROVED
+        '404':
+          description: LTFT application not found with matching ID, or the user does not have access
+  /forms/admin/ltft/{formId}/unsubmit:
+    put:
+      summary: Unsubmit an existing submitted LTFT application.
+      operationId: unsubmitLtft
+      parameters:
+        - name: formId
+          description: The ID of the LTFT application
+          in: path
+          required: true
+          schema:
+            type: string
+            format: uuid
+      requestBody:
+        description: The detail of the status change.
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/StatusDetail'
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                allOf:
+                  - $ref: '#/components/schemas/LtftApplicationDetail'
+                  - properties:
+                      status:
+                        properties:
+                          current:
+                            properties:
+                              state:
+                                example: UNSUBMITTED
+        '400':
+          description: LTFT unsubmission invalid
+          content:
+            application/problem+json:
+              schema:
+                allOf:
+                  - $ref: '#/components/schemas/ValidationError'
+                  - properties:
+                      instance:
+                        example: /api/trainee/ltft
+                      errors:
+                        items:
+                          properties:
+                            pointer:
+                              example: '#/status/current/state'
+                            detail:
+                              example: can not be transitioned to UNSUBMITTED
+        '404':
+          description: LTFT application not found with matching ID, or the user does not have access
   /forms/ltft:
     get:
       summary: Return all LTFT applications for the authenticated user.
@@ -224,7 +351,9 @@ paths:
                       status:
                         properties:
                           current:
-                            example: SUBMITTED
+                            properties:
+                              state:
+                                example: SUBMITTED
         '400':
           description: LTFT application invalid
           content:
@@ -269,7 +398,9 @@ paths:
                       status:
                         properties:
                           current:
-                            example: UNSUBMITTED
+                            properties:
+                              state:
+                                example: UNSUBMITTED
         '400':
           description: LTFT unsubmission invalid
           content:
@@ -314,7 +445,9 @@ paths:
                       status:
                         properties:
                           current:
-                            example: WITHDRAWN
+                            properties:
+                              state:
+                                example: WITHDRAWN
         '400':
           description: LTFT withdrawl invalid
           content:
@@ -499,6 +632,32 @@ components:
         - APPROVED
         - REJECTED
       readOnly: true
+    Person:
+      type: object
+      description: A representation of a person associated with a trainee.
+      required:
+        - name
+        - email
+      properties:
+        name:
+          description: The full name of the person.
+          type: string
+          example: Anne Other
+        email:
+          description: The contact email of the person.
+          type: string
+          format: email
+          example: anne.other@example.com
+    PersonRole:
+      type: object
+      description: A representation of a person associated with a trainee and their role.
+      allOf:
+        - $ref: '#/components/schemas/Person'
+        - properties:
+            role:
+              description: The role of a person relative to a trainee.
+              type: string
+              example: Educational Supervisor
     LtftApplicationAdminSummary:
       type: object
       readOnly: true
@@ -507,6 +666,10 @@ components:
           type: string
           format: uuid
           example: fc13458c-5b0b-442f-8907-6f9af8fc0ffb
+        formRef:
+          description: A human-friendly form reference.
+          type: string
+          example: ltft_47165_20250101_001
         personalDetails:
           allOf:
             - $ref: '#/components/schemas/PersonalDetailsName'
@@ -545,14 +708,11 @@ components:
         status:
           $ref: '#/components/schemas/FormStatus'
         assignedAdmin:
-          type: object
-          properties:
-            name:
-              type: string
-              example: Ad Min
-            email:
-              type: string
-              format: email
+          $ref: '#/components/schemas/PersonRole'
+          example:
+            name: Ad Min
+            email: ad.min@example.com
+            role: ADMIN
     PageMetadata:
       type: object
       required:
@@ -583,30 +743,6 @@ components:
               type: number
               description: The total number of pages.
               example: 9
-    LtftApplicationSummary:
-      type: object
-      readOnly: true
-      properties:
-        id:
-          type: string
-          format: uuid
-          example: fc13458c-5b0b-442f-8907-6f9af8fc0ffb
-        name:
-          description: A custom reference for the LTFT application to aid identification.
-          type: string
-          example: My Programme - Hours Reduction
-        programmeMembershipId:
-          type: string
-          format: uuid
-          example: 2861fb68-6c08-4af5-a3a1-6f561a37b406
-        status:
-          $ref: '#/components/schemas/FormStatus'
-        created:
-          type: string
-          format: date-time
-        lastModified:
-          type: string
-          format: date-time
     CctChange:
       type: object
       required:
@@ -692,6 +828,39 @@ components:
           format: percent
           minimum: 0
           maximum: 1
+    StatusDetail:
+      type: object
+      required:
+        - reason
+      properties:
+        reason:
+          description: The reason for the state change.
+          type: string
+          example: Proposed WTE %
+        message:
+          description: Additional information related to the state change.
+          type: string
+          example: Unable to accomodate lower than 60%
+    StatusInfo:
+      type: object
+      readOnly: true
+      properties:
+        state:
+          description: The lifecycle state.
+          $ref: '#/components/schemas/FormStatus'
+        detail:
+          description: Detail about the state transition.
+          $ref: '#/components/schemas/StatusDetail'
+        modifiedBy:
+          description: The person who modified the status.
+          $ref: '#/components/schemas/PersonRole'
+        timestamp:
+          description: The timestamp of the state change.
+          type: string
+          format: date-time
+        revision:
+          description: The current revision of the object, starting at 0.
+          type: number
     LtftApplicationDetail:
       type: object
       required:
@@ -703,6 +872,10 @@ components:
           format: uuid
           example: fc13458c-5b0b-442f-8907-6f9af8fc0ffb
           readOnly: true
+        formRef:
+          description: A human-friendly form reference.
+          type: string
+          example: ltft_47165_20250101_001
         name:
           description: A custom reference for the LTFT application to aid identification.
           type: string
@@ -751,22 +924,15 @@ components:
             other:
               type: array
               items:
-                type: object
+                $ref: '#/components/schemas/PersonRole'
                 required:
                   - name
                   - email
                   - role
-                properties:
-                  name:
-                    type: string
-                    example: A. N. Other
-                  email:
-                    type: string
-                    format: email
-                    example: a.n.other@example.com
-                  role:
-                    type: string
-                    example: Educational Supervisor
+                example:
+                  name: Ed Super
+                  email: ed.super@example.com
+                  role: Eductional Supervisor
         personalDetails:
           $ref: '#/components/schemas/PersonalDetails'
         programmeMembership:
@@ -787,17 +953,17 @@ components:
           readOnly: true
           properties:
             current:
-              $ref: '#/components/schemas/FormStatus'
+              $ref: '#/components/schemas/StatusInfo'
             history:
               type: array
               items:
-                type: object
-                properties:
-                  status:
-                    $ref: '#/components/schemas/FormStatus'
-                  timestamp:
-                    type: string
-                    format: date-time
+                $ref: '#/components/schemas/StatusInfo'
+        assignedAdmin:
+          $ref: '#/components/schemas/PersonRole'
+          example:
+            name: Ad Min
+            email: ad.min@example.com
+            role: ADMIN
         created:
           type: string
           format: date-time
@@ -830,6 +996,30 @@ components:
                 type: string
               detail:
                 type: string
+    LtftApplicationSummary:
+      type: object
+      readOnly: true
+      properties:
+        id:
+          type: string
+          format: uuid
+          example: fc13458c-5b0b-442f-8907-6f9af8fc0ffb
+        name:
+          description: A custom reference for the LTFT application to aid identification.
+          type: string
+          example: My Programme - Hours Reduction
+        programmeMembershipId:
+          type: string
+          format: uuid
+          example: 2861fb68-6c08-4af5-a3a1-6f561a37b406
+        status:
+          $ref: '#/components/schemas/FormStatus'
+        created:
+          type: string
+          format: date-time
+        lastModified:
+          type: string
+          format: date-time
     CctCalculationDetail:
       type: object
       required:
