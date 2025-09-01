@@ -1,0 +1,17 @@
+# --- GitHub configuration ---
+.github/*                             @Health-Education-England/trainee
+
+# --- Source code ---
+.src/*                                @Health-Education-England/trainee
+
+# --- Root-level files ---
+.editorconfig                         @Health-Education-England/trainee
+.gitattributes                        @Health-Education-England/trainee
+.gitignore                            @Health-Education-England/trainee
+build.gradle.kts                      @Health-Education-England/trainee
+gradlew                               @Health-Education-England/trainee
+gradlew.bat                           @Health-Education-England/trainee
+LICENSE                               @Health-Education-England/trainee
+lombok.config                         @Health-Education-England/trainee
+README.md                             @Health-Education-England/trainee
+settings.gradle.kts                   @Health-Education-England/trainee
