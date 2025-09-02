@@ -8,7 +8,7 @@
 .editorconfig                         @Health-Education-England/trainee
 .gitattributes                        @Health-Education-England/trainee
 .gitignore                            @Health-Education-England/trainee
-docker-compose.yml                    @Health-Education-England/trainee
+docker-compose.yml                    @Health-Education-England/trainee @Health-Education-England/trainee-devops
 LICENSE                               @Health-Education-England/trainee
 package.json                          @Health-Education-England/trainee
 README.md                             @Health-Education-England/trainee
