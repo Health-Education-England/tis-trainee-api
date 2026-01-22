@@ -1,0 +1,563 @@
+openapi: 3.0.1
+info:
+  title: OpenAPI definition
+  version: v0
+servers:
+  - url: "http://localhost:8203/trainee"
+    description: Generated server url
+paths:
+  "/api/cct/calculation/{id}":
+    get:
+      tags:
+        - cct-resource
+      operationId: getCalculationDetails_1
+      parameters:
+        - name: id
+          in: path
+          required: true
+          schema:
+            type: string
+            format: uuid
+      responses:
+        "200":
+          description: OK
+          content:
+            "*/*":
+              schema:
+                $ref: "#/components/schemas/CctCalculationDetailDto"
+    put:
+      tags:
+        - cct-resource
+      operationId: updateCalculationDetails
+      parameters:
+        - name: id
+          in: path
+          required: true
+          schema:
+            type: string
+            format: uuid
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: "#/components/schemas/CctCalculationDetailDto"
+        required: true
+      responses:
+        "200":
+          description: OK
+          content:
+            "*/*":
+              schema:
+                $ref: "#/components/schemas/CctCalculationDetailDto"
+    delete:
+      tags:
+        - cct-resource
+      operationId: deleteCalculation
+      parameters:
+        - name: id
+          in: path
+          required: true
+          schema:
+            type: string
+            format: uuid
+      responses:
+        "200":
+          description: OK
+          content:
+            "*/*":
+              schema:
+                type: boolean
+  /api/basic-details/gmc-number:
+    put:
+      tags:
+        - basic-details-resource
+      operationId: updateGmcNumber
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: "#/components/schemas/GmcDetailsDto"
+        required: true
+      responses:
+        "200":
+          description: OK
+          content:
+            "*/*":
+              schema:
+                $ref: "#/components/schemas/PersonalDetailsDto"
+  /api/basic-details/email-address:
+    put:
+      tags:
+        - basic-details-resource
+      operationId: updateEmailAddress
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: "#/components/schemas/EmailUpdateDto"
+        required: true
+      responses:
+        "200":
+          description: OK
+  "/api/programme-membership/{programmeMembershipId}/sign-coj":
+    post:
+      tags:
+        - programme-membership-resource
+      operationId: signCoj
+      parameters:
+        - name: programmeMembershipId
+          in: path
+          required: true
+          schema:
+            type: string
+      responses:
+        "200":
+          description: OK
+          content:
+            "*/*":
+              schema:
+                $ref: "#/components/schemas/ProgrammeMembershipDto"
+  /api/cct/calculation:
+    get:
+      tags:
+        - cct-resource
+      operationId: getCalculationDetails
+      responses:
+        "200":
+          description: OK
+          content:
+            "*/*":
+              schema:
+                type: array
+                items:
+                  $ref: "#/components/schemas/CctCalculationDetailDto"
+    post:
+      tags:
+        - cct-resource
+      operationId: createCalculation
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: "#/components/schemas/CctCalculationDetailDto"
+        required: true
+      responses:
+        "200":
+          description: OK
+          content:
+            "*/*":
+              schema:
+                $ref: "#/components/schemas/CctCalculationDetailDto"
+  /api/trainee-profile:
+    get:
+      tags:
+        - trainee-profile-resource
+      operationId: getTraineeProfile
+      responses:
+        "200":
+          description: OK
+          content:
+            "*/*":
+              schema:
+                $ref: "#/components/schemas/TraineeProfileDto"
+  "/api/programme-membership/{programmeMembershipId}/confirmation":
+    get:
+      tags:
+        - programme-membership-resource
+      operationId: downloadPdf
+      parameters:
+        - name: programmeMembershipId
+          in: path
+          required: true
+          schema:
+            type: string
+      responses:
+        "200":
+          description: OK
+          content:
+            application/pdf:
+              schema:
+                type: string
+                format: byte
+components:
+  schemas:
+    CctCalculationDetailDto:
+      required:
+        - changes
+        - name
+        - programmeMembership
+      type: object
+      properties:
+        id:
+          type: string
+          format: uuid
+        name:
+          type: string
+        programmeMembership:
+          $ref: "#/components/schemas/CctProgrammeMembershipDto"
+        changes:
+          type: array
+          items:
+            $ref: "#/components/schemas/CctChangeDto"
+        cctDate:
+          type: string
+          format: date
+        created:
+          type: string
+          format: date-time
+        lastModified:
+          type: string
+          format: date-time
+    CctChangeDto:
+      required:
+        - startDate
+        - type
+        - wte
+      type: object
+      properties:
+        id:
+          type: string
+          format: uuid
+        type:
+          type: string
+          enum:
+            - LTFT
+        startDate:
+          type: string
+          format: date
+        wte:
+          type: number
+          format: double
+    CctProgrammeMembershipDto:
+      required:
+        - endDate
+        - id
+        - name
+        - startDate
+        - wte
+      type: object
+      properties:
+        id:
+          type: string
+          format: uuid
+        name:
+          type: string
+        startDate:
+          type: string
+          format: date
+        endDate:
+          type: string
+          format: date
+        wte:
+          type: number
+          format: double
+        designatedBodyCode:
+          type: string
+        managingDeanery:
+          type: string
+    GmcDetailsDto:
+      required:
+        - gmcNumber
+      type: object
+      properties:
+        gmcNumber:
+          pattern: '\d{7}'
+          type: string
+        gmcStatus:
+          type: string
+    PersonalDetailsDto:
+      type: object
+      properties:
+        surname:
+          type: string
+        forenames:
+          type: string
+        knownAs:
+          type: string
+        maidenName:
+          type: string
+        title:
+          type: string
+        role:
+          type: array
+          items:
+            type: string
+        personOwner:
+          type: string
+        dateOfBirth:
+          type: string
+          format: date
+        gender:
+          type: string
+        qualification:
+          type: string
+        dateAttained:
+          type: string
+          format: date
+        medicalSchool:
+          type: string
+        telephoneNumber:
+          type: string
+        mobileNumber:
+          type: string
+        email:
+          type: string
+        address1:
+          type: string
+        address2:
+          type: string
+        address3:
+          type: string
+        address4:
+          type: string
+        postCode:
+          type: string
+        gmcNumber:
+          type: string
+        gmcStatus:
+          type: string
+        gdcNumber:
+          type: string
+        gdcStatus:
+          type: string
+        publicHealthNumber:
+          type: string
+        eeaResident:
+          type: string
+        permitToWork:
+          type: string
+        settled:
+          type: string
+        visaIssued:
+          type: string
+          format: date
+        detailsNumber:
+          type: string
+        prevRevalBody:
+          type: string
+        currRevalDate:
+          type: string
+          format: date
+        prevRevalDate:
+          type: string
+          format: date
+        signature:
+          $ref: "#/components/schemas/Signature"
+    Signature:
+      type: object
+      properties:
+        signedAt:
+          type: string
+          format: date-time
+        validUntil:
+          type: string
+          format: date-time
+        hmac:
+          type: string
+    EmailUpdateDto:
+      required:
+        - email
+      type: object
+      properties:
+        email:
+          type: string
+    ConditionsOfJoiningDto:
+      type: object
+      properties:
+        signedAt:
+          type: string
+          format: date-time
+        version:
+          type: string
+          enum:
+            - GG9
+            - GG10
+        syncedAt:
+          type: string
+          format: date-time
+    CurriculumDto:
+      type: object
+      properties:
+        curriculumTisId:
+          type: string
+        curriculumName:
+          type: string
+        curriculumSubType:
+          type: string
+        curriculumSpecialty:
+          type: string
+        curriculumSpecialtyCode:
+          type: string
+        curriculumStartDate:
+          type: string
+          format: date
+        curriculumEndDate:
+          type: string
+          format: date
+        curriculumEligibleForPeriodOfGrace:
+          type: boolean
+        curriculumMembershipId:
+          type: string
+    HeeUserDto:
+      type: object
+      properties:
+        emailAddress:
+          type: string
+        firstName:
+          type: string
+        lastName:
+          type: string
+        gmcId:
+          type: string
+        phoneNumber:
+          type: string
+    ProgrammeMembershipDto:
+      required:
+        - tisId
+      type: object
+      properties:
+        tisId:
+          type: string
+        trainingNumber:
+          type: string
+        programmeTisId:
+          type: string
+        programmeName:
+          type: string
+        programmeNumber:
+          type: string
+        managingDeanery:
+          type: string
+        designatedBody:
+          type: string
+        designatedBodyCode:
+          type: string
+        programmeMembershipType:
+          type: string
+        startDate:
+          type: string
+          format: date
+        endDate:
+          type: string
+          format: date
+        programmeCompletionDate:
+          type: string
+          format: date
+        status:
+          type: string
+          enum:
+            - PAST
+            - CURRENT
+            - FUTURE
+        curricula:
+          type: array
+          items:
+            $ref: "#/components/schemas/CurriculumDto"
+        trainingPathway:
+          type: string
+        conditionsOfJoining:
+          $ref: "#/components/schemas/ConditionsOfJoiningDto"
+        responsibleOfficer:
+          $ref: "#/components/schemas/HeeUserDto"
+        signature:
+          $ref: "#/components/schemas/Signature"
+    PlacementDto:
+      required:
+        - tisId
+      type: object
+      properties:
+        tisId:
+          type: string
+        startDate:
+          type: string
+          format: date
+        endDate:
+          type: string
+          format: date
+        otherSites:
+          uniqueItems: true
+          type: array
+          items:
+            $ref: "#/components/schemas/SiteDto"
+        grade:
+          type: string
+        specialty:
+          type: string
+        subSpecialty:
+          type: string
+        postAllowsSubspecialty:
+          type: boolean
+        otherSpecialties:
+          uniqueItems: true
+          type: array
+          items:
+            $ref: "#/components/schemas/SpecialtyDto"
+        placementType:
+          type: string
+        employingBody:
+          type: string
+        trainingBody:
+          type: string
+        wholeTimeEquivalent:
+          type: string
+        status:
+          type: string
+          enum:
+            - PAST
+            - CURRENT
+            - FUTURE
+        signature:
+          $ref: "#/components/schemas/Signature"
+    QualificationDto:
+      required:
+        - tisId
+      type: object
+      properties:
+        tisId:
+          type: string
+        qualification:
+          type: string
+        dateAttained:
+          type: string
+          format: date
+        medicalSchool:
+          type: string
+    SiteDto:
+      type: object
+      properties:
+        site:
+          type: string
+        siteKnownAs:
+          type: string
+        siteLocation:
+          type: string
+    SpecialtyDto:
+      type: object
+      properties:
+        specialtyId:
+          type: string
+        name:
+          type: string
+    TraineeProfileDto:
+      required:
+        - traineeTisId
+      type: object
+      properties:
+        id:
+          type: string
+        traineeTisId:
+          type: string
+        personalDetails:
+          $ref: "#/components/schemas/PersonalDetailsDto"
+        qualifications:
+          type: array
+          items:
+            $ref: "#/components/schemas/QualificationDto"
+        programmeMemberships:
+          type: array
+          items:
+            $ref: "#/components/schemas/ProgrammeMembershipDto"
+        placements:
+          type: array
+          items:
+            $ref: "#/components/schemas/PlacementDto"

@@ -1,0 +1,633 @@
+openapi: 3.0.1
+info:
+  title: OpenAPI definition
+  version: v0
+servers:
+  - url: "http://localhost:8205/reference"
+    description: Generated server url
+paths:
+  /api/programme-membership-type:
+    put:
+      tags:
+        - programme-membership-type-resource
+      operationId: updateProgrammeMembershipType
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: "#/components/schemas/ProgrammeMembershipTypeDto"
+        required: true
+      responses:
+        "200":
+          description: OK
+          content:
+            "*/*":
+              schema:
+                $ref: "#/components/schemas/ProgrammeMembershipTypeDto"
+    post:
+      tags:
+        - programme-membership-type-resource
+      operationId: createProgrammeMembershipType
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: "#/components/schemas/ProgrammeMembershipTypeDto"
+        required: true
+      responses:
+        "200":
+          description: OK
+          content:
+            "*/*":
+              schema:
+                $ref: "#/components/schemas/ProgrammeMembershipTypeDto"
+  /api/local-office:
+    put:
+      tags:
+        - local-office-resource
+      operationId: updateLocalOffice
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: "#/components/schemas/LocalOfficeDto"
+        required: true
+      responses:
+        "200":
+          description: OK
+          content:
+            "*/*":
+              schema:
+                $ref: "#/components/schemas/LocalOfficeDto"
+    post:
+      tags:
+        - local-office-resource
+      operationId: createLocalOffices
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: "#/components/schemas/LocalOfficeDto"
+        required: true
+      responses:
+        "200":
+          description: OK
+          content:
+            "*/*":
+              schema:
+                $ref: "#/components/schemas/LocalOfficeDto"
+  /api/local-office-contact:
+    put:
+      tags:
+        - local-office-contact-resource
+      operationId: updateLocalOfficeContact
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: "#/components/schemas/LocalOfficeContactDto"
+        required: true
+      responses:
+        "200":
+          description: OK
+          content:
+            "*/*":
+              schema:
+                $ref: "#/components/schemas/LocalOfficeContactDetailsDto"
+    post:
+      tags:
+        - local-office-contact-resource
+      operationId: createLocalOfficeContact
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: "#/components/schemas/LocalOfficeContactDto"
+        required: true
+      responses:
+        "200":
+          description: OK
+          content:
+            "*/*":
+              schema:
+                $ref: "#/components/schemas/LocalOfficeContactDetailsDto"
+  /api/local-office-contact-type:
+    put:
+      tags:
+        - local-office-contact-type-resource
+      operationId: updateLocalOfficeContactType
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: "#/components/schemas/LocalOfficeContactTypeDto"
+        required: true
+      responses:
+        "200":
+          description: OK
+          content:
+            "*/*":
+              schema:
+                $ref: "#/components/schemas/LocalOfficeContactTypeDto"
+    post:
+      tags:
+        - local-office-contact-type-resource
+      operationId: createLocalOfficeContactType
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: "#/components/schemas/LocalOfficeContactTypeDto"
+        required: true
+      responses:
+        "200":
+          description: OK
+          content:
+            "*/*":
+              schema:
+                $ref: "#/components/schemas/LocalOfficeContactTypeDto"
+  /api/immigration-status:
+    put:
+      tags:
+        - immigration-status-resource
+      operationId: updateImmigrationStatus
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: "#/components/schemas/ImmigrationStatusDto"
+        required: true
+      responses:
+        "200":
+          description: OK
+          content:
+            "*/*":
+              schema:
+                $ref: "#/components/schemas/ImmigrationStatusDto"
+    post:
+      tags:
+        - immigration-status-resource
+      operationId: createImmigrationStatus
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: "#/components/schemas/ImmigrationStatusDto"
+        required: true
+      responses:
+        "200":
+          description: OK
+          content:
+            "*/*":
+              schema:
+                $ref: "#/components/schemas/ImmigrationStatusDto"
+  /api/grade:
+    put:
+      tags:
+        - grade-resource
+      operationId: updateGrade
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: "#/components/schemas/GradeDto"
+        required: true
+      responses:
+        "200":
+          description: OK
+          content:
+            "*/*":
+              schema:
+                $ref: "#/components/schemas/GradeDto"
+    post:
+      tags:
+        - grade-resource
+      operationId: createGrade
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: "#/components/schemas/GradeDto"
+        required: true
+      responses:
+        "200":
+          description: OK
+          content:
+            "*/*":
+              schema:
+                $ref: "#/components/schemas/GradeDto"
+  /api/gender:
+    put:
+      tags:
+        - gender-resource
+      operationId: updateGender
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: "#/components/schemas/GenderDto"
+        required: true
+      responses:
+        "200":
+          description: OK
+          content:
+            "*/*":
+              schema:
+                $ref: "#/components/schemas/GenderDto"
+    post:
+      tags:
+        - gender-resource
+      operationId: createGender
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: "#/components/schemas/GenderDto"
+        required: true
+      responses:
+        "200":
+          description: OK
+          content:
+            "*/*":
+              schema:
+                $ref: "#/components/schemas/GenderDto"
+  /api/dbc:
+    put:
+      tags:
+        - dbc-resource
+      operationId: updateDbc
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: "#/components/schemas/DbcDto"
+        required: true
+      responses:
+        "200":
+          description: OK
+          content:
+            "*/*":
+              schema:
+                $ref: "#/components/schemas/DbcDto"
+    post:
+      tags:
+        - dbc-resource
+      operationId: createDbc
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: "#/components/schemas/DbcDto"
+        required: true
+      responses:
+        "200":
+          description: OK
+          content:
+            "*/*":
+              schema:
+                $ref: "#/components/schemas/DbcDto"
+  /api/curriculum:
+    put:
+      tags:
+        - curriculum-resource
+      operationId: updateCurriculum
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: "#/components/schemas/CurriculumDto"
+        required: true
+      responses:
+        "200":
+          description: OK
+          content:
+            "*/*":
+              schema:
+                $ref: "#/components/schemas/CurriculumDto"
+    post:
+      tags:
+        - curriculum-resource
+      operationId: createCurriculum
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: "#/components/schemas/CurriculumDto"
+        required: true
+      responses:
+        "200":
+          description: OK
+          content:
+            "*/*":
+              schema:
+                $ref: "#/components/schemas/CurriculumDto"
+  /api/college:
+    put:
+      tags:
+        - college-resource
+      operationId: updateCollege
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: "#/components/schemas/CollegeDto"
+        required: true
+      responses:
+        "200":
+          description: OK
+          content:
+            "*/*":
+              schema:
+                $ref: "#/components/schemas/CollegeDto"
+    post:
+      tags:
+        - college-resource
+      operationId: createCollege
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: "#/components/schemas/CollegeDto"
+        required: true
+      responses:
+        "200":
+          description: OK
+          content:
+            "*/*":
+              schema:
+                $ref: "#/components/schemas/CollegeDto"
+  "/api/programme-membership-type/{tisId}":
+    delete:
+      tags:
+        - programme-membership-type-resource
+      operationId: deleteProgrammeMembershipType
+      parameters:
+        - name: tisId
+          in: path
+          required: true
+          schema:
+            type: string
+      responses:
+        "200":
+          description: OK
+  "/api/local-office/{tisId}":
+    delete:
+      tags:
+        - local-office-resource
+      operationId: deleteLocalOffice
+      parameters:
+        - name: tisId
+          in: path
+          required: true
+          schema:
+            type: string
+      responses:
+        "200":
+          description: OK
+  "/api/local-office-contact/{tisId}":
+    delete:
+      tags:
+        - local-office-contact-resource
+      operationId: deleteLocalOfficeContact
+      parameters:
+        - name: tisId
+          in: path
+          required: true
+          schema:
+            type: string
+      responses:
+        "200":
+          description: OK
+  "/api/local-office-contact-type/{tisId}":
+    delete:
+      tags:
+        - local-office-contact-type-resource
+      operationId: deleteLocalOfficeContactType
+      parameters:
+        - name: tisId
+          in: path
+          required: true
+          schema:
+            type: string
+      responses:
+        "200":
+          description: OK
+  "/api/immigration-status/{tisId}":
+    delete:
+      tags:
+        - immigration-status-resource
+      operationId: deleteImmigrationStatus
+      parameters:
+        - name: tisId
+          in: path
+          required: true
+          schema:
+            type: string
+      responses:
+        "200":
+          description: OK
+  "/api/grade/{tisId}":
+    delete:
+      tags:
+        - grade-resource
+      operationId: deleteGrade
+      parameters:
+        - name: tisId
+          in: path
+          required: true
+          schema:
+            type: string
+      responses:
+        "200":
+          description: OK
+  "/api/gender/{tisId}":
+    delete:
+      tags:
+        - gender-resource
+      operationId: deleteGender
+      parameters:
+        - name: tisId
+          in: path
+          required: true
+          schema:
+            type: string
+      responses:
+        "200":
+          description: OK
+  "/api/dbc/{tisId}":
+    delete:
+      tags:
+        - dbc-resource
+      operationId: deleteDbc
+      parameters:
+        - name: tisId
+          in: path
+          required: true
+          schema:
+            type: string
+      responses:
+        "200":
+          description: OK
+  "/api/curriculum/{tisId}":
+    delete:
+      tags:
+        - curriculum-resource
+      operationId: deleteCurriculum
+      parameters:
+        - name: tisId
+          in: path
+          required: true
+          schema:
+            type: string
+      responses:
+        "200":
+          description: OK
+  "/api/college/{tisId}":
+    delete:
+      tags:
+        - college-resource
+      operationId: deleteCollege
+      parameters:
+        - name: tisId
+          in: path
+          required: true
+          schema:
+            type: string
+      responses:
+        "200":
+          description: OK
+components:
+  schemas:
+    ProgrammeMembershipTypeDto:
+      type: object
+      properties:
+        id:
+          type: string
+        tisId:
+          type: string
+        label:
+          type: string
+    LocalOfficeDto:
+      type: object
+      properties:
+        id:
+          type: string
+        tisId:
+          type: string
+        label:
+          type: string
+        uuid:
+          type: string
+    LocalOfficeContactDto:
+      type: object
+      properties:
+        tisId:
+          type: string
+        localOfficeId:
+          type: string
+        contactTypeId:
+          type: string
+        contact:
+          type: string
+    LocalOfficeContactDetailsDto:
+      type: object
+      properties:
+        tisId:
+          type: string
+        localOfficeId:
+          type: string
+        contactTypeId:
+          type: string
+        contact:
+          type: string
+        label:
+          type: string
+        localOfficeName:
+          type: string
+        contactTypeName:
+          type: string
+    LocalOfficeContactTypeDto:
+      type: object
+      properties:
+        tisId:
+          type: string
+        code:
+          type: string
+        label:
+          type: string
+    ImmigrationStatusDto:
+      type: object
+      properties:
+        id:
+          type: string
+        tisId:
+          type: string
+        label:
+          type: string
+    GradeDto:
+      type: object
+      properties:
+        id:
+          type: string
+        tisId:
+          type: string
+        label:
+          type: string
+        placementGrade:
+          type: boolean
+        trainingGrade:
+          type: boolean
+        status:
+          type: string
+          enum:
+            - CURRENT
+            - DELETE
+            - INACTIVE
+    GenderDto:
+      type: object
+      properties:
+        id:
+          type: string
+        tisId:
+          type: string
+        label:
+          type: string
+    DbcDto:
+      type: object
+      properties:
+        id:
+          type: string
+        tisId:
+          type: string
+        label:
+          type: string
+        type:
+          type: string
+        internal:
+          type: boolean
+    CurriculumDto:
+      type: object
+      properties:
+        id:
+          type: string
+        tisId:
+          type: string
+        label:
+          type: string
+        curriculumSubType:
+          type: string
+        status:
+          type: string
+          enum:
+            - CURRENT
+            - DELETE
+            - INACTIVE
+    CollegeDto:
+      type: object
+      properties:
+        id:
+          type: string
+        tisId:
+          type: string
+        label:
+          type: string

@@ -1,11 +1,18 @@
 {
   "name": "tis-trainee-api",
-  "version": "0.0.3",
+  "version": "0.0.4",
   "description": "OpenAPI documentation for TIS Trainee services.",
   "main": "index.js",
   "scripts": {
     "build": "npm run bundle && webpack",
-    "bundle": "redocly bundle openapi/openapi.yml --output dist/static/openapi.yml",
+    "bundle:actions": "redocly bundle contracts/openapi/public/actions.yml --output dist/static/actions.yml",
+    "bundle:details": "redocly bundle contracts/openapi/public/details.yml --output dist/static/details.yml",
+    "bundle:forms": "redocly bundle contracts/openapi/public/forms.yml --output dist/static/forms.yml",
+    "bundle:notifications": "redocly bundle contracts/openapi/public/notifications.yml --output dist/static/notifications.yml",
+    "bundle:reference": "redocly bundle contracts/openapi/public/reference.yml --output dist/static/reference.yml",
+    "bundle:services": "npm run bundle:actions && npm run bundle:details && npm run bundle:forms && npm run bundle:notifications && npm run bundle:reference",
+    "bundle:gateway": "redocly bundle openapi/openapi.yml --output dist/static/gateway.yml",
+    "bundle": "npm run bundle:gateway && npm run bundle:services",
     "deploy": "gh-pages -d dist --remove static",
     "start": "npm run bundle && webpack serve --open",
     "test": "echo \"Error: no test specified\" && exit 1"

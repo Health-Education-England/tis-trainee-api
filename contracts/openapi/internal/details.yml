@@ -1,0 +1,788 @@
+openapi: 3.0.1
+info:
+  title: OpenAPI definition
+  version: v0
+servers:
+  - url: "http://localhost:8203/trainee"
+    description: Generated server url
+paths:
+  "/api/qualification/{traineeTisId}":
+    patch:
+      tags:
+        - qualification-resource
+      operationId: updateQualification
+      parameters:
+        - name: traineeTisId
+          in: path
+          required: true
+          schema:
+            type: string
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: "#/components/schemas/QualificationDto"
+        required: true
+      responses:
+        "200":
+          description: OK
+          content:
+            "*/*":
+              schema:
+                $ref: "#/components/schemas/QualificationDto"
+  "/api/programme-membership/{traineeTisId}":
+    delete:
+      tags:
+        - programme-membership-resource
+      operationId: deleteProgrammeMemberships
+      parameters:
+        - name: traineeTisId
+          in: path
+          required: true
+          schema:
+            type: string
+      responses:
+        "200":
+          description: OK
+          content:
+            "*/*":
+              schema:
+                type: boolean
+    patch:
+      tags:
+        - programme-membership-resource
+      operationId: updateProgrammeMembership
+      parameters:
+        - name: traineeTisId
+          in: path
+          required: true
+          schema:
+            type: string
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: "#/components/schemas/ProgrammeMembershipDto"
+        required: true
+      responses:
+        "200":
+          description: OK
+          content:
+            "*/*":
+              schema:
+                $ref: "#/components/schemas/ProgrammeMembershipDto"
+  "/api/placement/{traineeTisId}":
+    patch:
+      tags:
+        - placement-resource
+      operationId: updatePlacement
+      parameters:
+        - name: traineeTisId
+          in: path
+          required: true
+          schema:
+            type: string
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: "#/components/schemas/PlacementDto"
+        required: true
+      responses:
+        "200":
+          description: OK
+          content:
+            "*/*":
+              schema:
+                $ref: "#/components/schemas/PlacementDto"
+  "/api/basic-details/{tisId}":
+    patch:
+      tags:
+        - basic-details-resource
+      operationId: updateBasicDetails
+      parameters:
+        - name: tisId
+          in: path
+          required: true
+          schema:
+            type: string
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: "#/components/schemas/PersonalDetailsDto"
+        required: true
+      responses:
+        "200":
+          description: OK
+          content:
+            "*/*":
+              schema:
+                $ref: "#/components/schemas/PersonalDetailsDto"
+  /api/trainee-profile/trainee-verify:
+    get:
+      tags:
+        - trainee-profile-resource
+      operationId: getVerifiedTraineeIds
+      parameters:
+        - name: email
+          in: query
+          required: true
+          schema:
+            type: string
+        - name: gmc
+          in: query
+          required: true
+          schema:
+            type: string
+        - name: dob
+          in: query
+          required: true
+          schema:
+            type: string
+            format: date
+      responses:
+        "200":
+          description: OK
+          content:
+            "*/*":
+              schema:
+                type: string
+  /api/trainee-profile/trainee-ids:
+    get:
+      tags:
+        - trainee-profile-resource
+      operationId: getTraineeIds
+      parameters:
+        - name: email
+          in: query
+          required: true
+          schema:
+            type: string
+      responses:
+        "200":
+          description: OK
+          content:
+            "*/*":
+              schema:
+                type: array
+                items:
+                  type: string
+  "/api/trainee-profile/local-office-contacts/{tisId}/{contactType}":
+    get:
+      tags:
+        - trainee-profile-resource
+      operationId: getTraineeLocalOfficeContacts
+      parameters:
+        - name: tisId
+          in: path
+          required: true
+          schema:
+            type: string
+        - name: contactType
+          in: path
+          required: true
+          schema:
+            type: string
+            enum:
+              - LTFT
+              - ONBOARDING_SUPPORT
+              - SPONSORSHIP
+              - DEFERRAL
+              - GMC_UPDATE
+              - TSS_SUPPORT
+              - LOCAL_OFFICE_WEBSITE
+      responses:
+        "200":
+          description: OK
+          content:
+            "*/*":
+              schema:
+                uniqueItems: true
+                type: array
+                items:
+                  $ref: "#/components/schemas/LocalOfficeContact"
+  "/api/trainee-profile/account-details/{tisId}":
+    get:
+      tags:
+        - trainee-profile-resource
+      operationId: getTraineeDetails
+      parameters:
+        - name: tisId
+          in: path
+          required: true
+          schema:
+            type: string
+      responses:
+        "200":
+          description: OK
+          content:
+            "*/*":
+              schema:
+                $ref: "#/components/schemas/UserDetails"
+  "/api/programme-membership/isrollout2024/{traineeTisId}/{programmeMembershipId}":
+    get:
+      tags:
+        - programme-membership-resource
+      operationId: isInPilotRollout2024
+      parameters:
+        - name: traineeTisId
+          in: path
+          required: true
+          schema:
+            type: string
+        - name: programmeMembershipId
+          in: path
+          required: true
+          schema:
+            type: string
+      responses:
+        "200":
+          description: OK
+          content:
+            "*/*":
+              schema:
+                type: boolean
+  "/api/programme-membership/ispilot2024/{traineeTisId}/{programmeMembershipId}":
+    get:
+      tags:
+        - programme-membership-resource
+      operationId: isInPilot2024
+      parameters:
+        - name: traineeTisId
+          in: path
+          required: true
+          schema:
+            type: string
+        - name: programmeMembershipId
+          in: path
+          required: true
+          schema:
+            type: string
+      responses:
+        "200":
+          description: OK
+          content:
+            "*/*":
+              schema:
+                type: boolean
+  "/api/programme-membership/isnewstarter/{traineeTisId}/{programmeMembershipId}":
+    get:
+      tags:
+        - programme-membership-resource
+      operationId: isNewStarter
+      parameters:
+        - name: traineeTisId
+          in: path
+          required: true
+          schema:
+            type: string
+        - name: programmeMembershipId
+          in: path
+          required: true
+          schema:
+            type: string
+      responses:
+        "200":
+          description: OK
+          content:
+            "*/*":
+              schema:
+                type: boolean
+  "/api/placement/isrollout2024/{traineeTisId}/{placementId}":
+    get:
+      tags:
+        - placement-resource
+      operationId: isInPilotRollout2024_1
+      parameters:
+        - name: traineeTisId
+          in: path
+          required: true
+          schema:
+            type: string
+        - name: placementId
+          in: path
+          required: true
+          schema:
+            type: string
+      responses:
+        "200":
+          description: OK
+          content:
+            "*/*":
+              schema:
+                type: boolean
+  "/api/placement/ispilot2024/{traineeTisId}/{placementId}":
+    get:
+      tags:
+        - placement-resource
+      operationId: isInPilot2024_1
+      parameters:
+        - name: traineeTisId
+          in: path
+          required: true
+          schema:
+            type: string
+        - name: placementId
+          in: path
+          required: true
+          schema:
+            type: string
+      responses:
+        "200":
+          description: OK
+          content:
+            "*/*":
+              schema:
+                type: boolean
+  /api/features:
+    get:
+      tags:
+        - feature-resource
+      operationId: getFeatures
+      responses:
+        "200":
+          description: OK
+          content:
+            "*/*":
+              schema:
+                $ref: "#/components/schemas/FeaturesDto"
+  "/api/trainee-profile/{tisId}":
+    delete:
+      tags:
+        - trainee-profile-resource
+      operationId: deleteTraineeProfile
+      parameters:
+        - name: tisId
+          in: path
+          required: true
+          schema:
+            type: string
+      responses:
+        "200":
+          description: OK
+  "/api/qualification/{traineeTisId}/{qualificationId}":
+    delete:
+      tags:
+        - qualification-resource
+      operationId: deleteQualification
+      parameters:
+        - name: traineeTisId
+          in: path
+          required: true
+          schema:
+            type: string
+        - name: qualificationId
+          in: path
+          required: true
+          schema:
+            type: string
+      responses:
+        "200":
+          description: OK
+  "/api/programme-membership/{traineeTisId}/{programmeMembershipId}":
+    delete:
+      tags:
+        - programme-membership-resource
+      operationId: deleteProgrammeMembership
+      parameters:
+        - name: traineeTisId
+          in: path
+          required: true
+          schema:
+            type: string
+        - name: programmeMembershipId
+          in: path
+          required: true
+          schema:
+            type: string
+      responses:
+        "200":
+          description: OK
+          content:
+            "*/*":
+              schema:
+                type: boolean
+  "/api/placement/{traineeTisId}/{placementTisId}":
+    delete:
+      tags:
+        - placement-resource
+      operationId: deletePlacement
+      parameters:
+        - name: traineeTisId
+          in: path
+          required: true
+          schema:
+            type: string
+        - name: placementTisId
+          in: path
+          required: true
+          schema:
+            type: string
+      responses:
+        "200":
+          description: OK
+          content:
+            "*/*":
+              schema:
+                type: boolean
+components:
+  schemas:
+    QualificationDto:
+      required:
+        - tisId
+      type: object
+      properties:
+        tisId:
+          type: string
+        qualification:
+          type: string
+        dateAttained:
+          type: string
+          format: date
+        medicalSchool:
+          type: string
+    ConditionsOfJoiningDto:
+      type: object
+      properties:
+        signedAt:
+          type: string
+          format: date-time
+        version:
+          type: string
+          enum:
+            - GG9
+            - GG10
+        syncedAt:
+          type: string
+          format: date-time
+    CurriculumDto:
+      type: object
+      properties:
+        curriculumTisId:
+          type: string
+        curriculumName:
+          type: string
+        curriculumSubType:
+          type: string
+        curriculumSpecialty:
+          type: string
+        curriculumSpecialtyCode:
+          type: string
+        curriculumStartDate:
+          type: string
+          format: date
+        curriculumEndDate:
+          type: string
+          format: date
+        curriculumEligibleForPeriodOfGrace:
+          type: boolean
+        curriculumMembershipId:
+          type: string
+    HeeUserDto:
+      type: object
+      properties:
+        emailAddress:
+          type: string
+        firstName:
+          type: string
+        lastName:
+          type: string
+        gmcId:
+          type: string
+        phoneNumber:
+          type: string
+    ProgrammeMembershipDto:
+      required:
+        - tisId
+      type: object
+      properties:
+        tisId:
+          type: string
+        trainingNumber:
+          type: string
+        programmeTisId:
+          type: string
+        programmeName:
+          type: string
+        programmeNumber:
+          type: string
+        managingDeanery:
+          type: string
+        designatedBody:
+          type: string
+        designatedBodyCode:
+          type: string
+        programmeMembershipType:
+          type: string
+        startDate:
+          type: string
+          format: date
+        endDate:
+          type: string
+          format: date
+        programmeCompletionDate:
+          type: string
+          format: date
+        status:
+          type: string
+          enum:
+            - PAST
+            - CURRENT
+            - FUTURE
+        curricula:
+          type: array
+          items:
+            $ref: "#/components/schemas/CurriculumDto"
+        trainingPathway:
+          type: string
+        conditionsOfJoining:
+          $ref: "#/components/schemas/ConditionsOfJoiningDto"
+        responsibleOfficer:
+          $ref: "#/components/schemas/HeeUserDto"
+        signature:
+          $ref: "#/components/schemas/Signature"
+    Signature:
+      type: object
+      properties:
+        signedAt:
+          type: string
+          format: date-time
+        validUntil:
+          type: string
+          format: date-time
+        hmac:
+          type: string
+    PlacementDto:
+      required:
+        - tisId
+      type: object
+      properties:
+        tisId:
+          type: string
+        startDate:
+          type: string
+          format: date
+        endDate:
+          type: string
+          format: date
+        otherSites:
+          uniqueItems: true
+          type: array
+          items:
+            $ref: "#/components/schemas/SiteDto"
+        grade:
+          type: string
+        specialty:
+          type: string
+        subSpecialty:
+          type: string
+        postAllowsSubspecialty:
+          type: boolean
+        otherSpecialties:
+          uniqueItems: true
+          type: array
+          items:
+            $ref: "#/components/schemas/SpecialtyDto"
+        placementType:
+          type: string
+        employingBody:
+          type: string
+        trainingBody:
+          type: string
+        wholeTimeEquivalent:
+          type: string
+        status:
+          type: string
+          enum:
+            - PAST
+            - CURRENT
+            - FUTURE
+        signature:
+          $ref: "#/components/schemas/Signature"
+    SiteDto:
+      type: object
+      properties:
+        site:
+          type: string
+        siteKnownAs:
+          type: string
+        siteLocation:
+          type: string
+    SpecialtyDto:
+      type: object
+      properties:
+        specialtyId:
+          type: string
+        name:
+          type: string
+    PersonalDetailsDto:
+      type: object
+      properties:
+        surname:
+          type: string
+        forenames:
+          type: string
+        knownAs:
+          type: string
+        maidenName:
+          type: string
+        title:
+          type: string
+        role:
+          type: array
+          items:
+            type: string
+        personOwner:
+          type: string
+        dateOfBirth:
+          type: string
+          format: date
+        gender:
+          type: string
+        qualification:
+          type: string
+        dateAttained:
+          type: string
+          format: date
+        medicalSchool:
+          type: string
+        telephoneNumber:
+          type: string
+        mobileNumber:
+          type: string
+        email:
+          type: string
+        address1:
+          type: string
+        address2:
+          type: string
+        address3:
+          type: string
+        address4:
+          type: string
+        postCode:
+          type: string
+        gmcNumber:
+          type: string
+        gmcStatus:
+          type: string
+        gdcNumber:
+          type: string
+        gdcStatus:
+          type: string
+        publicHealthNumber:
+          type: string
+        eeaResident:
+          type: string
+        permitToWork:
+          type: string
+        settled:
+          type: string
+        visaIssued:
+          type: string
+          format: date
+        detailsNumber:
+          type: string
+        prevRevalBody:
+          type: string
+        currRevalDate:
+          type: string
+          format: date
+        prevRevalDate:
+          type: string
+          format: date
+        signature:
+          $ref: "#/components/schemas/Signature"
+    LocalOfficeContact:
+      type: object
+      properties:
+        contact:
+          type: string
+        localOffice:
+          type: string
+    UserDetails:
+      type: object
+      properties:
+        email:
+          type: string
+        title:
+          type: string
+        familyName:
+          type: string
+        givenName:
+          type: string
+        gmcNumber:
+          type: string
+        role:
+          type: array
+          items:
+            type: string
+    DetailsFeatures:
+      type: object
+      properties:
+        enabled:
+          type: boolean
+        placements:
+          $ref: "#/components/schemas/Feature"
+        profile:
+          $ref: "#/components/schemas/ProfileFeatures"
+        programmes:
+          $ref: "#/components/schemas/ProgrammeFeatures"
+    Feature:
+      type: object
+      properties:
+        enabled:
+          type: boolean
+    FeaturesDto:
+      type: object
+      properties:
+        actions:
+          $ref: "#/components/schemas/Feature"
+        cct:
+          $ref: "#/components/schemas/Feature"
+        details:
+          $ref: "#/components/schemas/DetailsFeatures"
+        forms:
+          $ref: "#/components/schemas/FormFeatures"
+        notifications:
+          $ref: "#/components/schemas/Feature"
+        news:
+          $ref: "#/components/schemas/Feature"
+    FormFeatures:
+      type: object
+      properties:
+        enabled:
+          type: boolean
+        formr:
+          $ref: "#/components/schemas/Feature"
+        ltft:
+          $ref: "#/components/schemas/LtftFeatures"
+    LtftFeatures:
+      type: object
+      properties:
+        enabled:
+          type: boolean
+        qualifyingProgrammes:
+          uniqueItems: true
+          type: array
+          items:
+            type: string
+    ProfileFeatures:
+      type: object
+      properties:
+        enabled:
+          type: boolean
+        emailUpdate:
+          $ref: "#/components/schemas/Feature"
+        gmcUpdate:
+          $ref: "#/components/schemas/Feature"
+    ProgrammeFeatures:
+      type: object
+      properties:
+        enabled:
+          type: boolean
+        conditionsOfJoining:
+          $ref: "#/components/schemas/Feature"
+        confirmation:
+          $ref: "#/components/schemas/Feature"
