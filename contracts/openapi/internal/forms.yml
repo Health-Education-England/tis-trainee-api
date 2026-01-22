@@ -1,0 +1,42 @@
+openapi: 3.0.1
+info:
+  title: OpenAPI definition
+  version: v0
+servers:
+  - url: http://localhost:8207/forms
+    description: Generated server url
+paths:
+  "/api/job/ltft/publish-refresh":
+    post:
+      tags:
+        - job-resource
+      operationId: publishLtftRefresh
+      responses:
+        "200":
+          description: OK
+          content:
+            "*/*":
+              schema:
+                type: integer
+                format: int32
+  "/api/form-relocate/{formId}":
+    patch:
+      tags:
+        - form-relocate-resource
+      operationId: relocateForm
+      parameters:
+        - name: formId
+          in: path
+          required: true
+          schema:
+            type: string
+        - name: targetTrainee
+          in: query
+          required: true
+          schema:
+            type: string
+      responses:
+        "200":
+          description: OK
+components:
+  schemas: {}

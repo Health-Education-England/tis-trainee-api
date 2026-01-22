@@ -1,0 +1,109 @@
+openapi: 3.0.1
+info:
+  title: OpenAPI definition
+  version: v0
+servers:
+  - url: "http://localhost:8212/actions"
+    description: Generated server url
+paths:
+  "/api/action/{actionId}/complete":
+    post:
+      tags:
+        - action-resource
+      operationId: completeAction
+      parameters:
+        - name: Authorization
+          in: header
+          required: true
+          schema:
+            type: string
+        - name: actionId
+          in: path
+          required: true
+          schema:
+            type: string
+      responses:
+        "200":
+          description: OK
+          content:
+            "*/*":
+              schema:
+                $ref: "#/components/schemas/ActionDto"
+  /api/action:
+    get:
+      tags:
+        - action-resource
+      operationId: getTraineeActions
+      parameters:
+        - name: Authorization
+          in: header
+          required: true
+          schema:
+            type: string
+      responses:
+        "200":
+          description: OK
+          content:
+            "*/*":
+              schema:
+                type: array
+                items:
+                  $ref: "#/components/schemas/ActionDto"
+  "/api/action/{traineeId}/{programmeId}":
+    get:
+      tags:
+        - action-resource
+      operationId: getTraineeProgrammeActions
+      parameters:
+        - name: traineeId
+          in: path
+          required: true
+          schema:
+            type: string
+        - name: programmeId
+          in: path
+          required: true
+          schema:
+            type: string
+      responses:
+        "200":
+          description: OK
+          content:
+            "*/*":
+              schema:
+                type: array
+                items:
+                  $ref: "#/components/schemas/ActionDto"
+components:
+  schemas:
+    ActionDto:
+      type: object
+      properties:
+        id:
+          type: string
+        type:
+          type: string
+        traineeId:
+          type: string
+        tisReferenceInfo:
+          $ref: "#/components/schemas/TisReferenceInfo"
+        availableFrom:
+          type: string
+          format: date
+        dueBy:
+          type: string
+          format: date
+        completed:
+          type: string
+          format: date-time
+    TisReferenceInfo:
+      type: object
+      properties:
+        id:
+          type: string
+        type:
+          type: string
+          enum:
+            - PLACEMENT
+            - PROGRAMME_MEMBERSHIP
+            - PERSON

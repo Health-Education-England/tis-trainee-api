@@ -1,0 +1,300 @@
+openapi: 3.0.1
+info:
+  title: OpenAPI definition
+  version: v0
+servers:
+  - url: http://localhost:8211/notifications
+    description: Generated server url
+paths:
+  "/api/history/trainee/notification/{notificationId}/mark-unread":
+    put:
+      tags:
+        - trainee-history-resource
+      operationId: markNotificationAsUnread
+      parameters:
+        - name: notificationId
+          in: path
+          required: true
+          schema:
+            type: string
+        - name: Authorization
+          in: header
+          required: true
+          schema:
+            type: string
+      responses:
+        "200":
+          description: OK
+          content:
+            "*/*":
+              schema:
+                "$ref": "#/components/schemas/HistoryDto"
+  "/api/history/trainee/notification/{notificationId}/mark-read":
+    put:
+      tags:
+        - trainee-history-resource
+      operationId: markNotificationAsRead
+      parameters:
+        - name: notificationId
+          in: path
+          required: true
+          schema:
+            type: string
+        - name: Authorization
+          in: header
+          required: true
+          schema:
+            type: string
+      responses:
+        "200":
+          description: OK
+          content:
+            "*/*":
+              schema:
+                "$ref": "#/components/schemas/HistoryDto"
+  "/api/history/trainee/notification/{notificationId}/archive":
+    put:
+      tags:
+        - trainee-history-resource
+      operationId: archiveNotification
+      parameters:
+        - name: notificationId
+          in: path
+          required: true
+          schema:
+            type: string
+        - name: Authorization
+          in: header
+          required: true
+          schema:
+            type: string
+      responses:
+        "200":
+          description: OK
+          content:
+            "*/*":
+              schema:
+                "$ref": "#/components/schemas/HistoryDto"
+  "/api/history/trainee":
+    get:
+      tags:
+        - trainee-history-resource
+      operationId: getTraineeHistory
+      parameters:
+        - name: Authorization
+          in: header
+          required: true
+          schema:
+            type: string
+        - name: pageable
+          in: query
+          required: true
+          schema:
+            "$ref": "#/components/schemas/Pageable"
+      responses:
+        "200":
+          description: OK
+          content:
+            "*/*":
+              schema:
+                "$ref": "#/components/schemas/PagedModelHistoryDto"
+  "/api/history/trainee/{traineeId}":
+    get:
+      tags:
+        - history-resource
+      operationId: getTraineeHistory_1
+      parameters:
+        - name: traineeId
+          in: path
+          required: true
+          schema:
+            type: string
+      responses:
+        "200":
+          description: OK
+          content:
+            "*/*":
+              schema:
+                type: array
+                items:
+                  "$ref": "#/components/schemas/HistoryDto"
+  "/api/history/trainee/message/{notificationId}":
+    get:
+      tags:
+        - trainee-history-resource
+      operationId: getHistoricalMessage
+      parameters:
+        - name: notificationId
+          in: path
+          required: true
+          schema:
+            type: string
+        - name: Authorization
+          in: header
+          required: true
+          schema:
+            type: string
+        - name: Accept
+          in: header
+          required: false
+          schema:
+            type: string
+      responses:
+        "200":
+          description: OK
+          content:
+            "*/*":
+              schema:
+                type: object
+  "/api/history/message/{notificationId}":
+    get:
+      tags:
+        - history-resource
+      operationId: getHistoricalMessage_1
+      parameters:
+        - name: notificationId
+          in: path
+          required: true
+          schema:
+            type: string
+      responses:
+        "200":
+          description: OK
+          content:
+            "*/*":
+              schema:
+                type: string
+components:
+  schemas:
+    HistoryDto:
+      type: object
+      properties:
+        id:
+          type: string
+        tisReference:
+          "$ref": "#/components/schemas/TisReferenceInfo"
+        type:
+          type: string
+          enum:
+            - IN_APP
+            - EMAIL
+        subject:
+          type: string
+          enum:
+            - COJ_CONFIRMATION
+            - CREDENTIAL_REVOKED
+            - DAY_ONE
+            - DEFERRAL
+            - E_PORTFOLIO
+            - EMAIL_UPDATED_NEW
+            - EMAIL_UPDATED_OLD
+            - FORM_SUBMITTED
+            - FORM_UPDATED
+            - GMC_REJECTED_LO
+            - GMC_REJECTED_TRAINEE
+            - GMC_UPDATED
+            - LTFT_ADMIN_UNSUBMITTED
+            - LTFT_APPROVED
+            - LTFT_APPROVED_TPD
+            - LTFT_REJECTED
+            - LTFT_REJECTED_TPD
+            - LTFT_SUBMITTED
+            - LTFT_SUBMITTED_TPD
+            - LTFT_UNSUBMITTED
+            - LTFT_UPDATED
+            - LTFT_WITHDRAWN
+            - INDEMNITY_INSURANCE
+            - LTFT
+            - NON_EMPLOYMENT
+            - PLACEMENT_INFORMATION
+            - PLACEMENT_ROLLOUT_2024_CORRECTION
+            - USEFUL_INFORMATION
+            - PLACEMENT_UPDATED_WEEK_12
+            - PROGRAMME_DAY_ONE
+            - PROGRAMME_UPDATED_WEEK_12
+            - PROGRAMME_UPDATED_WEEK_8
+            - PROGRAMME_UPDATED_WEEK_4
+            - PROGRAMME_UPDATED_WEEK_2
+            - PROGRAMME_UPDATED_WEEK_1
+            - PROGRAMME_UPDATED_WEEK_0
+            - PROGRAMME_CREATED
+            - PROGRAMME_POG_MONTH_12
+            - PROGRAMME_POG_MONTH_6
+            - SPONSORSHIP
+            - WELCOME
+        subjectText:
+          type: string
+        contact:
+          type: string
+        sentAt:
+          type: string
+          format: date-time
+        readAt:
+          type: string
+          format: date-time
+        status:
+          type: string
+          enum:
+            - ARCHIVED
+            - FAILED
+            - PENDING
+            - READ
+            - SCHEDULED
+            - SENT
+            - UNREAD
+            - DELETED
+        statusDetail:
+          type: string
+    TisReferenceInfo:
+      type: object
+      properties:
+        type:
+          type: string
+          enum:
+            - PLACEMENT
+            - PROGRAMME_MEMBERSHIP
+            - FORMR_PARTA
+            - FORMR_PARTB
+            - LTFT
+            - PERSON
+        id:
+          type: string
+    Pageable:
+      type: object
+      properties:
+        page:
+          minimum: 0
+          type: integer
+          format: int32
+        size:
+          minimum: 1
+          type: integer
+          format: int32
+        sort:
+          type: array
+          items:
+            type: string
+    PageMetadata:
+      type: object
+      properties:
+        size:
+          type: integer
+          format: int64
+        number:
+          type: integer
+          format: int64
+        totalElements:
+          type: integer
+          format: int64
+        totalPages:
+          type: integer
+          format: int64
+    PagedModelHistoryDto:
+      type: object
+      properties:
+        content:
+          type: array
+          items:
+            "$ref": "#/components/schemas/HistoryDto"
+        page:
+          "$ref": "#/components/schemas/PageMetadata"
