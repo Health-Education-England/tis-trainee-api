@@ -1,0 +1,3632 @@
+openapi: 3.0.1
+info:
+  title: OpenAPI definition
+  version: v0
+paths:
+  /api/actions:
+    get:
+      produces:
+        - application/json
+      parameters:
+        - name: proxy
+          in: path
+          required: true
+          type: string
+      responses:
+        '200':
+          description: 200 response
+          schema:
+            $ref: '#/definitions/Empty'
+  /api/actions/{actionId}/complete:
+    post:
+      produces:
+        - application/json
+      parameters:
+        - name: gmcId
+          in: path
+          required: false
+          type: string
+        - name: notificationId
+          in: path
+          required: false
+          type: string
+        - name: formId
+          in: path
+          required: false
+          type: string
+        - name: traineeId
+          in: path
+          required: false
+          type: string
+        - name: calculationId
+          in: path
+          required: false
+          type: string
+        - name: gmcIds
+          in: path
+          required: false
+          type: string
+        - name: programmeMembershipId
+          in: path
+          required: false
+          type: string
+        - name: proxy
+          in: path
+          required: false
+          type: string
+        - name: recommendationId
+          in: path
+          required: false
+          type: string
+        - name: actionId
+          in: path
+          required: false
+          type: string
+        - name: gmcNumber
+          in: path
+          required: false
+          type: string
+      responses:
+        '200':
+          description: 200 response
+          schema:
+            $ref: '#/definitions/Empty'
+  /api/environment:
+    get:
+      produces:
+        - application/json
+      parameters:
+        - name: proxy
+          in: path
+          required: true
+          type: string
+      responses:
+        '200':
+          description: 200 response
+          schema:
+            $ref: '#/definitions/Empty'
+  /api/forms/admin/formr-parta:
+    get:
+      produces:
+        - application/json
+      parameters:
+        - name: gmcId
+          in: path
+          required: false
+          type: string
+        - name: notificationId
+          in: path
+          required: false
+          type: string
+        - name: formId
+          in: path
+          required: false
+          type: string
+        - name: traineeId
+          in: path
+          required: false
+          type: string
+        - name: calculationId
+          in: path
+          required: false
+          type: string
+        - name: gmcIds
+          in: path
+          required: false
+          type: string
+        - name: programmeMembershipId
+          in: path
+          required: false
+          type: string
+        - name: proxy
+          in: path
+          required: false
+          type: string
+        - name: recommendationId
+          in: path
+          required: false
+          type: string
+        - name: actionId
+          in: path
+          required: false
+          type: string
+        - name: gmcNumber
+          in: path
+          required: false
+          type: string
+      responses:
+        '200':
+          description: 200 response
+          schema:
+            $ref: '#/definitions/Empty'
+  /api/forms/admin/formr-parta/{formId}:
+    get:
+      produces:
+        - application/json
+      parameters:
+        - name: gmcId
+          in: path
+          required: false
+          type: string
+        - name: notificationId
+          in: path
+          required: false
+          type: string
+        - name: formId
+          in: path
+          required: false
+          type: string
+        - name: traineeId
+          in: path
+          required: false
+          type: string
+        - name: calculationId
+          in: path
+          required: false
+          type: string
+        - name: gmcIds
+          in: path
+          required: false
+          type: string
+        - name: programmeMembershipId
+          in: path
+          required: false
+          type: string
+        - name: proxy
+          in: path
+          required: false
+          type: string
+        - name: recommendationId
+          in: path
+          required: false
+          type: string
+        - name: actionId
+          in: path
+          required: false
+          type: string
+        - name: gmcNumber
+          in: path
+          required: false
+          type: string
+      responses:
+        '200':
+          description: 200 response
+          schema:
+            $ref: '#/definitions/Empty'
+    delete:
+      produces:
+        - application/json
+      parameters:
+        - name: gmcId
+          in: path
+          required: false
+          type: string
+        - name: notificationId
+          in: path
+          required: false
+          type: string
+        - name: formId
+          in: path
+          required: false
+          type: string
+        - name: traineeId
+          in: path
+          required: false
+          type: string
+        - name: calculationId
+          in: path
+          required: false
+          type: string
+        - name: gmcIds
+          in: path
+          required: false
+          type: string
+        - name: programmeMembershipId
+          in: path
+          required: false
+          type: string
+        - name: proxy
+          in: path
+          required: false
+          type: string
+        - name: recommendationId
+          in: path
+          required: false
+          type: string
+        - name: actionId
+          in: path
+          required: false
+          type: string
+        - name: gmcNumber
+          in: path
+          required: false
+          type: string
+      responses:
+        '200':
+          description: 200 response
+          schema:
+            $ref: '#/definitions/Empty'
+  /api/forms/admin/formr-parta/{formId}/unsubmit:
+    put:
+      produces:
+        - application/json
+      parameters:
+        - name: gmcId
+          in: path
+          required: false
+          type: string
+        - name: notificationId
+          in: path
+          required: false
+          type: string
+        - name: formId
+          in: path
+          required: false
+          type: string
+        - name: traineeId
+          in: path
+          required: false
+          type: string
+        - name: calculationId
+          in: path
+          required: false
+          type: string
+        - name: gmcIds
+          in: path
+          required: false
+          type: string
+        - name: programmeMembershipId
+          in: path
+          required: false
+          type: string
+        - name: proxy
+          in: path
+          required: false
+          type: string
+        - name: recommendationId
+          in: path
+          required: false
+          type: string
+        - name: actionId
+          in: path
+          required: false
+          type: string
+        - name: gmcNumber
+          in: path
+          required: false
+          type: string
+      responses:
+        '200':
+          description: 200 response
+          schema:
+            $ref: '#/definitions/Empty'
+  /api/forms/admin/formr-partb:
+    get:
+      produces:
+        - application/json
+      parameters:
+        - name: gmcId
+          in: path
+          required: false
+          type: string
+        - name: notificationId
+          in: path
+          required: false
+          type: string
+        - name: formId
+          in: path
+          required: false
+          type: string
+        - name: traineeId
+          in: path
+          required: false
+          type: string
+        - name: calculationId
+          in: path
+          required: false
+          type: string
+        - name: gmcIds
+          in: path
+          required: false
+          type: string
+        - name: programmeMembershipId
+          in: path
+          required: false
+          type: string
+        - name: proxy
+          in: path
+          required: false
+          type: string
+        - name: recommendationId
+          in: path
+          required: false
+          type: string
+        - name: actionId
+          in: path
+          required: false
+          type: string
+        - name: gmcNumber
+          in: path
+          required: false
+          type: string
+      responses:
+        '200':
+          description: 200 response
+          schema:
+            $ref: '#/definitions/Empty'
+  /api/forms/admin/formr-partb/{formId}:
+    get:
+      produces:
+        - application/json
+      parameters:
+        - name: gmcId
+          in: path
+          required: false
+          type: string
+        - name: notificationId
+          in: path
+          required: false
+          type: string
+        - name: formId
+          in: path
+          required: false
+          type: string
+        - name: traineeId
+          in: path
+          required: false
+          type: string
+        - name: calculationId
+          in: path
+          required: false
+          type: string
+        - name: gmcIds
+          in: path
+          required: false
+          type: string
+        - name: programmeMembershipId
+          in: path
+          required: false
+          type: string
+        - name: proxy
+          in: path
+          required: false
+          type: string
+        - name: recommendationId
+          in: path
+          required: false
+          type: string
+        - name: actionId
+          in: path
+          required: false
+          type: string
+        - name: gmcNumber
+          in: path
+          required: false
+          type: string
+      responses:
+        '200':
+          description: 200 response
+          schema:
+            $ref: '#/definitions/Empty'
+    delete:
+      produces:
+        - application/json
+      parameters:
+        - name: gmcId
+          in: path
+          required: false
+          type: string
+        - name: notificationId
+          in: path
+          required: false
+          type: string
+        - name: formId
+          in: path
+          required: false
+          type: string
+        - name: traineeId
+          in: path
+          required: false
+          type: string
+        - name: calculationId
+          in: path
+          required: false
+          type: string
+        - name: gmcIds
+          in: path
+          required: false
+          type: string
+        - name: programmeMembershipId
+          in: path
+          required: false
+          type: string
+        - name: proxy
+          in: path
+          required: false
+          type: string
+        - name: recommendationId
+          in: path
+          required: false
+          type: string
+        - name: actionId
+          in: path
+          required: false
+          type: string
+        - name: gmcNumber
+          in: path
+          required: false
+          type: string
+      responses:
+        '200':
+          description: 200 response
+          schema:
+            $ref: '#/definitions/Empty'
+  /api/forms/admin/formr-partb/{formId}/unsubmit:
+    put:
+      produces:
+        - application/json
+      parameters:
+        - name: gmcId
+          in: path
+          required: false
+          type: string
+        - name: notificationId
+          in: path
+          required: false
+          type: string
+        - name: formId
+          in: path
+          required: false
+          type: string
+        - name: traineeId
+          in: path
+          required: false
+          type: string
+        - name: calculationId
+          in: path
+          required: false
+          type: string
+        - name: gmcIds
+          in: path
+          required: false
+          type: string
+        - name: programmeMembershipId
+          in: path
+          required: false
+          type: string
+        - name: proxy
+          in: path
+          required: false
+          type: string
+        - name: recommendationId
+          in: path
+          required: false
+          type: string
+        - name: actionId
+          in: path
+          required: false
+          type: string
+        - name: gmcNumber
+          in: path
+          required: false
+          type: string
+      responses:
+        '200':
+          description: 200 response
+          schema:
+            $ref: '#/definitions/Empty'
+  /api/forms/admin/ltft:
+    get:
+      produces:
+        - application/json
+      parameters:
+        - name: gmcId
+          in: path
+          required: false
+          type: string
+        - name: notificationId
+          in: path
+          required: false
+          type: string
+        - name: formId
+          in: path
+          required: false
+          type: string
+        - name: traineeId
+          in: path
+          required: false
+          type: string
+        - name: calculationId
+          in: path
+          required: false
+          type: string
+        - name: gmcIds
+          in: path
+          required: false
+          type: string
+        - name: programmeMembershipId
+          in: path
+          required: false
+          type: string
+        - name: proxy
+          in: path
+          required: false
+          type: string
+        - name: recommendationId
+          in: path
+          required: false
+          type: string
+        - name: actionId
+          in: path
+          required: false
+          type: string
+        - name: gmcNumber
+          in: path
+          required: false
+          type: string
+      responses:
+        '200':
+          description: 200 response
+          schema:
+            $ref: '#/definitions/Empty'
+  /api/forms/admin/ltft/count:
+    get:
+      produces:
+        - application/json
+      parameters:
+        - name: gmcId
+          in: path
+          required: false
+          type: string
+        - name: notificationId
+          in: path
+          required: false
+          type: string
+        - name: formId
+          in: path
+          required: false
+          type: string
+        - name: traineeId
+          in: path
+          required: false
+          type: string
+        - name: calculationId
+          in: path
+          required: false
+          type: string
+        - name: gmcIds
+          in: path
+          required: false
+          type: string
+        - name: programmeMembershipId
+          in: path
+          required: false
+          type: string
+        - name: proxy
+          in: path
+          required: false
+          type: string
+        - name: recommendationId
+          in: path
+          required: false
+          type: string
+        - name: actionId
+          in: path
+          required: false
+          type: string
+        - name: gmcNumber
+          in: path
+          required: false
+          type: string
+      responses:
+        '200':
+          description: 200 response
+          schema:
+            $ref: '#/definitions/Empty'
+  /api/forms/admin/ltft/{formId}:
+    get:
+      produces:
+        - application/json
+      parameters:
+        - name: gmcId
+          in: path
+          required: false
+          type: string
+        - name: notificationId
+          in: path
+          required: false
+          type: string
+        - name: formId
+          in: path
+          required: false
+          type: string
+        - name: traineeId
+          in: path
+          required: false
+          type: string
+        - name: calculationId
+          in: path
+          required: false
+          type: string
+        - name: gmcIds
+          in: path
+          required: false
+          type: string
+        - name: programmeMembershipId
+          in: path
+          required: false
+          type: string
+        - name: proxy
+          in: path
+          required: false
+          type: string
+        - name: recommendationId
+          in: path
+          required: false
+          type: string
+        - name: actionId
+          in: path
+          required: false
+          type: string
+        - name: gmcNumber
+          in: path
+          required: false
+          type: string
+      responses:
+        '200':
+          description: 200 response
+          schema:
+            $ref: '#/definitions/Empty'
+    patch:
+      produces:
+        - application/json
+      parameters:
+        - name: gmcId
+          in: path
+          required: false
+          type: string
+        - name: notificationId
+          in: path
+          required: false
+          type: string
+        - name: formId
+          in: path
+          required: false
+          type: string
+        - name: traineeId
+          in: path
+          required: false
+          type: string
+        - name: calculationId
+          in: path
+          required: false
+          type: string
+        - name: gmcIds
+          in: path
+          required: false
+          type: string
+        - name: programmeMembershipId
+          in: path
+          required: false
+          type: string
+        - name: proxy
+          in: path
+          required: false
+          type: string
+        - name: recommendationId
+          in: path
+          required: false
+          type: string
+        - name: actionId
+          in: path
+          required: false
+          type: string
+        - name: gmcNumber
+          in: path
+          required: false
+          type: string
+      responses:
+        '200':
+          description: 200 response
+          schema:
+            $ref: '#/definitions/Empty'
+  /api/forms/admin/ltft/{formId}/approve:
+    put:
+      produces:
+        - application/json
+      parameters:
+        - name: gmcId
+          in: path
+          required: false
+          type: string
+        - name: notificationId
+          in: path
+          required: false
+          type: string
+        - name: formId
+          in: path
+          required: false
+          type: string
+        - name: traineeId
+          in: path
+          required: false
+          type: string
+        - name: calculationId
+          in: path
+          required: false
+          type: string
+        - name: gmcIds
+          in: path
+          required: false
+          type: string
+        - name: programmeMembershipId
+          in: path
+          required: false
+          type: string
+        - name: proxy
+          in: path
+          required: false
+          type: string
+        - name: recommendationId
+          in: path
+          required: false
+          type: string
+        - name: actionId
+          in: path
+          required: false
+          type: string
+        - name: gmcNumber
+          in: path
+          required: false
+          type: string
+      responses:
+        '200':
+          description: 200 response
+          schema:
+            $ref: '#/definitions/Empty'
+  /api/forms/admin/ltft/{formId}/assign:
+    put:
+      produces:
+        - application/json
+      parameters:
+        - name: gmcId
+          in: path
+          required: false
+          type: string
+        - name: notificationId
+          in: path
+          required: false
+          type: string
+        - name: formId
+          in: path
+          required: false
+          type: string
+        - name: traineeId
+          in: path
+          required: false
+          type: string
+        - name: calculationId
+          in: path
+          required: false
+          type: string
+        - name: gmcIds
+          in: path
+          required: false
+          type: string
+        - name: programmeMembershipId
+          in: path
+          required: false
+          type: string
+        - name: proxy
+          in: path
+          required: false
+          type: string
+        - name: recommendationId
+          in: path
+          required: false
+          type: string
+        - name: actionId
+          in: path
+          required: false
+          type: string
+        - name: gmcNumber
+          in: path
+          required: false
+          type: string
+      responses:
+        '200':
+          description: 200 response
+          schema:
+            $ref: '#/definitions/Empty'
+  /api/forms/admin/ltft/{formId}/reject:
+    put:
+      produces:
+        - application/json
+      parameters:
+        - name: gmcId
+          in: path
+          required: false
+          type: string
+        - name: notificationId
+          in: path
+          required: false
+          type: string
+        - name: formId
+          in: path
+          required: false
+          type: string
+        - name: traineeId
+          in: path
+          required: false
+          type: string
+        - name: calculationId
+          in: path
+          required: false
+          type: string
+        - name: gmcIds
+          in: path
+          required: false
+          type: string
+        - name: programmeMembershipId
+          in: path
+          required: false
+          type: string
+        - name: proxy
+          in: path
+          required: false
+          type: string
+        - name: recommendationId
+          in: path
+          required: false
+          type: string
+        - name: actionId
+          in: path
+          required: false
+          type: string
+        - name: gmcNumber
+          in: path
+          required: false
+          type: string
+      responses:
+        '200':
+          description: 200 response
+          schema:
+            $ref: '#/definitions/Empty'
+  /api/forms/admin/ltft/{formId}/unsubmit:
+    put:
+      produces:
+        - application/json
+      parameters:
+        - name: gmcId
+          in: path
+          required: false
+          type: string
+        - name: notificationId
+          in: path
+          required: false
+          type: string
+        - name: formId
+          in: path
+          required: false
+          type: string
+        - name: traineeId
+          in: path
+          required: false
+          type: string
+        - name: calculationId
+          in: path
+          required: false
+          type: string
+        - name: gmcIds
+          in: path
+          required: false
+          type: string
+        - name: programmeMembershipId
+          in: path
+          required: false
+          type: string
+        - name: proxy
+          in: path
+          required: false
+          type: string
+        - name: recommendationId
+          in: path
+          required: false
+          type: string
+        - name: actionId
+          in: path
+          required: false
+          type: string
+        - name: gmcNumber
+          in: path
+          required: false
+          type: string
+      responses:
+        '200':
+          description: 200 response
+          schema:
+            $ref: '#/definitions/Empty'
+  /api/forms/coj:
+    put:
+      produces:
+        - application/json
+      parameters:
+        - name: gmcId
+          in: path
+          required: false
+          type: string
+        - name: notificationId
+          in: path
+          required: false
+          type: string
+        - name: formId
+          in: path
+          required: false
+          type: string
+        - name: traineeId
+          in: path
+          required: false
+          type: string
+        - name: calculationId
+          in: path
+          required: false
+          type: string
+        - name: gmcIds
+          in: path
+          required: false
+          type: string
+        - name: programmeMembershipId
+          in: path
+          required: false
+          type: string
+        - name: proxy
+          in: path
+          required: false
+          type: string
+        - name: recommendationId
+          in: path
+          required: false
+          type: string
+        - name: actionId
+          in: path
+          required: false
+          type: string
+        - name: gmcNumber
+          in: path
+          required: false
+          type: string
+      responses:
+        '200':
+          description: 200 response
+          schema:
+            $ref: '#/definitions/Empty'
+  /api/forms/feature-flags:
+    get:
+      produces:
+        - application/json
+      parameters:
+        - name: gmcId
+          in: path
+          required: false
+          type: string
+        - name: notificationId
+          in: path
+          required: false
+          type: string
+        - name: formId
+          in: path
+          required: false
+          type: string
+        - name: traineeId
+          in: path
+          required: false
+          type: string
+        - name: calculationId
+          in: path
+          required: false
+          type: string
+        - name: gmcIds
+          in: path
+          required: false
+          type: string
+        - name: programmeMembershipId
+          in: path
+          required: false
+          type: string
+        - name: proxy
+          in: path
+          required: false
+          type: string
+        - name: recommendationId
+          in: path
+          required: false
+          type: string
+        - name: actionId
+          in: path
+          required: false
+          type: string
+        - name: gmcNumber
+          in: path
+          required: false
+          type: string
+      responses:
+        '200':
+          description: 200 response
+          schema:
+            $ref: '#/definitions/Empty'
+  /api/forms/formr-parta:
+    post:
+      produces:
+        - application/json
+      parameters:
+        - name: gmcId
+          in: path
+          required: false
+          type: string
+        - name: notificationId
+          in: path
+          required: false
+          type: string
+        - name: formId
+          in: path
+          required: false
+          type: string
+        - name: traineeId
+          in: path
+          required: false
+          type: string
+        - name: calculationId
+          in: path
+          required: false
+          type: string
+        - name: gmcIds
+          in: path
+          required: false
+          type: string
+        - name: programmeMembershipId
+          in: path
+          required: false
+          type: string
+        - name: proxy
+          in: path
+          required: false
+          type: string
+        - name: recommendationId
+          in: path
+          required: false
+          type: string
+        - name: actionId
+          in: path
+          required: false
+          type: string
+        - name: gmcNumber
+          in: path
+          required: false
+          type: string
+      responses:
+        '200':
+          description: 200 response
+          schema:
+            $ref: '#/definitions/Empty'
+    put:
+      produces:
+        - application/json
+      parameters:
+        - name: gmcId
+          in: path
+          required: false
+          type: string
+        - name: notificationId
+          in: path
+          required: false
+          type: string
+        - name: formId
+          in: path
+          required: false
+          type: string
+        - name: traineeId
+          in: path
+          required: false
+          type: string
+        - name: calculationId
+          in: path
+          required: false
+          type: string
+        - name: gmcIds
+          in: path
+          required: false
+          type: string
+        - name: programmeMembershipId
+          in: path
+          required: false
+          type: string
+        - name: proxy
+          in: path
+          required: false
+          type: string
+        - name: recommendationId
+          in: path
+          required: false
+          type: string
+        - name: actionId
+          in: path
+          required: false
+          type: string
+        - name: gmcNumber
+          in: path
+          required: false
+          type: string
+      responses:
+        '200':
+          description: 200 response
+          schema:
+            $ref: '#/definitions/Empty'
+  /api/forms/formr-parta-pdf:
+    put:
+      produces:
+        - application/json
+      parameters:
+        - name: gmcId
+          in: path
+          required: false
+          type: string
+        - name: notificationId
+          in: path
+          required: false
+          type: string
+        - name: formId
+          in: path
+          required: false
+          type: string
+        - name: traineeId
+          in: path
+          required: false
+          type: string
+        - name: calculationId
+          in: path
+          required: false
+          type: string
+        - name: gmcIds
+          in: path
+          required: false
+          type: string
+        - name: programmeMembershipId
+          in: path
+          required: false
+          type: string
+        - name: proxy
+          in: path
+          required: false
+          type: string
+        - name: recommendationId
+          in: path
+          required: false
+          type: string
+        - name: actionId
+          in: path
+          required: false
+          type: string
+        - name: gmcNumber
+          in: path
+          required: false
+          type: string
+      responses:
+        '200':
+          description: 200 response
+          schema:
+            $ref: '#/definitions/Empty'
+  /api/forms/formr-parta/{formId}:
+    get:
+      produces:
+        - application/json
+      parameters:
+        - name: gmcId
+          in: path
+          required: false
+          type: string
+        - name: notificationId
+          in: path
+          required: false
+          type: string
+        - name: formId
+          in: path
+          required: false
+          type: string
+        - name: traineeId
+          in: path
+          required: false
+          type: string
+        - name: calculationId
+          in: path
+          required: false
+          type: string
+        - name: gmcIds
+          in: path
+          required: false
+          type: string
+        - name: programmeMembershipId
+          in: path
+          required: false
+          type: string
+        - name: proxy
+          in: path
+          required: false
+          type: string
+        - name: recommendationId
+          in: path
+          required: false
+          type: string
+        - name: actionId
+          in: path
+          required: false
+          type: string
+        - name: gmcNumber
+          in: path
+          required: false
+          type: string
+      responses:
+        '200':
+          description: 200 response
+          schema:
+            $ref: '#/definitions/Empty'
+    delete:
+      produces:
+        - application/json
+      parameters:
+        - name: gmcId
+          in: path
+          required: false
+          type: string
+        - name: notificationId
+          in: path
+          required: false
+          type: string
+        - name: formId
+          in: path
+          required: false
+          type: string
+        - name: traineeId
+          in: path
+          required: false
+          type: string
+        - name: calculationId
+          in: path
+          required: false
+          type: string
+        - name: gmcIds
+          in: path
+          required: false
+          type: string
+        - name: programmeMembershipId
+          in: path
+          required: false
+          type: string
+        - name: proxy
+          in: path
+          required: false
+          type: string
+        - name: recommendationId
+          in: path
+          required: false
+          type: string
+        - name: actionId
+          in: path
+          required: false
+          type: string
+        - name: gmcNumber
+          in: path
+          required: false
+          type: string
+      responses:
+        '200':
+          description: 200 response
+          schema:
+            $ref: '#/definitions/Empty'
+  /api/forms/formr-partas:
+    get:
+      produces:
+        - application/json
+      parameters:
+        - name: gmcId
+          in: path
+          required: false
+          type: string
+        - name: notificationId
+          in: path
+          required: false
+          type: string
+        - name: formId
+          in: path
+          required: false
+          type: string
+        - name: traineeId
+          in: path
+          required: false
+          type: string
+        - name: calculationId
+          in: path
+          required: false
+          type: string
+        - name: gmcIds
+          in: path
+          required: false
+          type: string
+        - name: programmeMembershipId
+          in: path
+          required: false
+          type: string
+        - name: proxy
+          in: path
+          required: false
+          type: string
+        - name: recommendationId
+          in: path
+          required: false
+          type: string
+        - name: actionId
+          in: path
+          required: false
+          type: string
+        - name: gmcNumber
+          in: path
+          required: false
+          type: string
+      responses:
+        '200':
+          description: 200 response
+          schema:
+            $ref: '#/definitions/Empty'
+  /api/forms/formr-partb:
+    post:
+      produces:
+        - application/json
+      parameters:
+        - name: gmcId
+          in: path
+          required: false
+          type: string
+        - name: notificationId
+          in: path
+          required: false
+          type: string
+        - name: formId
+          in: path
+          required: false
+          type: string
+        - name: traineeId
+          in: path
+          required: false
+          type: string
+        - name: calculationId
+          in: path
+          required: false
+          type: string
+        - name: gmcIds
+          in: path
+          required: false
+          type: string
+        - name: programmeMembershipId
+          in: path
+          required: false
+          type: string
+        - name: proxy
+          in: path
+          required: false
+          type: string
+        - name: recommendationId
+          in: path
+          required: false
+          type: string
+        - name: actionId
+          in: path
+          required: false
+          type: string
+        - name: gmcNumber
+          in: path
+          required: false
+          type: string
+      responses:
+        '200':
+          description: 200 response
+          schema:
+            $ref: '#/definitions/Empty'
+    put:
+      produces:
+        - application/json
+      parameters:
+        - name: gmcId
+          in: path
+          required: false
+          type: string
+        - name: notificationId
+          in: path
+          required: false
+          type: string
+        - name: formId
+          in: path
+          required: false
+          type: string
+        - name: traineeId
+          in: path
+          required: false
+          type: string
+        - name: calculationId
+          in: path
+          required: false
+          type: string
+        - name: gmcIds
+          in: path
+          required: false
+          type: string
+        - name: programmeMembershipId
+          in: path
+          required: false
+          type: string
+        - name: proxy
+          in: path
+          required: false
+          type: string
+        - name: recommendationId
+          in: path
+          required: false
+          type: string
+        - name: actionId
+          in: path
+          required: false
+          type: string
+        - name: gmcNumber
+          in: path
+          required: false
+          type: string
+      responses:
+        '200':
+          description: 200 response
+          schema:
+            $ref: '#/definitions/Empty'
+  /api/forms/formr-partb-pdf:
+    put:
+      produces:
+        - application/json
+      parameters:
+        - name: gmcId
+          in: path
+          required: false
+          type: string
+        - name: notificationId
+          in: path
+          required: false
+          type: string
+        - name: formId
+          in: path
+          required: false
+          type: string
+        - name: traineeId
+          in: path
+          required: false
+          type: string
+        - name: calculationId
+          in: path
+          required: false
+          type: string
+        - name: gmcIds
+          in: path
+          required: false
+          type: string
+        - name: programmeMembershipId
+          in: path
+          required: false
+          type: string
+        - name: proxy
+          in: path
+          required: false
+          type: string
+        - name: recommendationId
+          in: path
+          required: false
+          type: string
+        - name: actionId
+          in: path
+          required: false
+          type: string
+        - name: gmcNumber
+          in: path
+          required: false
+          type: string
+      responses:
+        '200':
+          description: 200 response
+          schema:
+            $ref: '#/definitions/Empty'
+  /api/forms/formr-partb/{formId}:
+    get:
+      produces:
+        - application/json
+      parameters:
+        - name: gmcId
+          in: path
+          required: false
+          type: string
+        - name: notificationId
+          in: path
+          required: false
+          type: string
+        - name: formId
+          in: path
+          required: false
+          type: string
+        - name: traineeId
+          in: path
+          required: false
+          type: string
+        - name: calculationId
+          in: path
+          required: false
+          type: string
+        - name: gmcIds
+          in: path
+          required: false
+          type: string
+        - name: programmeMembershipId
+          in: path
+          required: false
+          type: string
+        - name: proxy
+          in: path
+          required: false
+          type: string
+        - name: recommendationId
+          in: path
+          required: false
+          type: string
+        - name: actionId
+          in: path
+          required: false
+          type: string
+        - name: gmcNumber
+          in: path
+          required: false
+          type: string
+      responses:
+        '200':
+          description: 200 response
+          schema:
+            $ref: '#/definitions/Empty'
+    delete:
+      produces:
+        - application/json
+      parameters:
+        - name: gmcId
+          in: path
+          required: false
+          type: string
+        - name: notificationId
+          in: path
+          required: false
+          type: string
+        - name: formId
+          in: path
+          required: false
+          type: string
+        - name: traineeId
+          in: path
+          required: false
+          type: string
+        - name: calculationId
+          in: path
+          required: false
+          type: string
+        - name: gmcIds
+          in: path
+          required: false
+          type: string
+        - name: programmeMembershipId
+          in: path
+          required: false
+          type: string
+        - name: proxy
+          in: path
+          required: false
+          type: string
+        - name: recommendationId
+          in: path
+          required: false
+          type: string
+        - name: actionId
+          in: path
+          required: false
+          type: string
+        - name: gmcNumber
+          in: path
+          required: false
+          type: string
+      responses:
+        '200':
+          description: 200 response
+          schema:
+            $ref: '#/definitions/Empty'
+  /api/forms/formr-partbs:
+    get:
+      produces:
+        - application/json
+      parameters:
+        - name: gmcId
+          in: path
+          required: false
+          type: string
+        - name: notificationId
+          in: path
+          required: false
+          type: string
+        - name: formId
+          in: path
+          required: false
+          type: string
+        - name: traineeId
+          in: path
+          required: false
+          type: string
+        - name: calculationId
+          in: path
+          required: false
+          type: string
+        - name: gmcIds
+          in: path
+          required: false
+          type: string
+        - name: programmeMembershipId
+          in: path
+          required: false
+          type: string
+        - name: proxy
+          in: path
+          required: false
+          type: string
+        - name: recommendationId
+          in: path
+          required: false
+          type: string
+        - name: actionId
+          in: path
+          required: false
+          type: string
+        - name: gmcNumber
+          in: path
+          required: false
+          type: string
+      responses:
+        '200':
+          description: 200 response
+          schema:
+            $ref: '#/definitions/Empty'
+  /api/forms/ltft:
+    get:
+      produces:
+        - application/json
+      parameters:
+        - name: gmcId
+          in: path
+          required: false
+          type: string
+        - name: notificationId
+          in: path
+          required: false
+          type: string
+        - name: formId
+          in: path
+          required: false
+          type: string
+        - name: traineeId
+          in: path
+          required: false
+          type: string
+        - name: calculationId
+          in: path
+          required: false
+          type: string
+        - name: gmcIds
+          in: path
+          required: false
+          type: string
+        - name: programmeMembershipId
+          in: path
+          required: false
+          type: string
+        - name: proxy
+          in: path
+          required: false
+          type: string
+        - name: recommendationId
+          in: path
+          required: false
+          type: string
+        - name: actionId
+          in: path
+          required: false
+          type: string
+        - name: gmcNumber
+          in: path
+          required: false
+          type: string
+      responses:
+        '200':
+          description: 200 response
+          schema:
+            $ref: '#/definitions/Empty'
+    post:
+      produces:
+        - application/json
+      parameters:
+        - name: gmcId
+          in: path
+          required: false
+          type: string
+        - name: notificationId
+          in: path
+          required: false
+          type: string
+        - name: formId
+          in: path
+          required: false
+          type: string
+        - name: traineeId
+          in: path
+          required: false
+          type: string
+        - name: calculationId
+          in: path
+          required: false
+          type: string
+        - name: gmcIds
+          in: path
+          required: false
+          type: string
+        - name: programmeMembershipId
+          in: path
+          required: false
+          type: string
+        - name: proxy
+          in: path
+          required: false
+          type: string
+        - name: recommendationId
+          in: path
+          required: false
+          type: string
+        - name: actionId
+          in: path
+          required: false
+          type: string
+        - name: gmcNumber
+          in: path
+          required: false
+          type: string
+      responses:
+        '200':
+          description: 200 response
+          schema:
+            $ref: '#/definitions/Empty'
+  /api/forms/ltft/{formId}:
+    get:
+      produces:
+        - application/json
+      parameters:
+        - name: gmcId
+          in: path
+          required: false
+          type: string
+        - name: notificationId
+          in: path
+          required: false
+          type: string
+        - name: formId
+          in: path
+          required: false
+          type: string
+        - name: traineeId
+          in: path
+          required: false
+          type: string
+        - name: calculationId
+          in: path
+          required: false
+          type: string
+        - name: gmcIds
+          in: path
+          required: false
+          type: string
+        - name: programmeMembershipId
+          in: path
+          required: false
+          type: string
+        - name: proxy
+          in: path
+          required: false
+          type: string
+        - name: recommendationId
+          in: path
+          required: false
+          type: string
+        - name: actionId
+          in: path
+          required: false
+          type: string
+        - name: gmcNumber
+          in: path
+          required: false
+          type: string
+      responses:
+        '200':
+          description: 200 response
+          schema:
+            $ref: '#/definitions/Empty'
+    put:
+      produces:
+        - application/json
+      parameters:
+        - name: gmcId
+          in: path
+          required: false
+          type: string
+        - name: notificationId
+          in: path
+          required: false
+          type: string
+        - name: formId
+          in: path
+          required: false
+          type: string
+        - name: traineeId
+          in: path
+          required: false
+          type: string
+        - name: calculationId
+          in: path
+          required: false
+          type: string
+        - name: gmcIds
+          in: path
+          required: false
+          type: string
+        - name: programmeMembershipId
+          in: path
+          required: false
+          type: string
+        - name: proxy
+          in: path
+          required: false
+          type: string
+        - name: recommendationId
+          in: path
+          required: false
+          type: string
+        - name: actionId
+          in: path
+          required: false
+          type: string
+        - name: gmcNumber
+          in: path
+          required: false
+          type: string
+      responses:
+        '200':
+          description: 200 response
+          schema:
+            $ref: '#/definitions/Empty'
+    delete:
+      produces:
+        - application/json
+      parameters:
+        - name: gmcId
+          in: path
+          required: false
+          type: string
+        - name: notificationId
+          in: path
+          required: false
+          type: string
+        - name: formId
+          in: path
+          required: false
+          type: string
+        - name: traineeId
+          in: path
+          required: false
+          type: string
+        - name: calculationId
+          in: path
+          required: false
+          type: string
+        - name: gmcIds
+          in: path
+          required: false
+          type: string
+        - name: programmeMembershipId
+          in: path
+          required: false
+          type: string
+        - name: proxy
+          in: path
+          required: false
+          type: string
+        - name: recommendationId
+          in: path
+          required: false
+          type: string
+        - name: actionId
+          in: path
+          required: false
+          type: string
+        - name: gmcNumber
+          in: path
+          required: false
+          type: string
+      responses:
+        '200':
+          description: 200 response
+          schema:
+            $ref: '#/definitions/Empty'
+  /api/forms/ltft/{formId}/submit:
+    put:
+      produces:
+        - application/json
+      parameters:
+        - name: gmcId
+          in: path
+          required: false
+          type: string
+        - name: notificationId
+          in: path
+          required: false
+          type: string
+        - name: formId
+          in: path
+          required: false
+          type: string
+        - name: traineeId
+          in: path
+          required: false
+          type: string
+        - name: calculationId
+          in: path
+          required: false
+          type: string
+        - name: gmcIds
+          in: path
+          required: false
+          type: string
+        - name: programmeMembershipId
+          in: path
+          required: false
+          type: string
+        - name: proxy
+          in: path
+          required: false
+          type: string
+        - name: recommendationId
+          in: path
+          required: false
+          type: string
+        - name: actionId
+          in: path
+          required: false
+          type: string
+        - name: gmcNumber
+          in: path
+          required: false
+          type: string
+      responses:
+        '200':
+          description: 200 response
+          schema:
+            $ref: '#/definitions/Empty'
+  /api/forms/ltft/{formId}/unsubmit:
+    put:
+      produces:
+        - application/json
+      parameters:
+        - name: gmcId
+          in: path
+          required: false
+          type: string
+        - name: notificationId
+          in: path
+          required: false
+          type: string
+        - name: formId
+          in: path
+          required: false
+          type: string
+        - name: traineeId
+          in: path
+          required: false
+          type: string
+        - name: calculationId
+          in: path
+          required: false
+          type: string
+        - name: gmcIds
+          in: path
+          required: false
+          type: string
+        - name: programmeMembershipId
+          in: path
+          required: false
+          type: string
+        - name: proxy
+          in: path
+          required: false
+          type: string
+        - name: recommendationId
+          in: path
+          required: false
+          type: string
+        - name: actionId
+          in: path
+          required: false
+          type: string
+        - name: gmcNumber
+          in: path
+          required: false
+          type: string
+      responses:
+        '200':
+          description: 200 response
+          schema:
+            $ref: '#/definitions/Empty'
+  /api/forms/ltft/{formId}/withdraw:
+    put:
+      produces:
+        - application/json
+      parameters:
+        - name: gmcId
+          in: path
+          required: false
+          type: string
+        - name: notificationId
+          in: path
+          required: false
+          type: string
+        - name: formId
+          in: path
+          required: false
+          type: string
+        - name: traineeId
+          in: path
+          required: false
+          type: string
+        - name: calculationId
+          in: path
+          required: false
+          type: string
+        - name: gmcIds
+          in: path
+          required: false
+          type: string
+        - name: programmeMembershipId
+          in: path
+          required: false
+          type: string
+        - name: proxy
+          in: path
+          required: false
+          type: string
+        - name: recommendationId
+          in: path
+          required: false
+          type: string
+        - name: actionId
+          in: path
+          required: false
+          type: string
+        - name: gmcNumber
+          in: path
+          required: false
+          type: string
+      responses:
+        '200':
+          description: 200 response
+          schema:
+            $ref: '#/definitions/Empty'
+  /api/notifications:
+    get:
+      produces:
+        - application/json
+      parameters:
+        - name: proxy
+          in: path
+          required: true
+          type: string
+      responses:
+        '200':
+          description: 200 response
+          schema:
+            $ref: '#/definitions/Empty'
+  /api/notifications/{notificationId}/archive:
+    put:
+      produces:
+        - application/json
+      parameters:
+        - name: gmcId
+          in: path
+          required: false
+          type: string
+        - name: notificationId
+          in: path
+          required: false
+          type: string
+        - name: formId
+          in: path
+          required: false
+          type: string
+        - name: traineeId
+          in: path
+          required: false
+          type: string
+        - name: calculationId
+          in: path
+          required: false
+          type: string
+        - name: gmcIds
+          in: path
+          required: false
+          type: string
+        - name: programmeMembershipId
+          in: path
+          required: false
+          type: string
+        - name: proxy
+          in: path
+          required: false
+          type: string
+        - name: recommendationId
+          in: path
+          required: false
+          type: string
+        - name: actionId
+          in: path
+          required: false
+          type: string
+        - name: gmcNumber
+          in: path
+          required: false
+          type: string
+      responses:
+        '200':
+          description: 200 response
+          schema:
+            $ref: '#/definitions/Empty'
+  /api/notifications/{notificationId}/mark-read:
+    put:
+      produces:
+        - application/json
+      parameters:
+        - name: gmcId
+          in: path
+          required: false
+          type: string
+        - name: notificationId
+          in: path
+          required: false
+          type: string
+        - name: formId
+          in: path
+          required: false
+          type: string
+        - name: traineeId
+          in: path
+          required: false
+          type: string
+        - name: calculationId
+          in: path
+          required: false
+          type: string
+        - name: gmcIds
+          in: path
+          required: false
+          type: string
+        - name: programmeMembershipId
+          in: path
+          required: false
+          type: string
+        - name: proxy
+          in: path
+          required: false
+          type: string
+        - name: recommendationId
+          in: path
+          required: false
+          type: string
+        - name: actionId
+          in: path
+          required: false
+          type: string
+        - name: gmcNumber
+          in: path
+          required: false
+          type: string
+      responses:
+        '200':
+          description: 200 response
+          schema:
+            $ref: '#/definitions/Empty'
+  /api/notifications/{notificationId}/mark-unread:
+    put:
+      produces:
+        - application/json
+      parameters:
+        - name: gmcId
+          in: path
+          required: false
+          type: string
+        - name: notificationId
+          in: path
+          required: false
+          type: string
+        - name: formId
+          in: path
+          required: false
+          type: string
+        - name: traineeId
+          in: path
+          required: false
+          type: string
+        - name: calculationId
+          in: path
+          required: false
+          type: string
+        - name: gmcIds
+          in: path
+          required: false
+          type: string
+        - name: programmeMembershipId
+          in: path
+          required: false
+          type: string
+        - name: proxy
+          in: path
+          required: false
+          type: string
+        - name: recommendationId
+          in: path
+          required: false
+          type: string
+        - name: actionId
+          in: path
+          required: false
+          type: string
+        - name: gmcNumber
+          in: path
+          required: false
+          type: string
+      responses:
+        '200':
+          description: 200 response
+          schema:
+            $ref: '#/definitions/Empty'
+  /api/notifications/{notificationId}/message:
+    get:
+      produces:
+        - application/json
+      parameters:
+        - name: gmcId
+          in: path
+          required: false
+          type: string
+        - name: notificationId
+          in: path
+          required: false
+          type: string
+        - name: formId
+          in: path
+          required: false
+          type: string
+        - name: traineeId
+          in: path
+          required: false
+          type: string
+        - name: calculationId
+          in: path
+          required: false
+          type: string
+        - name: gmcIds
+          in: path
+          required: false
+          type: string
+        - name: programmeMembershipId
+          in: path
+          required: false
+          type: string
+        - name: proxy
+          in: path
+          required: false
+          type: string
+        - name: recommendationId
+          in: path
+          required: false
+          type: string
+        - name: actionId
+          in: path
+          required: false
+          type: string
+        - name: gmcNumber
+          in: path
+          required: false
+          type: string
+      responses:
+        '200':
+          description: 200 response
+          schema:
+            $ref: '#/definitions/Empty'
+  /api/reference/college:
+    get:
+      produces:
+        - application/json
+      parameters:
+        - name: gmcId
+          in: path
+          required: false
+          type: string
+        - name: notificationId
+          in: path
+          required: false
+          type: string
+        - name: formId
+          in: path
+          required: false
+          type: string
+        - name: traineeId
+          in: path
+          required: false
+          type: string
+        - name: calculationId
+          in: path
+          required: false
+          type: string
+        - name: gmcIds
+          in: path
+          required: false
+          type: string
+        - name: programmeMembershipId
+          in: path
+          required: false
+          type: string
+        - name: proxy
+          in: path
+          required: false
+          type: string
+        - name: recommendationId
+          in: path
+          required: false
+          type: string
+        - name: actionId
+          in: path
+          required: false
+          type: string
+        - name: gmcNumber
+          in: path
+          required: false
+          type: string
+      responses:
+        '200':
+          description: 200 response
+          schema:
+            $ref: '#/definitions/Empty'
+  /api/reference/covid-change-circs:
+    get:
+      produces:
+        - application/json
+      parameters:
+        - name: gmcId
+          in: path
+          required: false
+          type: string
+        - name: notificationId
+          in: path
+          required: false
+          type: string
+        - name: formId
+          in: path
+          required: false
+          type: string
+        - name: traineeId
+          in: path
+          required: false
+          type: string
+        - name: calculationId
+          in: path
+          required: false
+          type: string
+        - name: gmcIds
+          in: path
+          required: false
+          type: string
+        - name: programmeMembershipId
+          in: path
+          required: false
+          type: string
+        - name: proxy
+          in: path
+          required: false
+          type: string
+        - name: recommendationId
+          in: path
+          required: false
+          type: string
+        - name: actionId
+          in: path
+          required: false
+          type: string
+        - name: gmcNumber
+          in: path
+          required: false
+          type: string
+      responses:
+        '200':
+          description: 200 response
+          schema:
+            $ref: '#/definitions/Empty'
+  /api/reference/curriculum:
+    get:
+      produces:
+        - application/json
+      parameters:
+        - name: gmcId
+          in: path
+          required: false
+          type: string
+        - name: notificationId
+          in: path
+          required: false
+          type: string
+        - name: formId
+          in: path
+          required: false
+          type: string
+        - name: traineeId
+          in: path
+          required: false
+          type: string
+        - name: calculationId
+          in: path
+          required: false
+          type: string
+        - name: gmcIds
+          in: path
+          required: false
+          type: string
+        - name: programmeMembershipId
+          in: path
+          required: false
+          type: string
+        - name: proxy
+          in: path
+          required: false
+          type: string
+        - name: recommendationId
+          in: path
+          required: false
+          type: string
+        - name: actionId
+          in: path
+          required: false
+          type: string
+        - name: gmcNumber
+          in: path
+          required: false
+          type: string
+      responses:
+        '200':
+          description: 200 response
+          schema:
+            $ref: '#/definitions/Empty'
+  /api/reference/dbc:
+    get:
+      produces:
+        - application/json
+      parameters:
+        - name: gmcId
+          in: path
+          required: false
+          type: string
+        - name: notificationId
+          in: path
+          required: false
+          type: string
+        - name: formId
+          in: path
+          required: false
+          type: string
+        - name: traineeId
+          in: path
+          required: false
+          type: string
+        - name: calculationId
+          in: path
+          required: false
+          type: string
+        - name: gmcIds
+          in: path
+          required: false
+          type: string
+        - name: programmeMembershipId
+          in: path
+          required: false
+          type: string
+        - name: proxy
+          in: path
+          required: false
+          type: string
+        - name: recommendationId
+          in: path
+          required: false
+          type: string
+        - name: actionId
+          in: path
+          required: false
+          type: string
+        - name: gmcNumber
+          in: path
+          required: false
+          type: string
+      responses:
+        '200':
+          description: 200 response
+          schema:
+            $ref: '#/definitions/Empty'
+  /api/reference/declaration-type:
+    get:
+      produces:
+        - application/json
+      parameters:
+        - name: gmcId
+          in: path
+          required: false
+          type: string
+        - name: notificationId
+          in: path
+          required: false
+          type: string
+        - name: formId
+          in: path
+          required: false
+          type: string
+        - name: traineeId
+          in: path
+          required: false
+          type: string
+        - name: calculationId
+          in: path
+          required: false
+          type: string
+        - name: gmcIds
+          in: path
+          required: false
+          type: string
+        - name: programmeMembershipId
+          in: path
+          required: false
+          type: string
+        - name: proxy
+          in: path
+          required: false
+          type: string
+        - name: recommendationId
+          in: path
+          required: false
+          type: string
+        - name: actionId
+          in: path
+          required: false
+          type: string
+        - name: gmcNumber
+          in: path
+          required: false
+          type: string
+      responses:
+        '200':
+          description: 200 response
+          schema:
+            $ref: '#/definitions/Empty'
+  /api/reference/gender:
+    get:
+      produces:
+        - application/json
+      parameters:
+        - name: gmcId
+          in: path
+          required: false
+          type: string
+        - name: notificationId
+          in: path
+          required: false
+          type: string
+        - name: formId
+          in: path
+          required: false
+          type: string
+        - name: traineeId
+          in: path
+          required: false
+          type: string
+        - name: calculationId
+          in: path
+          required: false
+          type: string
+        - name: gmcIds
+          in: path
+          required: false
+          type: string
+        - name: programmeMembershipId
+          in: path
+          required: false
+          type: string
+        - name: proxy
+          in: path
+          required: false
+          type: string
+        - name: recommendationId
+          in: path
+          required: false
+          type: string
+        - name: actionId
+          in: path
+          required: false
+          type: string
+        - name: gmcNumber
+          in: path
+          required: false
+          type: string
+      responses:
+        '200':
+          description: 200 response
+          schema:
+            $ref: '#/definitions/Empty'
+  /api/reference/grade:
+    get:
+      produces:
+        - application/json
+      parameters:
+        - name: gmcId
+          in: path
+          required: false
+          type: string
+        - name: notificationId
+          in: path
+          required: false
+          type: string
+        - name: formId
+          in: path
+          required: false
+          type: string
+        - name: traineeId
+          in: path
+          required: false
+          type: string
+        - name: calculationId
+          in: path
+          required: false
+          type: string
+        - name: gmcIds
+          in: path
+          required: false
+          type: string
+        - name: programmeMembershipId
+          in: path
+          required: false
+          type: string
+        - name: proxy
+          in: path
+          required: false
+          type: string
+        - name: recommendationId
+          in: path
+          required: false
+          type: string
+        - name: actionId
+          in: path
+          required: false
+          type: string
+        - name: gmcNumber
+          in: path
+          required: false
+          type: string
+      responses:
+        '200':
+          description: 200 response
+          schema:
+            $ref: '#/definitions/Empty'
+  /api/reference/immigration-status:
+    get:
+      produces:
+        - application/json
+      parameters:
+        - name: gmcId
+          in: path
+          required: false
+          type: string
+        - name: notificationId
+          in: path
+          required: false
+          type: string
+        - name: formId
+          in: path
+          required: false
+          type: string
+        - name: traineeId
+          in: path
+          required: false
+          type: string
+        - name: calculationId
+          in: path
+          required: false
+          type: string
+        - name: gmcIds
+          in: path
+          required: false
+          type: string
+        - name: programmeMembershipId
+          in: path
+          required: false
+          type: string
+        - name: proxy
+          in: path
+          required: false
+          type: string
+        - name: recommendationId
+          in: path
+          required: false
+          type: string
+        - name: actionId
+          in: path
+          required: false
+          type: string
+        - name: gmcNumber
+          in: path
+          required: false
+          type: string
+      responses:
+        '200':
+          description: 200 response
+          schema:
+            $ref: '#/definitions/Empty'
+  /api/reference/local-office:
+    get:
+      produces:
+        - application/json
+      parameters:
+        - name: gmcId
+          in: path
+          required: false
+          type: string
+        - name: notificationId
+          in: path
+          required: false
+          type: string
+        - name: formId
+          in: path
+          required: false
+          type: string
+        - name: traineeId
+          in: path
+          required: false
+          type: string
+        - name: calculationId
+          in: path
+          required: false
+          type: string
+        - name: gmcIds
+          in: path
+          required: false
+          type: string
+        - name: programmeMembershipId
+          in: path
+          required: false
+          type: string
+        - name: proxy
+          in: path
+          required: false
+          type: string
+        - name: recommendationId
+          in: path
+          required: false
+          type: string
+        - name: actionId
+          in: path
+          required: false
+          type: string
+        - name: gmcNumber
+          in: path
+          required: false
+          type: string
+      responses:
+        '200':
+          description: 200 response
+          schema:
+            $ref: '#/definitions/Empty'
+  /api/reference/local-office-contact:
+    get:
+      produces:
+        - application/json
+      parameters:
+        - name: gmcId
+          in: path
+          required: false
+          type: string
+        - name: notificationId
+          in: path
+          required: false
+          type: string
+        - name: formId
+          in: path
+          required: false
+          type: string
+        - name: traineeId
+          in: path
+          required: false
+          type: string
+        - name: calculationId
+          in: path
+          required: false
+          type: string
+        - name: gmcIds
+          in: path
+          required: false
+          type: string
+        - name: programmeMembershipId
+          in: path
+          required: false
+          type: string
+        - name: proxy
+          in: path
+          required: false
+          type: string
+        - name: recommendationId
+          in: path
+          required: false
+          type: string
+        - name: actionId
+          in: path
+          required: false
+          type: string
+        - name: gmcNumber
+          in: path
+          required: false
+          type: string
+      responses:
+        '200':
+          description: 200 response
+          schema:
+            $ref: '#/definitions/Empty'
+  /api/reference/programme-membership-type:
+    get:
+      produces:
+        - application/json
+      parameters:
+        - name: gmcId
+          in: path
+          required: false
+          type: string
+        - name: notificationId
+          in: path
+          required: false
+          type: string
+        - name: formId
+          in: path
+          required: false
+          type: string
+        - name: traineeId
+          in: path
+          required: false
+          type: string
+        - name: calculationId
+          in: path
+          required: false
+          type: string
+        - name: gmcIds
+          in: path
+          required: false
+          type: string
+        - name: programmeMembershipId
+          in: path
+          required: false
+          type: string
+        - name: proxy
+          in: path
+          required: false
+          type: string
+        - name: recommendationId
+          in: path
+          required: false
+          type: string
+        - name: actionId
+          in: path
+          required: false
+          type: string
+        - name: gmcNumber
+          in: path
+          required: false
+          type: string
+      responses:
+        '200':
+          description: 200 response
+          schema:
+            $ref: '#/definitions/Empty'
+  /api/reference/qualification:
+    get:
+      produces:
+        - application/json
+      parameters:
+        - name: gmcId
+          in: path
+          required: false
+          type: string
+        - name: notificationId
+          in: path
+          required: false
+          type: string
+        - name: formId
+          in: path
+          required: false
+          type: string
+        - name: traineeId
+          in: path
+          required: false
+          type: string
+        - name: calculationId
+          in: path
+          required: false
+          type: string
+        - name: gmcIds
+          in: path
+          required: false
+          type: string
+        - name: programmeMembershipId
+          in: path
+          required: false
+          type: string
+        - name: proxy
+          in: path
+          required: false
+          type: string
+        - name: recommendationId
+          in: path
+          required: false
+          type: string
+        - name: actionId
+          in: path
+          required: false
+          type: string
+        - name: gmcNumber
+          in: path
+          required: false
+          type: string
+      responses:
+        '200':
+          description: 200 response
+          schema:
+            $ref: '#/definitions/Empty'
+  /api/trainee/basic-details/email-address:
+    put:
+      produces:
+        - application/json
+      parameters:
+        - name: gmcId
+          in: path
+          required: false
+          type: string
+        - name: notificationId
+          in: path
+          required: false
+          type: string
+        - name: formId
+          in: path
+          required: false
+          type: string
+        - name: traineeId
+          in: path
+          required: false
+          type: string
+        - name: calculationId
+          in: path
+          required: false
+          type: string
+        - name: gmcIds
+          in: path
+          required: false
+          type: string
+        - name: programmeMembershipId
+          in: path
+          required: false
+          type: string
+        - name: proxy
+          in: path
+          required: false
+          type: string
+        - name: recommendationId
+          in: path
+          required: false
+          type: string
+        - name: actionId
+          in: path
+          required: false
+          type: string
+        - name: gmcNumber
+          in: path
+          required: false
+          type: string
+      responses:
+        '200':
+          description: 200 response
+          schema:
+            $ref: '#/definitions/Empty'
+  /api/trainee/basic-details/gmc-number:
+    put:
+      produces:
+        - application/json
+      parameters:
+        - name: gmcId
+          in: path
+          required: false
+          type: string
+        - name: notificationId
+          in: path
+          required: false
+          type: string
+        - name: formId
+          in: path
+          required: false
+          type: string
+        - name: traineeId
+          in: path
+          required: false
+          type: string
+        - name: calculationId
+          in: path
+          required: false
+          type: string
+        - name: gmcIds
+          in: path
+          required: false
+          type: string
+        - name: programmeMembershipId
+          in: path
+          required: false
+          type: string
+        - name: proxy
+          in: path
+          required: false
+          type: string
+        - name: recommendationId
+          in: path
+          required: false
+          type: string
+        - name: actionId
+          in: path
+          required: false
+          type: string
+        - name: gmcNumber
+          in: path
+          required: false
+          type: string
+      responses:
+        '200':
+          description: 200 response
+          schema:
+            $ref: '#/definitions/Empty'
+  /api/trainee/cct/calculation:
+    get:
+      produces:
+        - application/json
+      parameters:
+        - name: gmcId
+          in: path
+          required: false
+          type: string
+        - name: notificationId
+          in: path
+          required: false
+          type: string
+        - name: formId
+          in: path
+          required: false
+          type: string
+        - name: traineeId
+          in: path
+          required: false
+          type: string
+        - name: calculationId
+          in: path
+          required: false
+          type: string
+        - name: gmcIds
+          in: path
+          required: false
+          type: string
+        - name: programmeMembershipId
+          in: path
+          required: false
+          type: string
+        - name: proxy
+          in: path
+          required: false
+          type: string
+        - name: recommendationId
+          in: path
+          required: false
+          type: string
+        - name: actionId
+          in: path
+          required: false
+          type: string
+        - name: gmcNumber
+          in: path
+          required: false
+          type: string
+      responses:
+        '200':
+          description: 200 response
+          schema:
+            $ref: '#/definitions/Empty'
+    post:
+      produces:
+        - application/json
+      parameters:
+        - name: gmcId
+          in: path
+          required: false
+          type: string
+        - name: notificationId
+          in: path
+          required: false
+          type: string
+        - name: formId
+          in: path
+          required: false
+          type: string
+        - name: traineeId
+          in: path
+          required: false
+          type: string
+        - name: calculationId
+          in: path
+          required: false
+          type: string
+        - name: gmcIds
+          in: path
+          required: false
+          type: string
+        - name: programmeMembershipId
+          in: path
+          required: false
+          type: string
+        - name: proxy
+          in: path
+          required: false
+          type: string
+        - name: recommendationId
+          in: path
+          required: false
+          type: string
+        - name: actionId
+          in: path
+          required: false
+          type: string
+        - name: gmcNumber
+          in: path
+          required: false
+          type: string
+      responses:
+        '200':
+          description: 200 response
+          schema:
+            $ref: '#/definitions/Empty'
+  /api/trainee/cct/calculation/{calculationId}:
+    get:
+      produces:
+        - application/json
+      parameters:
+        - name: gmcId
+          in: path
+          required: false
+          type: string
+        - name: notificationId
+          in: path
+          required: false
+          type: string
+        - name: formId
+          in: path
+          required: false
+          type: string
+        - name: traineeId
+          in: path
+          required: false
+          type: string
+        - name: calculationId
+          in: path
+          required: false
+          type: string
+        - name: gmcIds
+          in: path
+          required: false
+          type: string
+        - name: programmeMembershipId
+          in: path
+          required: false
+          type: string
+        - name: proxy
+          in: path
+          required: false
+          type: string
+        - name: recommendationId
+          in: path
+          required: false
+          type: string
+        - name: actionId
+          in: path
+          required: false
+          type: string
+        - name: gmcNumber
+          in: path
+          required: false
+          type: string
+      responses:
+        '200':
+          description: 200 response
+          schema:
+            $ref: '#/definitions/Empty'
+    put:
+      produces:
+        - application/json
+      parameters:
+        - name: gmcId
+          in: path
+          required: false
+          type: string
+        - name: notificationId
+          in: path
+          required: false
+          type: string
+        - name: formId
+          in: path
+          required: false
+          type: string
+        - name: traineeId
+          in: path
+          required: false
+          type: string
+        - name: calculationId
+          in: path
+          required: false
+          type: string
+        - name: gmcIds
+          in: path
+          required: false
+          type: string
+        - name: programmeMembershipId
+          in: path
+          required: false
+          type: string
+        - name: proxy
+          in: path
+          required: false
+          type: string
+        - name: recommendationId
+          in: path
+          required: false
+          type: string
+        - name: actionId
+          in: path
+          required: false
+          type: string
+        - name: gmcNumber
+          in: path
+          required: false
+          type: string
+      responses:
+        '200':
+          description: 200 response
+          schema:
+            $ref: '#/definitions/Empty'
+    delete:
+      produces:
+        - application/json
+      parameters:
+        - name: gmcId
+          in: path
+          required: false
+          type: string
+        - name: notificationId
+          in: path
+          required: false
+          type: string
+        - name: formId
+          in: path
+          required: false
+          type: string
+        - name: traineeId
+          in: path
+          required: false
+          type: string
+        - name: calculationId
+          in: path
+          required: false
+          type: string
+        - name: gmcIds
+          in: path
+          required: false
+          type: string
+        - name: programmeMembershipId
+          in: path
+          required: false
+          type: string
+        - name: proxy
+          in: path
+          required: false
+          type: string
+        - name: recommendationId
+          in: path
+          required: false
+          type: string
+        - name: actionId
+          in: path
+          required: false
+          type: string
+        - name: gmcNumber
+          in: path
+          required: false
+          type: string
+      responses:
+        '200':
+          description: 200 response
+          schema:
+            $ref: '#/definitions/Empty'
+  /api/trainee/profile:
+    get:
+      produces:
+        - application/json
+      parameters:
+        - name: gmcId
+          in: path
+          required: false
+          type: string
+        - name: notificationId
+          in: path
+          required: false
+          type: string
+        - name: formId
+          in: path
+          required: false
+          type: string
+        - name: traineeId
+          in: path
+          required: false
+          type: string
+        - name: calculationId
+          in: path
+          required: false
+          type: string
+        - name: gmcIds
+          in: path
+          required: false
+          type: string
+        - name: programmeMembershipId
+          in: path
+          required: false
+          type: string
+        - name: proxy
+          in: path
+          required: false
+          type: string
+        - name: recommendationId
+          in: path
+          required: false
+          type: string
+        - name: actionId
+          in: path
+          required: false
+          type: string
+        - name: gmcNumber
+          in: path
+          required: false
+          type: string
+      responses:
+        '200':
+          description: 200 response
+          schema:
+            $ref: '#/definitions/Empty'
+  /api/trainee/profile/move/{fromTraineeId}/{toTraineeId}:
+    post:
+      produces:
+        - application/json
+      parameters:
+        - name: gmcId
+          in: path
+          required: false
+          type: string
+        - name: notificationId
+          in: path
+          required: false
+          type: string
+        - name: formId
+          in: path
+          required: false
+          type: string
+        - name: traineeId
+          in: path
+          required: false
+          type: string
+        - name: calculationId
+          in: path
+          required: false
+          type: string
+        - name: gmcIds
+          in: path
+          required: false
+          type: string
+        - name: programmeMembershipId
+          in: path
+          required: false
+          type: string
+        - name: proxy
+          in: path
+          required: false
+          type: string
+        - name: recommendationId
+          in: path
+          required: false
+          type: string
+        - name: actionId
+          in: path
+          required: false
+          type: string
+        - name: gmcNumber
+          in: path
+          required: false
+          type: string
+        - name: fromTraineeId
+          in: path
+          required: true
+          type: string
+        - name: toTraineeId
+          in: path
+          required: true
+          type: string
+      responses:
+        '200':
+          description: 200 response
+          schema:
+            $ref: '#/definitions/Empty'
+  /api/trainee/programme-membership/ispilot2024/{traineeTisId}/{programmeMembershipId}:
+    get:
+      produces:
+        - application/json
+      parameters:
+        - name: programmeMembershipId
+          in: path
+          required: true
+          type: string
+        - name: traineeTisId
+          in: path
+          required: true
+          type: string
+      responses:
+        '200':
+          description: 200 response
+          schema:
+            $ref: '#/definitions/Empty'
+  /api/trainee/programme-membership/{programmeMembershipId}/confirmation:
+    get:
+      produces:
+        - application/json
+      parameters:
+        - name: gmcId
+          in: path
+          required: false
+          type: string
+        - name: notificationId
+          in: path
+          required: false
+          type: string
+        - name: formId
+          in: path
+          required: false
+          type: string
+        - name: traineeId
+          in: path
+          required: false
+          type: string
+        - name: calculationId
+          in: path
+          required: false
+          type: string
+        - name: gmcIds
+          in: path
+          required: false
+          type: string
+        - name: programmeMembershipId
+          in: path
+          required: false
+          type: string
+        - name: proxy
+          in: path
+          required: false
+          type: string
+        - name: recommendationId
+          in: path
+          required: false
+          type: string
+        - name: actionId
+          in: path
+          required: false
+          type: string
+        - name: gmcNumber
+          in: path
+          required: false
+          type: string
+      responses:
+        '200':
+          description: 200 response
+          schema:
+            $ref: '#/definitions/Empty'
+  /api/trainee/programme-membership/{programmeMembershipId}/sign-coj:
+    post:
+      produces:
+        - application/json
+      parameters:
+        - name: gmcId
+          in: path
+          required: false
+          type: string
+        - name: notificationId
+          in: path
+          required: false
+          type: string
+        - name: formId
+          in: path
+          required: false
+          type: string
+        - name: traineeId
+          in: path
+          required: false
+          type: string
+        - name: calculationId
+          in: path
+          required: false
+          type: string
+        - name: gmcIds
+          in: path
+          required: false
+          type: string
+        - name: programmeMembershipId
+          in: path
+          required: false
+          type: string
+        - name: proxy
+          in: path
+          required: false
+          type: string
+        - name: recommendationId
+          in: path
+          required: false
+          type: string
+        - name: actionId
+          in: path
+          required: false
+          type: string
+        - name: gmcNumber
+          in: path
+          required: false
+          type: string
+      responses:
+        '200':
+          description: 200 response
+          schema:
+            $ref: '#/definitions/Empty'
+components: {}
+host: trainee.tis.nhs.uk
+schemes:
+  - https
+definitions:
+  Empty:
+    type: object
+    title: Empty Schema
