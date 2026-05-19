@@ -6,11 +6,58 @@ servers:
   - url: http://localhost:8207/forms
     description: Generated server url
 paths:
+  "/api/job/formr-parta/publish-refresh":
+    post:
+      tags:
+        - job-resource
+      operationId: publishFormRPartARefresh
+      parameters:
+        - name: since
+          in: query
+          required: false
+          schema:
+            type: string
+            format: date
+      responses:
+        "200":
+          description: OK
+          content:
+            "*/*":
+              schema:
+                type: integer
+                format: int32
+    "/api/job/formr-partb/publish-refresh":
+      post:
+        tags:
+          - job-resource
+        operationId: publishFormRPartBRefresh
+        parameters:
+          - name: since
+            in: query
+            required: false
+            schema:
+              type: string
+              format: date
+        responses:
+          "200":
+            description: OK
+            content:
+              "*/*":
+                schema:
+                  type: integer
+                  format: int32
   "/api/job/ltft/publish-refresh":
     post:
       tags:
         - job-resource
       operationId: publishLtftRefresh
+      parameters:
+        - name: since
+          in: query
+          required: false
+          schema:
+            type: string
+            format: date
       responses:
         "200":
           description: OK

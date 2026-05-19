@@ -20,8 +20,8 @@ Several options are provided for previewing the documentation.
 #### Docker
 A [Docker compose](docker-compose.yml) file is provided for ease of use, the
 [openapi.yml](openapi.yml) file will be mapped in to the container so edits can
-be viewed without restarting the container. Run `docker compose up -d` followed
-by navigating to `http://localhost:8080`.
+be viewed without restarting the container. Run `docker compose up -d` (or `podman compose up -d`) 
+followed by navigating to `http://localhost:8080`.
 
 #### NPM
 Node can be used to bundle and serve an OpenAPI viewer by running `npm run start`,
