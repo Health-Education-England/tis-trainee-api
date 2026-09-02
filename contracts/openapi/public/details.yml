@@ -212,22 +212,85 @@ components:
       required:
         - startDate
         - type
-        - wte
       type: object
       properties:
         id:
+          description: Unique identifier for the change.
           type: string
           format: uuid
+          example: b2f8df7b-82f6-413f-8265-35a008d6b53b
+          readOnly: true
         type:
+          description: The type of change to the trainee's programme.
           type: string
           enum:
             - LTFT
+            - OOPC
+            - OOPE
+            - OOPP
+            - OOPR
+            - OOPT
+            - PARENTAL
+            - PHASED
+            - SHIELDING
+            - SICKNESS
+            - ACCRUED_LEAVE
         startDate:
+          description: Date the change starts affecting the trainee's programme.
           type: string
           format: date
+        endDate:
+          description: Date the change stops affecting the trainee's programme. When provided, must be later than startDate. Omit if the change is ongoing until programme completion.
+          type: string
+          format: date
+        countsTowardsCompletion:
+          description: |
+            Indicates whether time between these dates counts as training towards programme completion.
+
+            Rules by `type`:
+            - `OOPR` or `OOPT`: required, may be `true` or `false`.
+            - `LTFT`: optional, treated as `true` when omitted. If provided, must be `true` (`false` is invalid).
+            - All other types: optional, treated as `false` when omitted. If provided, must be `false` (`true` is invalid).
+          type: boolean
         wte:
+          description: Whole-time equivalent during this change, expressed as a value between 0 and 1 (for example, 0.8 = 80%)
           type: number
-          format: double
+          format: percent
+          minimum: 0
+          maximum: 1
+        notes:
+          description: Free-text notes providing additional context for this change.
+          type: string
+      allOf:
+        - oneOf:
+            - properties:
+                type:
+                  enum:
+                    - OOPR
+                    - OOPT
+              required:
+                - countsTowardsCompletion
+            - properties:
+                type:
+                  enum:
+                    - LTFT
+                countsTowardsCompletion:
+                  enum:
+                    - true
+            - properties:
+                type:
+                  enum:
+                    - OOPC
+                    - OOPE
+                    - OOPP
+                    - PARENTAL
+                    - PHASED
+                    - SHIELDING
+                    - SICKNESS
+                    - ACCRUED_LEAVE
+                countsTowardsCompletion:
+                  enum:
+                    - false
     CctProgrammeMembershipDto:
       required:
         - endDate
