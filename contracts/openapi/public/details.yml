@@ -185,8 +185,10 @@ components:
       required:
         - changes
         - name
+        - programmeDetails
         - programmeMembership
         - projection
+        - result
       type: object
       properties:
         id:
@@ -203,10 +205,7 @@ components:
         programmeMembership:
           $ref: "#/components/schemas/CctProgrammeMembershipDto"
         programmeDetails:
-          type: object
-          nullable: true
-          allOf:
-            - $ref: "#/components/schemas/CctProgrammeDetailsDto"
+          $ref: "#/components/schemas/CctProgrammeDetailsDto"
         changes:
           description: |
             The changes affecting the trainee's programme.
@@ -220,14 +219,9 @@ components:
         projection:
           $ref: "#/components/schemas/ProjectionDto"
         result:
-          type: object
-          nullable: true
+          description: The result of the CCT calculation, calculated by the client and stored unchanged by the server.
           allOf:
             - $ref: "#/components/schemas/CctResultDto"
-        cctDate:
-          type: string
-          format: date
-          nullable: true
         created:
           type: string
           format: date-time
@@ -287,6 +281,7 @@ components:
         wte:
           description: |
             Whole-time equivalent during this change, expressed as a value between 0.01 and 1 (for example, 0.8 = 80%).
+
             Rules by `type` and `countsTowardsCompletion`:
             - `LTFT`: required, between 0.01 and 0.99.
             - `OOPR` with `countsTowardsCompletion` set to `true`: required, between 0.01 and 1.
@@ -309,8 +304,10 @@ components:
         startDate:
           description: |
             Date from which the remaining training is projected.
-            Must be strictly after the endDate of every entry in changes and on or after programmeDetails.startDate 
-            (only applies when changes is empty).
+
+            Rules:
+            - Must be after the `endDate` of every entry in `changes`.
+            - Must be on or after `programmeDetails.startDate` (relevant when `changes` is empty).
           type: string
           format: date
         wte:
@@ -388,19 +385,15 @@ components:
           type: string
           nullable: true
     CctResultDto:
+      description: The result of a CCT calculation, calculated by the client from the programme details, changes and projection.
       required:
         - cctDate
       type: object
       properties:
         cctDate:
-          description: The computed indicative CCT date.
+          description: The indicative CCT date, calculated by the client.
           type: string
           format: date
-        projection:
-          type: object
-          nullable: true
-          allOf:
-            - $ref: "#/components/schemas/ProjectionDto"
         totalWteMonthsCompleted:
           description: The total whole-time equivalent months of training completed.
           type: number
