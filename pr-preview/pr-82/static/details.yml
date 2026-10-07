@@ -195,7 +195,7 @@ components:
           type: string
           format: uuid
           nullable: true
-        traineeTisId:
+        traineeId:
           description: The TIS ID of the trainee who owns the calculation, assigned by the server.
           type: string
           nullable: true
@@ -718,12 +718,12 @@ components:
           type: string
     TraineeProfileDto:
       required:
-        - traineeTisId
+        - traineeId
       type: object
       properties:
         id:
           type: string
-        traineeTisId:
+        traineeId:
           type: string
         personalDetails:
           $ref: '#/components/schemas/PersonalDetailsDto'
