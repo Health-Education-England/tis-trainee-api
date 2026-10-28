@@ -25,10 +25,15 @@ paths:
             "*/*":
               schema:
                 $ref: "#/components/schemas/CctCalculationDetailDto"
+        "403":
+          description: Forbidden. The calculation belongs to another trainee.
+        "404":
+          description: Not Found. There's no calculation with this `id`.
     put:
       tags:
         - cct-resource
       operationId: updateCalculationDetails
+      description: Recalculates a saved calculation from the sent `programmeDetails` and `changes`, and replaces the stored one.
       parameters:
         - name: id
           in: path
@@ -40,7 +45,7 @@ paths:
         content:
           application/json:
             schema:
-              $ref: "#/components/schemas/CctCalculationDetailDto"
+              $ref: "#/components/schemas/CctCalculationSaveRequestDto"
         required: true
       responses:
         "200":
@@ -49,6 +54,12 @@ paths:
             "*/*":
               schema:
                 $ref: "#/components/schemas/CctCalculationDetailDto"
+        "400":
+          description: Bad Request, as for `POST /api/cct/calculation`. A missing or different `id` can also get a 400 with no body, as described under `id` in `CctCalculationSaveRequestDto`.
+        "403":
+          description: Forbidden. The calculation belongs to another trainee.
+        "404":
+          description: Not Found. There's no calculation with this `id`.
     delete:
       tags:
         - cct-resource
@@ -62,11 +73,15 @@ paths:
             format: uuid
       responses:
         "200":
-          description: OK
+          description: OK. The body is always `true`.
           content:
             "*/*":
               schema:
                 type: boolean
+        "403":
+          description: Forbidden. The calculation belongs to another trainee.
+        "404":
+          description: Not Found. There's no calculation with this `id`.
   /api/basic-details/gmc-number:
     put:
       tags:
@@ -122,6 +137,7 @@ paths:
       tags:
         - cct-resource
       operationId: getCalculationDetails
+      description: Gets the trainee's saved calculations, ordered by `lastModified`, oldest first.
       responses:
         "200":
           description: OK
@@ -135,11 +151,45 @@ paths:
       tags:
         - cct-resource
       operationId: createCalculation
+      description: Calculates the CCT date for a programme and its changes, as `POST /api/cct/calculate` does, and saves it as a new calculation for the trainee.
       requestBody:
         content:
           application/json:
             schema:
-              $ref: "#/components/schemas/CctCalculationDetailDto"
+              $ref: "#/components/schemas/CctCalculationSaveRequestDto"
+        required: true
+      responses:
+        "201":
+          description: Created
+          headers:
+            Location:
+              description: The path of the new calculation, `/api/cct/calculation/{id}`.
+              schema:
+                type: string
+          content:
+            "*/*":
+              schema:
+                $ref: "#/components/schemas/CctCalculationDetailDto"
+        "400":
+          description: |
+            Bad Request. The body is a problem detail, as for `POST /api/cct/calculate`.
+
+            - If the request breaks one of the rules in this contract, the title is "Validation failure", and `errors` lists each failure as a `BodyValidationError`. That includes the two rules that only saving checks, with the same pointers, wording and order as `errors` in a `POST /api/cct/calculate` response.
+            - If the body can't be read, there's no `errors`.
+  /api/cct/calculate:
+    post:
+      tags:
+        - cct-resource
+      operationId: calculate
+      description: |
+        Calculates the CCT date for a programme and its changes, and saves nothing.
+
+        It answers 400 only for a request that is wrong on its own terms. A change that starts before `programmeDetails.startDate`, or that starts or ends after the calculated `cctDate`, still gets a 200, and `errors` lists it: only saving a calculation rejects those.
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: "#/components/schemas/CctCalculateRequestDto"
         required: true
       responses:
         "200":
@@ -147,7 +197,27 @@ paths:
           content:
             "*/*":
               schema:
-                $ref: "#/components/schemas/CctCalculationDetailDto"
+                $ref: "#/components/schemas/CctCalculateResponseDto"
+        "400":
+          description: |
+            Bad Request. The body is a problem detail.
+
+            - If the request breaks one of the rules in this contract, the title is "Validation failure", and `errors` lists each failure as a `BodyValidationError`: a `pointer` to the field, such as `#/changes[0]/wte`, and a `detail`.
+            - If the body can't be read, for example because of a malformed date, an unknown enum value or a fractional number of months, there's no `errors`.
+  /api/cct/specialties:
+    get:
+      tags:
+        - cct-resource
+      operationId: getSpecialties
+      responses:
+        "200":
+          description: OK
+          content:
+            "*/*":
+              schema:
+                type: array
+                items:
+                  $ref: "#/components/schemas/CctSpecialtyDto"
   /api/trainee-profile:
     get:
       tags:
@@ -182,10 +252,15 @@ paths:
 components:
   schemas:
     CctCalculationDetailDto:
+      description: A saved CCT calculation. The server recalculates `result`, and each change's `calendarMonths` and `wteMonths`, whenever the calculation is saved, and returns them as stored.
       required:
-        - changes
+        - id
         - name
-        - programmeMembership
+        - programmeDetails
+        - changes
+        - result
+        - created
+        - lastModified
       type: object
       properties:
         id:
@@ -193,68 +268,561 @@ components:
           format: uuid
         name:
           type: string
-        programmeMembership:
-          $ref: "#/components/schemas/CctProgrammeMembershipDto"
+        programmeDetails:
+          $ref: "#/components/schemas/CctProgrammeDetailsDto"
         changes:
+          description: The changes, in the order they were sent, with the months each one credits.
           type: array
           items:
-            $ref: "#/components/schemas/CctChangeDto"
-        cctDate:
-          type: string
-          format: date
+            $ref: "#/components/schemas/CctCalculatedChangeDto"
+        result:
+          $ref: "#/components/schemas/CctResultDto"
         created:
+          description: When the calculation was first saved.
           type: string
           format: date-time
         lastModified:
+          description: When the calculation was last saved.
           type: string
           format: date-time
-    CctChangeDto:
+    CctCalculationSaveRequestDto:
+      description: A calculation to save. The server calculates its `result`, and each change's `calendarMonths` and `wteMonths`, as `POST /api/cct/calculate` does. Any other fields sent, such as `result`, `created` or a change's `calendarMonths`, are ignored.
       required:
-        - startDate
-        - type
-        - wte
+        - name
+        - programmeDetails
+        - changes
       type: object
       properties:
         id:
+          description: |
+            The calculation's ID.
+            - `POST`: must be `null` or omitted, and the server assigns one.
+            - `PUT`: required, and must be the path's `id`. If the rest of the request is valid, a missing or different `id` gets a 400 with no body.
           type: string
           format: uuid
+          nullable: true
+        name:
+          description: A name for the calculation. Must not be blank.
+          type: string
+        programmeDetails:
+          $ref: "#/components/schemas/CctProgrammeDetailsDto"
+        changes:
+          description: |
+            The changes affecting the trainee's programme, with the same rules as `changes` in a `POST /api/cct/calculate` request. They're saved in the order sent.
+
+            Saving also rejects a change that:
+            - starts before `programmeDetails.startDate`;
+            - starts or ends after the `cctDate` that saving calculates.
+
+            Those are the failures that `errors` lists in a `POST /api/cct/calculate` response.
+          type: array
+          maxItems: 200
+          items:
+            $ref: "#/components/schemas/CctChangeDto"
+    CctCalculateRequestDto:
+      description: The programme details and changes to calculate a CCT date for.
+      required:
+        - programmeDetails
+        - changes
+      type: object
+      properties:
+        programmeDetails:
+          $ref: "#/components/schemas/CctProgrammeDetailsDto"
+        changes:
+          description: |
+            The changes affecting the trainee's programme. May be empty, which gives the CCT date from the programme details alone.
+
+            Rules:
+            - No two changes with an `endDate` may overlap. Each covers `startDate` to `endDate` inclusive.
+            - At most one change may have a `null` `endDate`. It must be an `LTFT` change, and it must start after every other change ends.
+            - Time that no change covers, between the programme start and the projection start, is assumed to be full time. That includes a gap just before an `LTFT` change with a `null` `endDate`. The projection start is described under `startDate` in `CctProjectionDto`.
+          type: array
+          maxItems: 200
+          items:
+            $ref: "#/components/schemas/CctChangeDto"
+    CctCalculateResponseDto:
+      description: The result of calculating a CCT date, with the months each change credits, and the errors that would stop the calculation being saved.
+      required:
+        - changes
+        - result
+        - errors
+      type: object
+      properties:
+        changes:
+          description: The request's changes, in request order, so `changes[i]` is the request's `changes[i]`. Each one comes back as the server read it, so an omitted `wte` or `notes` comes back `null`, and an omitted `countsTowardsCompletion` comes back `false`.
+          type: array
+          items:
+            $ref: "#/components/schemas/CctCalculatedChangeDto"
+        result:
+          $ref: "#/components/schemas/CctResultDto"
+        errors:
+          description: |
+            The errors that would stop the calculation being saved. Never `null`, and empty when the calculation can be saved.
+
+            They're for the two rules that only saving checks:
+            - a change that starts before `programmeDetails.startDate` gets an error at `#/changes[i]/startDate`;
+            - a change that starts after `result.cctDate` gets one at `#/changes[i]/startDate`, and a change that ends after it gets one at `#/changes[i]/endDate`.
+
+            `i` is the change's index in the request's `changes`.
+
+            They match the `errors` in the 400 that saving the calculation gets: the same pointers, wording and order. They're ordered by `pointer`, then by `detail`, compared as text, so `#/changes[10]/startDate` comes before `#/changes[2]/startDate`, and `#/changes[0]/endDate` before `#/changes[0]/startDate`.
+          type: array
+          items:
+            $ref: "#/components/schemas/BodyValidationError"
+    BodyValidationError:
+      description: A field in the request body that breaks one of the rules in this contract.
+      required:
+        - pointer
+        - detail
+      type: object
+      properties:
+        pointer:
+          description: The field, such as `#/changes[0]/startDate`.
+          type: string
+        detail:
+          description: Why the field breaks the rule, for example "Start date cannot be after end date."
+          type: string
+    CctChangeDto:
+      description: A change to the trainee's programme. It takes one of the shapes in `oneOf`, decided by `type` and, for `OOPR`, by `countsTowardsCompletion`.
+      required:
+        - startDate
+        - endDate
+        - type
+      type: object
+      properties:
+        type:
+          description: The type of change to the trainee's programme.
+          type: string
+          enum:
+            - LTFT
+            - OOPC
+            - OOPE
+            - OOPP
+            - OOPR
+            - OOPT
+            - PARENTAL
+            - PHASED
+            - SHIELDING
+            - SICKNESS
+            - ACCRUED_LEAVE
+        startDate:
+          description: Date the change starts affecting the trainee's programme.
+          type: string
+          format: date
+        endDate:
+          description: |
+            Date the change stops affecting the trainee's programme, inclusive. Must be on or after startDate.
+            ie. Single-day changes are valid e.g. one sickness day.
+            A counted `OOPT` can last at most 12 months, e.g. 2024-01-01 to 2024-12-31.
+
+            `null` only for an `LTFT` change that lasts for the rest of training (an open `LTFT` change). The server then projects completion from that change's `startDate` at its `wte`.
+          type: string
+          format: date
+          nullable: true
+        countsTowardsCompletion:
+          description: |
+            Indicates whether time between these dates counts as training towards programme completion.
+
+            Rules by `type`:
+            - `OOPR` or `OOPT`: required, may be `true` or `false`.
+            - `LTFT`: required, must be `true` (`false` is invalid).
+            - All other types: optional, treated as `false` when omitted. If provided, must be `false` (`true` is invalid).
+          type: boolean
+        wte:
+          description: |
+            Whole-time equivalent during this change, expressed as a value between 0.01 and 1 (for example, 0.8 = 80%). It's a whole percent, so it has at most 2 decimal places: 0.12 and 0.6 are valid, 0.125 is not.
+
+            Rules by `type` and `countsTowardsCompletion`:
+            - `LTFT`: required, between 0.01 and 0.99.
+            - `OOPR` with `countsTowardsCompletion` set to `true`: required, between 0.01 and 1.
+            - All other cases, including `OOPT` and `OOPR` not counting towards completion: must be null.
+          type: number
+          format: double
+          nullable: true
+          minimum: 0.01
+          maximum: 1
+        notes:
+          description: Free-text notes providing additional context for this change. At most 1000 characters, once leading and trailing whitespace is trimmed.
+          type: string
+          nullable: true
+      oneOf:
+        - $ref: "#/components/schemas/LtftCctChange"
+        - $ref: "#/components/schemas/OoprCountingTowardsCompletionCctChange"
+        - $ref: "#/components/schemas/OoprNotCountingTowardsCompletionCctChange"
+        - $ref: "#/components/schemas/OoptCctChange"
+        - $ref: "#/components/schemas/OtherCctChange"
+    LtftCctChange:
+      description: An `LTFT` change, the only type whose `endDate` may be `null`.
+      required:
+        - countsTowardsCompletion
+        - wte
+      type: object
+      properties:
         type:
           type: string
           enum:
             - LTFT
-        startDate:
-          type: string
-          format: date
+        countsTowardsCompletion:
+          type: boolean
+          enum:
+            - true
         wte:
           type: number
           format: double
-    CctProgrammeMembershipDto:
+          maximum: 0.99
+    OoprCountingTowardsCompletionCctChange:
+      description: An `OOPR` counted as training, credited at its `wte`.
       required:
-        - endDate
-        - id
-        - name
-        - startDate
+        - countsTowardsCompletion
         - wte
       type: object
       properties:
-        id:
+        type:
           type: string
-          format: uuid
-        name:
-          type: string
-        startDate:
-          type: string
-          format: date
+          enum:
+            - OOPR
         endDate:
           type: string
           format: date
+        countsTowardsCompletion:
+          type: boolean
+          enum:
+            - true
         wte:
           type: number
           format: double
-        designatedBodyCode:
+    OoprNotCountingTowardsCompletionCctChange:
+      description: An `OOPR` not counted as training.
+      required:
+        - countsTowardsCompletion
+      type: object
+      properties:
+        type:
           type: string
-        managingDeanery:
+          enum:
+            - OOPR
+        endDate:
           type: string
+          format: date
+        countsTowardsCompletion:
+          type: boolean
+          enum:
+            - false
+        wte:
+          type: number
+          nullable: true
+          enum:
+            - null
+    OoptCctChange:
+      description: An `OOPT`. When counted as training, it's credited at full time.
+      required:
+        - countsTowardsCompletion
+      type: object
+      properties:
+        type:
+          type: string
+          enum:
+            - OOPT
+        endDate:
+          type: string
+          format: date
+        countsTowardsCompletion:
+          type: boolean
+        wte:
+          type: number
+          nullable: true
+          enum:
+            - null
+    OtherCctChange:
+      description: Any other type of change. It never counts towards completion.
+      type: object
+      properties:
+        type:
+          type: string
+          enum:
+            - OOPC
+            - OOPE
+            - OOPP
+            - PARENTAL
+            - PHASED
+            - SHIELDING
+            - SICKNESS
+            - ACCRUED_LEAVE
+        endDate:
+          type: string
+          format: date
+        countsTowardsCompletion:
+          type: boolean
+          enum:
+            - false
+        wte:
+          type: number
+          nullable: true
+          enum:
+            - null
+    CctCalculatedChangeDto:
+      description: A change, as the server read it, with the months it credits.
+      allOf:
+        - $ref: "#/components/schemas/CctChangeDto"
+        - type: object
+          required:
+            - calendarMonths
+            - wteMonths
+          properties:
+            calendarMonths:
+              description: The calendar months in the change, from `startDate` to `endDate` inclusive, not rounded. `null` for an open `LTFT` change, whose time is in `result.projection`.
+              type: number
+              format: double
+              nullable: true
+            wteMonths:
+              description: The whole-time equivalent months the change credits towards completion, not rounded, so 0 for a change that doesn't count. `null` for an open `LTFT` change, whose time is in `result.projection`.
+              type: number
+              format: double
+              nullable: true
+    CctProgrammeDetailsDto:
+      required:
+        - specialty
+        - startDate
+        - lengthMonths
+        - startGrade
+        - additionalMonths
+        - acceleratedMonths
+      type: object
+      properties:
+        specialty:
+          description: The specialty's `name`, from `GET /api/cct/specialties`. Must not be blank, but isn't checked against the list.
+          type: string
+        startDate:
+          description: The programme start date.
+          type: string
+          format: date
+        lengthMonths:
+          description: The programme length in months, defaulted from the specialty.
+          type: integer
+          format: int32
+          minimum: 1
+          maximum: 120
+        startGrade:
+          description: The starting grade, defaulted from the specialty but may be overridden.
+          type: string
+          enum:
+            - F1
+            - F2
+            - CT1
+            - CT2
+            - CT3
+            - CT4
+            - ST1
+            - ST2
+            - ST3
+            - ST4
+            - ST5
+            - ST6
+            - ST7
+            - ST8
+            - ST9
+            - DFT
+        startGradeOverrideNotes:
+          description: Notes explaining the start grade override. `POST /api/cct/calculate` doesn't check them.
+          type: string
+          nullable: true
+        additionalMonths:
+          description: Additional months of training, e.g. extra time after an ARCP outcome.
+          type: integer
+          format: int32
+          minimum: 0
+          maximum: 24
+        additionalMonthsNotes:
+          description: Notes explaining the additional months, required and not blank when additionalMonths is greater than 0.
+          type: string
+          nullable: true
+        acceleratedMonths:
+          description: |
+            Months of accelerated training, e.g. recognised prior learning.
+            `lengthMonths + additionalMonths - acceleratedMonths` must be greater than 0.
+          type: integer
+          format: int32
+          minimum: 0
+          maximum: 12
+        acceleratedMonthsNotes:
+          description: Notes explaining the accelerated months, required and not blank when acceleratedMonths is greater than 0.
+          type: string
+          nullable: true
+        eighteenMonthFinalGrade:
+          description: A final grade year lasting 18 months rather than 12.
+          type: string
+          nullable: true
+          enum:
+            - F1
+            - F2
+            - CT1
+            - CT2
+            - CT3
+            - CT4
+            - ST1
+            - ST2
+            - ST3
+            - ST4
+            - ST5
+            - ST6
+            - ST7
+            - ST8
+            - ST9
+            - DFT
+            - null
+        eighteenMonthFinalGradeNotes:
+          description: Notes explaining the 18 month final grade, required and not blank when eighteenMonthFinalGrade is set.
+          type: string
+          nullable: true
+        skippedGrade:
+          description: A grade year skipped in the progression.
+          type: string
+          nullable: true
+          enum:
+            - F1
+            - F2
+            - CT1
+            - CT2
+            - CT3
+            - CT4
+            - ST1
+            - ST2
+            - ST3
+            - ST4
+            - ST5
+            - ST6
+            - ST7
+            - ST8
+            - ST9
+            - DFT
+            - null
+        skippedGradeNotes:
+          description: Notes explaining the skipped grade, required and not blank when skippedGrade is set.
+          type: string
+          nullable: true
+    CctResultDto:
+      description: The result of a CCT calculation, calculated by the server from the programme details and changes.
+      required:
+        - cctDate
+        - originalProgrammeEndDate
+        - adjustedProgrammeEndDate
+        - totalWteMonthsCompleted
+        - monthsRemaining
+        - assumedFullTimePeriods
+        - projection
+      type: object
+      properties:
+        cctDate:
+          description: |
+            The projected Completion of Training Date.
+            If training is already complete (`monthsRemaining` is 0 or less), the day training completes, found by crediting each day of the changes and the assumed full-time periods in date order. Otherwise projected from `projection.startDate`, using the rounded `monthsRemaining`.
+          type: string
+          format: date
+        originalProgrammeEndDate:
+          description: The programme end date from `programmeDetails.startDate` and `lengthMonths`, before any additional or accelerated months.
+          type: string
+          format: date
+        adjustedProgrammeEndDate:
+          description: The programme end date after `additionalMonths` and `acceleratedMonths`. The same as `originalProgrammeEndDate` when both are 0.
+          type: string
+          format: date
+        totalWteMonthsCompleted:
+          description: The total whole-time equivalent months of training completed before the projection starts, including the assumed full-time periods. Not rounded.
+          type: number
+          format: double
+        monthsRemaining:
+          description: The months of training remaining, rounded to 2 decimal places. May be negative if training is already complete. When months remain, the CCT date is projected from this rounded figure.
+          type: number
+          format: double
+        assumedFullTimePeriods:
+          description: The gaps that no change covers, between the programme start and `projection.startDate`, credited as full-time training. In start date order, and empty when there are none.
+          type: array
+          items:
+            $ref: "#/components/schemas/CctAssumedFullTimePeriodDto"
+        projection:
+          $ref: "#/components/schemas/CctProjectionDto"
+    CctAssumedFullTimePeriodDto:
+      description: A gap that no change covers, between the programme start and the projection start, credited as full-time training.
+      required:
+        - startDate
+        - endDate
+        - months
+      type: object
+      properties:
+        startDate:
+          description: The first day of the period.
+          type: string
+          format: date
+        endDate:
+          description: The last day of the period, inclusive.
+          type: string
+          format: date
+        months:
+          description: The months in the period, not rounded. They're both the calendar and the whole-time equivalent months, because the period is full time.
+          type: number
+          format: double
+    CctProjectionDto:
+      description: |
+        The training still to do, from `startDate` to the result's `cctDate`, so it has no `endDate` of its own.
+        When training is already complete (`monthsRemaining` is 0 or less), `cctDate` is before `startDate`, and `calendarMonths` and `wteMonths` are 0 or negative. They aren't clamped.
+      required:
+        - startDate
+        - wte
+        - calendarMonths
+        - wteMonths
+      type: object
+      properties:
+        startDate:
+          description: The first day of the projection. It's an open `LTFT` change's `startDate`. Otherwise it's the day after the latest `endDate`, or `programmeDetails.startDate` when there are no changes.
+          type: string
+          format: date
+        wte:
+          description: The whole-time equivalent of the projection, as a fraction of full time. It's an open `LTFT` change's `wte`, otherwise 1.
+          type: number
+          format: double
+        calendarMonths:
+          description: The calendar months the remaining training takes, `wteMonths` divided by `wte`, not rounded.
+          type: number
+          format: double
+        wteMonths:
+          description: The months of training remaining, the same as `monthsRemaining`, so rounded to 2 decimal places.
+          type: number
+          format: double
+    CctSpecialtyDto:
+      description: A specialty that a CCT date can be calculated for. More fields may be added, so ignore any you don't use.
+      required:
+        - name
+        - lengthMonths
+        - entryGrade
+      type: object
+      properties:
+        name:
+          description: The name of the specialty, which `programmeDetails.specialty` holds.
+          type: string
+        lengthMonths:
+          description: The length of the specialty's programme, in whole months. It's the default for `programmeDetails.lengthMonths`.
+          type: integer
+          format: int32
+        entryGrade:
+          description: The grade the specialty's programme starts at. It's the default for `programmeDetails.startGrade`.
+          type: string
+          enum:
+            - F1
+            - F2
+            - CT1
+            - CT2
+            - CT3
+            - CT4
+            - ST1
+            - ST2
+            - ST3
+            - ST4
+            - ST5
+            - ST6
+            - ST7
+            - ST8
+            - ST9
+            - DFT
     GmcDetailsDto:
       required:
         - gmcNumber
@@ -540,12 +1108,12 @@ components:
           type: string
     TraineeProfileDto:
       required:
-        - traineeTisId
+        - traineeId
       type: object
       properties:
         id:
           type: string
-        traineeTisId:
+        traineeId:
           type: string
         personalDetails:
           $ref: "#/components/schemas/PersonalDetailsDto"
