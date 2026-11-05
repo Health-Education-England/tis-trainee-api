@@ -406,7 +406,7 @@ components:
             - SICKNESS
             - ACCRUED_LEAVE
         startDate:
-          description: Date the change starts affecting the trainee's programme.
+          description: Date the change starts affecting the trainee's programme. Must be from 1970-01-01 to 50 years from today, inclusive.
           type: string
           format: date
         endDate:
@@ -414,6 +414,7 @@ components:
             Date the change stops affecting the trainee's programme, inclusive. Must be on or after startDate.
             ie. Single-day changes are valid e.g. one sickness day.
             A counted `OOPT` can last at most 12 months, e.g. 2024-01-01 to 2024-12-31.
+            Must be from 1970-01-01 to 50 years from today, inclusive.
 
             `null` only for an `LTFT` change that lasts for the rest of training (an open `LTFT` change). The server then projects completion from that change's `startDate` at its `wte`.
           type: string
@@ -593,7 +594,7 @@ components:
           description: The specialty's `name`, from `GET /api/cct/specialties`. Must not be blank, but isn't checked against the list.
           type: string
         startDate:
-          description: The programme start date.
+          description: The programme start date. Must be from 1970-01-01 to 50 years from today, inclusive.
           type: string
           format: date
         lengthMonths:
