@@ -623,6 +623,9 @@ components:
             - ST8
             - ST9
             - DFT
+            - DCT1
+            - DCT2
+            - DCT3
         startGradeOverrideNotes:
           description: Notes explaining the start grade override. `POST /api/cct/calculate` doesn't check them.
           type: string
@@ -670,6 +673,9 @@ components:
             - ST8
             - ST9
             - DFT
+            - DCT1
+            - DCT2
+            - DCT3
             - null
         eighteenMonthFinalGradeNotes:
           description: Notes explaining the 18 month final grade, required and not blank when eighteenMonthFinalGrade is set.
@@ -696,6 +702,9 @@ components:
             - ST8
             - ST9
             - DFT
+            - DCT1
+            - DCT2
+            - DCT3
             - null
         skippedGradeNotes:
           description: Notes explaining the skipped grade, required and not blank when skippedGrade is set.
@@ -824,6 +833,9 @@ components:
             - ST8
             - ST9
             - DFT
+            - DCT1
+            - DCT2
+            - DCT3
     GmcDetailsDto:
       required:
         - gmcNumber
