@@ -696,6 +696,17 @@ components:
         cctDate:
           type: string
           format: date
+    CctSnapshotDto_Write:
+      type: object
+      properties:
+        calculationId:
+          type: string
+          format: uuid
+        snapshotTakenAt:
+          type: string
+          format: date-time
+        calculation:
+          type: object
     DeclarationsDto_Write:
       type: object
       properties:
@@ -736,6 +747,8 @@ components:
           "$ref": "#/components/schemas/DiscussionsDto_Write"
         change:
           "$ref": "#/components/schemas/CctChangeDto_Write"
+        cctSnapshot:
+          "$ref": "#/components/schemas/CctSnapshotDto_Write"
         reasons:
           "$ref": "#/components/schemas/ReasonsDto_Write"
     PersonDto_Write:
@@ -827,6 +840,17 @@ components:
         cctDate:
           type: string
           format: date
+    CctSnapshotDto_Read:
+      type: object
+      properties:
+        calculationId:
+          type: string
+          format: uuid
+        snapshotTakenAt:
+          type: string
+          format: date-time
+        calculation:
+          type: object
     DeclarationsDto_Read:
       type: object
       properties:
@@ -879,6 +903,8 @@ components:
           "$ref": "#/components/schemas/DiscussionsDto_Read"
         change:
           "$ref": "#/components/schemas/CctChangeDto_Read"
+        cctSnapshot:
+          "$ref": "#/components/schemas/CctSnapshotDto_Read"
         reasons:
           "$ref": "#/components/schemas/ReasonsDto_Read"
         tpdEmailStatus:
@@ -1469,6 +1495,17 @@ components:
         cctDate:
           type: string
           format: date
+    CctSnapshotDto:
+      type: object
+      properties:
+        calculationId:
+          type: string
+          format: uuid
+        snapshotTakenAt:
+          type: string
+          format: date-time
+        calculation:
+          type: object
     DeclarationsDto:
       type: object
       properties:
@@ -1514,6 +1551,8 @@ components:
           "$ref": "#/components/schemas/DiscussionsDto"
         change:
           "$ref": "#/components/schemas/CctChangeDto"
+        cctSnapshot:
+          "$ref": "#/components/schemas/CctSnapshotDto"
         reasons:
           "$ref": "#/components/schemas/ReasonsDto"
         tpdEmailStatus:

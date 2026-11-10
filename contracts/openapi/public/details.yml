@@ -603,6 +603,10 @@ components:
           format: int32
           minimum: 1
           maximum: 120
+        lengthOverrideNotes:
+          description: Notes explaining the length override. `POST /api/cct/calculate` doesn't check them.
+          type: string
+          nullable: true
         startGrade:
           description: The starting grade, defaulted from the specialty but may be overridden.
           type: string
