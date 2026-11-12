@@ -720,6 +720,7 @@ components:
         - cctDate
         - originalProgrammeEndDate
         - adjustedProgrammeEndDate
+        - totalCalendarMonthsCompleted
         - totalWteMonthsCompleted
         - monthsRemaining
         - assumedFullTimePeriods
@@ -740,6 +741,10 @@ components:
           description: The programme end date after `additionalMonths` and `acceleratedMonths`. The same as `originalProgrammeEndDate` when both are 0.
           type: string
           format: date
+        totalCalendarMonthsCompleted:
+          description: The total calendar months before the projection starts. That's the changes' `calendarMonths`, including changes that don't count towards completion, plus the assumed full-time periods' `months`. Not rounded.
+          type: number
+          format: double
         totalWteMonthsCompleted:
           description: The total whole-time equivalent months of training completed before the projection starts, including the assumed full-time periods. Not rounded.
           type: number

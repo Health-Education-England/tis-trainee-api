@@ -697,13 +697,16 @@ components:
           type: string
           format: date
     CctSnapshotDto_Write:
+      required:
+        - calculationId
+        - calculation
       type: object
       properties:
         calculationId:
           type: string
           format: uuid
         calculation:
-          type: object
+          $ref: '#/components/schemas/CctCalculationDto'
     DeclarationsDto_Write:
       type: object
       properties:
@@ -838,13 +841,16 @@ components:
           type: string
           format: date
     CctSnapshotDto_Read:
+      required:
+        - calculationId
+        - calculation
       type: object
       properties:
         calculationId:
           type: string
           format: uuid
         calculation:
-          type: object
+          $ref: '#/components/schemas/CctCalculationDto'
     DeclarationsDto_Read:
       type: object
       properties:
@@ -1490,13 +1496,167 @@ components:
           type: string
           format: date
     CctSnapshotDto:
+      required:
+        - calculationId
+        - calculation
       type: object
       properties:
         calculationId:
           type: string
           format: uuid
         calculation:
-          type: object
+          $ref: '#/components/schemas/CctCalculationDto'
+    CctCalculationDto:
+      required:
+        - lastModified
+      type: object
+      properties:
+        id:
+          type: string
+          format: uuid
+        name:
+          type: string
+        programmeDetails:
+          $ref: '#/components/schemas/CctProgrammeDetailsDto'
+        changes:
+          type: array
+          items:
+            $ref: '#/components/schemas/CctCalculatedChangeDto'
+        result:
+          $ref: '#/components/schemas/CctResultDto'
+        created:
+          type: string
+          format: date-time
+        lastModified:
+          type: string
+          format: date-time
+    CctProgrammeDetailsDto:
+      type: object
+      properties:
+        specialty:
+          type: string
+        startDate:
+          type: string
+          format: date
+        lengthMonths:
+          type: integer
+          format: int32
+        lengthOverrideNotes:
+          type: string
+          nullable: true
+        startGrade:
+          type: string
+        startGradeOverrideNotes:
+          type: string
+          nullable: true
+        additionalMonths:
+          type: integer
+          format: int32
+        additionalMonthsNotes:
+          type: string
+          nullable: true
+        acceleratedMonths:
+          type: integer
+          format: int32
+        acceleratedMonthsNotes:
+          type: string
+          nullable: true
+        eighteenMonthFinalGrade:
+          type: string
+          nullable: true
+        eighteenMonthFinalGradeNotes:
+          type: string
+          nullable: true
+        skippedGrade:
+          type: string
+          nullable: true
+        skippedGradeNotes:
+          type: string
+          nullable: true
+    CctCalculatedChangeDto:
+      type: object
+      properties:
+        type:
+          type: string
+        startDate:
+          type: string
+          format: date
+        endDate:
+          type: string
+          format: date
+          nullable: true
+        wte:
+          type: number
+          format: double
+          nullable: true
+        countsTowardsCompletion:
+          type: boolean
+        notes:
+          type: string
+          nullable: true
+        calendarMonths:
+          type: number
+          format: double
+          nullable: true
+        wteMonths:
+          type: number
+          format: double
+          nullable: true
+    CctResultDto:
+      type: object
+      properties:
+        cctDate:
+          type: string
+          format: date
+        originalProgrammeEndDate:
+          type: string
+          format: date
+        adjustedProgrammeEndDate:
+          type: string
+          format: date
+        totalCalendarMonthsCompleted:
+          type: number
+          format: double
+          nullable: true
+        totalWteMonthsCompleted:
+          type: number
+          format: double
+        monthsRemaining:
+          type: number
+          format: double
+        assumedFullTimePeriods:
+          type: array
+          items:
+            $ref: '#/components/schemas/CctAssumedFullTimePeriodDto'
+        projection:
+          $ref: '#/components/schemas/CctProjectionDto'
+    CctAssumedFullTimePeriodDto:
+      type: object
+      properties:
+        startDate:
+          type: string
+          format: date
+        endDate:
+          type: string
+          format: date
+        months:
+          type: number
+          format: double
+    CctProjectionDto:
+      type: object
+      properties:
+        startDate:
+          type: string
+          format: date
+        wte:
+          type: number
+          format: double
+        calendarMonths:
+          type: number
+          format: double
+        wteMonths:
+          type: number
+          format: double
     DeclarationsDto:
       type: object
       properties:
