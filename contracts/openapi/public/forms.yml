@@ -702,9 +702,6 @@ components:
         calculationId:
           type: string
           format: uuid
-        snapshotTakenAt:
-          type: string
-          format: date-time
         calculation:
           type: object
     DeclarationsDto_Write:
@@ -846,9 +843,6 @@ components:
         calculationId:
           type: string
           format: uuid
-        snapshotTakenAt:
-          type: string
-          format: date-time
         calculation:
           type: object
     DeclarationsDto_Read:
@@ -1501,9 +1495,6 @@ components:
         calculationId:
           type: string
           format: uuid
-        snapshotTakenAt:
-          type: string
-          format: date-time
         calculation:
           type: object
     DeclarationsDto:
