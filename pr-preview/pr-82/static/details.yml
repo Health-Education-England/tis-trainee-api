@@ -802,7 +802,7 @@ components:
       type: object
       properties:
         startDate:
-          description: The first day of the projection. It's an open `LTFT` change's `startDate`. Otherwise it's the day after the latest `endDate`, or `programmeDetails.startDate` when there are no changes.
+          description: The first day of the projection. It's an open `LTFT` change's `startDate`. Otherwise it's the day after the latest `endDate`, or `programmeDetails.startDate` when there are no changes. Changes are counted from `programmeDetails.startDate`, as in `calendarMonths`.
           type: string
           format: date
         wte:
