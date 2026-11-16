@@ -447,7 +447,7 @@ components:
           minimum: 0.01
           maximum: 1
         notes:
-          description: Free-text notes providing additional context for this change. At most 1000 characters, once leading and trailing whitespace is trimmed.
+          description: Free-text notes providing additional context for this change. Leading and trailing whitespace is trimmed before the notes are checked, saved or returned. At most 1000 characters once trimmed.
           type: string
           nullable: true
       oneOf:
