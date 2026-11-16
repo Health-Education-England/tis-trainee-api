@@ -174,8 +174,10 @@ paths:
           description: |
             Bad Request. The body is a problem detail, as for `POST /api/cct/calculate`.
 
-            - If the request breaks one of the rules in this contract, the title is "Validation failure", and `errors` lists each failure as a `BodyValidationError`. That includes the two rules that only saving checks, with the same pointers, wording and order as `errors` in a `POST /api/cct/calculate` response.
-            - If the body can't be read, there's no `errors`.
+            - If the request breaks one of the rules in this contract, the title is "Validation failure", and `errors` lists each failure as a `BodyValidationError`. That includes the rules that only saving checks, which it checks only when the request breaks no other rule:
+              - the two that `errors` lists in a `POST /api/cct/calculate` response, with the same pointers, wording and order;
+              - the three on `programmeDetails.specialty`, `lengthOverrideNotes` and `startGradeOverrideNotes`, which `POST /api/cct/calculate` doesn't check at all.
+            - If a field's value can't be read, or the body as a whole can't be, the response is the same as for `POST /api/cct/calculate`.
   /api/cct/calculate:
     post:
       tags:
@@ -203,7 +205,8 @@ paths:
             Bad Request. The body is a problem detail.
 
             - If the request breaks one of the rules in this contract, the title is "Validation failure", and `errors` lists each failure as a `BodyValidationError`: a `pointer` to the field, such as `#/changes[0]/wte`, and a `detail`.
-            - If the body can't be read, for example because of a malformed date, an unknown enum value or a fractional number of months, there's no `errors`.
+            - If a field's value can't be read, for example because of a malformed date, an unknown enum value or a fractional number of months, the title is also "Validation failure", and `errors` has one entry: a `pointer` to the first such field, with the `detail` "Invalid value.". No other rule is checked.
+            - If the body as a whole can't be read, for example because it's missing or isn't valid JSON, there's no `errors`.
   /api/cct/specialties:
     get:
       tags:
@@ -304,6 +307,7 @@ components:
         name:
           description: A name for the calculation. Must not be blank.
           type: string
+          maxLength: 4096
         programmeDetails:
           $ref: "#/components/schemas/CctProgrammeDetailsDto"
         changes:
@@ -591,7 +595,7 @@ components:
       type: object
       properties:
         specialty:
-          description: The specialty's `name`, from `GET /api/cct/specialties`. Must not be blank, but isn't checked against the list.
+          description: The specialty's `name`, from `GET /api/cct/specialties`. Must not be blank. Saving also requires it to be in the list; `POST /api/cct/calculate` doesn't check that.
           type: string
         startDate:
           description: The programme start date. Must be from 1970-01-01 to 50 years from today, inclusive.
@@ -604,9 +608,10 @@ components:
           minimum: 1
           maximum: 120
         lengthOverrideNotes:
-          description: Notes explaining the length override. `POST /api/cct/calculate` doesn't check them.
+          description: Notes explaining the length override. Saving requires them, not blank, when `lengthMonths` differs from the specialty's `lengthMonths`. `POST /api/cct/calculate` doesn't check that.
           type: string
           nullable: true
+          maxLength: 4096
         startGrade:
           description: The starting grade, defaulted from the specialty but may be overridden.
           type: string
@@ -631,9 +636,10 @@ components:
             - DCT2
             - DCT3
         startGradeOverrideNotes:
-          description: Notes explaining the start grade override. `POST /api/cct/calculate` doesn't check them.
+          description: Notes explaining the start grade override. Saving requires them, not blank, when `startGrade` differs from the specialty's `entryGrade`. `POST /api/cct/calculate` doesn't check that.
           type: string
           nullable: true
+          maxLength: 4096
         additionalMonths:
           description: Additional months of training, e.g. extra time after an ARCP outcome.
           type: integer
@@ -644,6 +650,7 @@ components:
           description: Notes explaining the additional months, required and not blank when additionalMonths is greater than 0.
           type: string
           nullable: true
+          maxLength: 4096
         acceleratedMonths:
           description: |
             Months of accelerated training, e.g. recognised prior learning.
@@ -656,6 +663,7 @@ components:
           description: Notes explaining the accelerated months, required and not blank when acceleratedMonths is greater than 0.
           type: string
           nullable: true
+          maxLength: 4096
         eighteenMonthFinalGrade:
           description: A final grade year lasting 18 months rather than 12.
           type: string
@@ -685,6 +693,7 @@ components:
           description: Notes explaining the 18 month final grade, required and not blank when eighteenMonthFinalGrade is set.
           type: string
           nullable: true
+          maxLength: 4096
         skippedGrade:
           description: A grade year skipped in the progression.
           type: string
@@ -714,6 +723,7 @@ components:
           description: Notes explaining the skipped grade, required and not blank when skippedGrade is set.
           type: string
           nullable: true
+          maxLength: 4096
     CctResultDto:
       description: The result of a CCT calculation, calculated by the server from the programme details and changes.
       required:
