@@ -575,7 +575,7 @@ components:
             - wteMonths
           properties:
             calendarMonths:
-              description: The calendar months in the change, from `startDate` to `endDate` inclusive, not rounded. `null` for an open `LTFT` change, whose time is in `result.projection`.
+              description: The calendar months in the change, from `startDate` to `endDate` inclusive, not rounded. A change that starts before `programmeDetails.startDate` is counted from the programme start, so one that ends before it is 0. `null` for an open `LTFT` change, whose time is in `result.projection`.
               type: number
               format: double
               nullable: true
@@ -802,7 +802,7 @@ components:
       type: object
       properties:
         startDate:
-          description: The first day of the projection. It's an open `LTFT` change's `startDate`. Otherwise it's the day after the latest `endDate`, or `programmeDetails.startDate` when there are no changes.
+          description: The first day of the projection. It's an open `LTFT` change's `startDate`. Otherwise it's the day after the latest `endDate`, or `programmeDetails.startDate` when there are no changes. Changes are counted from `programmeDetails.startDate`, as in `calendarMonths`.
           type: string
           format: date
         wte:
