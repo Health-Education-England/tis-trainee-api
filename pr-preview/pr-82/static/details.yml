@@ -320,7 +320,7 @@ components:
 
             Those are the failures that `errors` lists in a `POST /api/cct/calculate` response.
           type: array
-          maxItems: 200
+          maxItems: 50
           items:
             $ref: '#/components/schemas/CctChangeDto'
     CctCalculateRequestDto:
@@ -341,7 +341,7 @@ components:
             - At most one change may have a `null` `endDate`. It must be an `LTFT` change, and it must start after every other change ends.
             - Time that no change covers, between the programme start and the projection start, is assumed to be full time. That includes a gap just before an `LTFT` change with a `null` `endDate`. The projection start is described under `startDate` in `CctProjectionDto`.
           type: array
-          maxItems: 200
+          maxItems: 50
           items:
             $ref: '#/components/schemas/CctChangeDto'
     CctCalculateResponseDto:
