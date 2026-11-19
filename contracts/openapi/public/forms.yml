@@ -1549,18 +1549,16 @@ components:
         startGradeOverrideNotes:
           type: string
           nullable: true
-        additionalMonths:
-          type: integer
-          format: int32
-        additionalMonthsNotes:
-          type: string
-          nullable: true
-        acceleratedMonths:
-          type: integer
-          format: int32
-        acceleratedMonthsNotes:
-          type: string
-          nullable: true
+        additionalTrainingTime:
+          type: array
+          maxItems: 20
+          items:
+            "$ref": "#/components/schemas/CctTrainingTimeDto"
+        acceleratedTrainingTime:
+          type: array
+          maxItems: 20
+          items:
+            "$ref": "#/components/schemas/CctTrainingTimeDto"
         eighteenMonthFinalGrade:
           type: string
           nullable: true
@@ -1573,6 +1571,19 @@ components:
         skippedGradeNotes:
           type: string
           nullable: true
+    CctTrainingTimeDto:
+      required:
+        - months
+      type: object
+      properties:
+        grade:
+          type: string
+        months:
+          type: integer
+          format: int32
+        notes:
+          type: string
+          maxLength: 1000
     CctCalculatedChangeDto:
       type: object
       properties:
@@ -1630,6 +1641,35 @@ components:
             "$ref": "#/components/schemas/CctAssumedFullTimePeriodDto"
         projection:
           "$ref": "#/components/schemas/CctProjectionDto"
+        gradeProgression:
+          type: array
+          items:
+            "$ref": "#/components/schemas/CctGradeYearDto"
+    CctGradeYearDto:
+      type: object
+      properties:
+        yearNumber:
+          type: integer
+          format: int32
+        grade:
+          type: string
+          nullable: true
+        endDate:
+          type: string
+          format: date
+        skippedGradeBeforeThisRow:
+          type: string
+          nullable: true
+        extendedToEighteenMonths:
+          type: boolean
+        exceedsKnownTrainingGrade:
+          type: boolean
+        additionalMonths:
+          type: integer
+          format: int32
+        acceleratedMonths:
+          type: integer
+          format: int32
     CctAssumedFullTimePeriodDto:
       type: object
       properties:
