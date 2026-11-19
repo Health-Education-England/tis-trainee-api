@@ -3,9 +3,16 @@ name: tis-trainee-api
 services:
   bundler:
     image: redocly/cli
-    command: bundle /openapi-split/openapi.yml --output /openapi-bundled/openapi.yml
+    entrypoint: /bin/sh
+    command: >
+      -c "redocly bundle /openapi-split/public/gateway.yml --output /openapi-bundled/gateway.yml
+      && redocly bundle /openapi-split/public/actions.yml --output /openapi-bundled/actions.yml
+      && redocly bundle /openapi-split/public/details.yml --output /openapi-bundled/details.yml
+      && redocly bundle /openapi-split/public/forms.yml --output /openapi-bundled/forms.yml
+      && redocly bundle /openapi-split/public/notifications.yml --output /openapi-bundled/notifications.yml
+      && redocly bundle /openapi-split/public/reference.yml --output /openapi-bundled/reference.yml"
     volumes:
-      - ./openapi:/openapi-split:ro
+      - ./contracts/openapi:/openapi-split:ro
       - bundled-openapi:/openapi-bundled:rw
     restart: no
 
@@ -13,13 +20,14 @@ services:
     image: swaggerapi/swagger-ui
     depends_on:
       bundler:
-       condition: service_completed_successfully
+        condition: service_completed_successfully
     environment:
-      SWAGGER_JSON: /openapi/openapi.yml
+      URLS: '[{"url":"/static/gateway.yml","name":"Trainee Gateway"},{"url":"/static/actions.yml","name":"Actions Service"},{"url":"/static/details.yml","name":"Details Service"},{"url":"/static/forms.yml","name":"Forms Service"},{"url":"/static/notifications.yml","name":"Notifications Service"},{"url":"/static/reference.yml","name":"Reference Service"}]'
+      URLS_PRIMARY_NAME: Trainee Gateway
     ports:
       - "8080:8080"
     volumes:
-      - bundled-openapi:/openapi:ro
+      - bundled-openapi:/usr/share/nginx/html/static:ro
     restart: unless-stopped
 
 volumes:
